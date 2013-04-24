@@ -7,7 +7,7 @@ Use PowerKey to remap your Macbook Pro or Macbook Air's power key to a useful fu
 
 Forward Delete ⌦ is the  most popular  replacement.
 
-![PowerKey icon](http://i.imgur.com/WWwq0C2.png "PowerKey icon")
+[![PowerKey icon](http://i.imgur.com/WWwq0C2.png "PowerKey icon")](https://github.com/pkamb/PowerKey/zipball/master)
 
 
 ###Important!

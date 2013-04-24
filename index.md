@@ -1,5 +1,5 @@
 ---
-layout:index
+layout: index
 ---
 
 ### Welcome to GitHub Pages HELLO WORLD

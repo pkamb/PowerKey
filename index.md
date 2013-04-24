@@ -7,6 +7,9 @@ Use PowerKey to remap your Macbook Pro or Macbook Air's power key to a useful fu
 
 Forward Delete ⌦ is the  most popular  replacement.
 
+![PowerKey icon](http://i.imgur.com/WWwq0C2.png "PowerKey icon")
+
+
 ###Important!
 Your computer will still shut down if you **hold** the power key. Be careful!
 

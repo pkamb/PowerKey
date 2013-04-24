@@ -55,6 +55,8 @@ NSString *kPowerKeyUserPrefKey = @"POWER_KEY_KEYCODE";
     
     NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete" action:NULL keyEquivalent:@""];
     delete.tag = kVK_ForwardDelete;
+    delete.keyEquivalentModifierMask = 0;
+    delete.keyEquivalent = @"⌦";
     [powerKeyOptions addItem:delete];
     
     NSMenuItem *pageUp = [[NSMenuItem alloc] initWithTitle:@"Page Up" action:NULL keyEquivalent:@""];

@@ -1,5 +1,7 @@
 #PowerKey
 
+Home page: http://pkamb.github.io/PowerKey/
+
 Remap your Macbook Pro or Macbook Air's power key to Forward Delete
 
 ![PowerKey icon](http://i.imgur.com/qrLJmcV.png "PowerKey icon")

@@ -2,6 +2,8 @@
 layout: index
 ---
 
+![PowerKey icon](http://i.imgur.com/qrLJmcV.png "PowerKey icon")
+
 ### Remap your Macbook's power key
 Use PowerKey to remap your Macbook Pro or Macbook Air's power key to a useful function.
 

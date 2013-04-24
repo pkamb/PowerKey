@@ -8,6 +8,12 @@ Macbook Pro and Macbook Air do not have a Forward Delete key. But they *do* have
 ###Important!
 Your computer will still shut down if you *hold* the power key. Be careful!
 
+###Screenshots
+
+![PowerKey screenshot](http://i.imgur.com/6Z2CMat.png "PowerKey screenshot")
+
+![PowerKey remapping options](http://i.imgur.com/NzmRKN3.png "PowerKey remapping options")
+
 ### Key Options
 Choose from one of the following Power key replacements.
 

@@ -3,7 +3,9 @@ layout: index
 ---
 
 ### Remap your Macbook's power key
-Macbook Pro and Macbook Air do not have a Forward Delete key. But they *do* have a power key in the top-right corner. Let's remap it to something useful.
+Use PowerKey to remap your Macbook Pro or Macbook Air's power key to a useful function.
+
+Forward Delete ⌦ is the  most popular  replacement.
 
 ###Important!
 Your computer will still shut down if you *hold* the power key. Be careful!
@@ -24,6 +26,8 @@ Choose from one of the following Power key replacements.
  - End
  - Escape
  - Tab
+
+If you have an idea for a replacement key that should be included, [file a github issue](https://github.com/pkamb/PowerKey/issues).
 
 ### What if I need to press the power key?
 You can still prompt the system `[Restart | Sleep | Cancel | Shut Down]` pop-up by pressing `Fn + Power`. This app does not change the power key's function when modifier keys are held.

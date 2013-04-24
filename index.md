@@ -17,7 +17,7 @@ Your computer will still shut down if you *hold* the power key. Be careful!
 ![PowerKey remapping options](http://i.imgur.com/NzmRKN3.png "PowerKey remapping options")
 
 ### Key Options
-Choose from one of the following Power key replacements.
+Choose from one of the following power key replacements.
 
  - Delete
  - Page Up
@@ -32,3 +32,6 @@ If you have an idea for a replacement key that should be included, [file a githu
 ### What if I need to press the power key?
 You can still prompt the system `[Restart | Sleep | Cancel | Shut Down]` pop-up by pressing `Fn + Power`. This app does not change the power key's function when modifier keys are held.
 
+
+### Support
+If you have any problems or suggestions, [contact me via github](https://github.com/pkamb/PowerKey/issues).

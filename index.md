@@ -40,5 +40,10 @@ Download PowerKey by downloading the `.zip` file. The compiled app is located in
 ### What if I need to press the power key?
 You can still prompt the system **[Restart | Sleep | Cancel | Shut Down]** pop-up by pressing `Fn + Power`. This app does not change the power key's function when modifier keys are held.
 
+### But my Macbook has an Eject key!
+Right! Eject has been replaced by Power on the newer Macbook Pro and Macbook Air models.
+
+Your laptop's Power *button* will actually work with this app, but it's up to you if that's desireable.
+
 ### Support
 If you have any problems or suggestions, [contact me via github](https://github.com/pkamb/PowerKey/issues).

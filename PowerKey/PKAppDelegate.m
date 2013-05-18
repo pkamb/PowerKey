@@ -90,7 +90,26 @@ NSString *kPowerKeyUserPrefKey = @"POWER_KEY_KEYCODE";
 {
     CFRunLoopSourceRef runLoopSource;
     
-    eventTap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, kCGEventMaskForAllEvents, copyEventTapCallBack, NULL);
+
+    // We need to grab *only* NSSystemDefined events.
+    //
+    // But, if we pass only NSSystemDefinedMask to CGEventTapCreate,
+    // we cannot select objects on Adobe Fireworks.
+    // (It might be a bug of OS X or Fireworks...)
+    //
+    // Therefore, we need to grab other events.
+    CGEventMask mask = 0;
+    // Do not grab NSEventTypeGesture - NSEventTypeEndGesture.
+    // If we grab these events, three-finger loop up will be disabled by unknown reason.
+    // (a bug of OS X?)
+    for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
+      if (type == NSKeyDown) continue;
+      if (type == NSKeyUp) continue;
+
+      mask |= NSEventMaskFromType(type);
+    }
+
+    eventTap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, mask, copyEventTapCallBack, NULL);
     
     if (!eventTap) {
         exit(YES);

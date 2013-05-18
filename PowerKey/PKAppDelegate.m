@@ -109,7 +109,7 @@ NSString *kPowerKeyUserPrefKey = @"POWER_KEY_KEYCODE";
       mask |= NSEventMaskFromType(type);
     }
 
-    eventTap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, mask, copyEventTapCallBack, NULL);
+    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, mask, copyEventTapCallBack, NULL);
     
     if (!eventTap) {
         exit(YES);

@@ -90,7 +90,7 @@ NSString *kPowerKeyUserPrefKey = @"POWER_KEY_KEYCODE";
 {
     CFRunLoopSourceRef runLoopSource;
     
-    eventTap = CGEventTapCreate(kCGHIDEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, kCGEventMaskForAllEvents, copyEventTapCallBack, NULL);
+    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, kCGEventMaskForAllEvents, copyEventTapCallBack, NULL);
     
     if (!eventTap) {
         exit(YES);

@@ -9,6 +9,7 @@
 #import "PKPowerKeyEventListener.h"
 #include <Carbon/Carbon.h>
 #include <IOKit/hidsystem/ev_keymap.h>
+#import "PKAppDelegate.h"
 
 id refToSelf;
 CFMachPortRef eventTap;
@@ -30,6 +31,8 @@ CFMachPortRef eventTap;
     self = [super init];
     if (self) {
         refToSelf = self;
+        CGKeyCode replacementKeycode = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyUserPrefKey] integerValue];
+        self.powerKeyReplacementKeyCode = replacementKeycode ?: kVK_ForwardDelete;
     }
     return self;
 }
@@ -72,7 +75,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return event;
 }
 
-// NSSystemDefined events that are not the Power Key will be returned unmodified.
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent
 {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
@@ -132,7 +134,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 
 - (CGEventRef)newPowerKeyReplacementEvent
 {
-    //Replace the power key with a simulated keystroke
     CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
     CGEventRef event = CGEventCreateKeyboardEvent(eventSource, self.powerKeyReplacementKeyCode, true);
     CFRelease(eventSource);

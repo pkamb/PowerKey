@@ -33,9 +33,8 @@ Choose from one of the following power key replacements.
 If you have an idea for a replacement key that should be included, [file a github issue](https://github.com/pkamb/PowerKey/issues).
 
 ### Download
-Download PowerKey by downloading the `.zip` file. The compiled app is located in the `Release` directory.
 
-[PowerKey.zip](https://github.com/pkamb/PowerKey/zipball/master)
+[Download PowerKey](https://github.com/pkamb/PowerKey/releases)
 
 ### What if I need to press the power key?
 You can still prompt the system **[Restart | Sleep | Cancel | Shut Down]** pop-up by pressing `Fn + Power`. This app does not change the power key's function when modifier keys are held.

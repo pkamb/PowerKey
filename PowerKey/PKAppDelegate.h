@@ -13,6 +13,11 @@
 @property (assign) IBOutlet NSWindow *prefsWindow;
 @property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
 
-@property (assign) int powerKeyKeyCode;
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;
+
+- (IBAction)changePowerButtonFunction:(id)sender;
+- (NSMenu *)powerKeyOptions;
+- (IBAction)openProjectOnGithub:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5810470F17BD8BF600E438FB /* PKPowerKeyEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */; };
 		588C22401727C1A30089CBBF /* powerkey.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 588C223F1727C1A30089CBBF /* powerkey.iconset */; };
 		589C50CE1727873C00E94E93 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 589C50CD1727873C00E94E93 /* Cocoa.framework */; };
 		589C50D81727873C00E94E93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 589C50D61727873C00E94E93 /* InfoPlist.strings */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPowerKeyEventListener.h; sourceTree = "<group>"; };
+		5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPowerKeyEventListener.m; sourceTree = "<group>"; };
 		588C223F1727C1A30089CBBF /* powerkey.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = powerkey.iconset; sourceTree = "<group>"; };
 		589C50CA1727873C00E94E93 /* PowerKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589C50CD1727873C00E94E93 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -90,6 +93,8 @@
 			children = (
 				589C50DF1727873C00E94E93 /* PKAppDelegate.h */,
 				589C50E01727873C00E94E93 /* PKAppDelegate.m */,
+				5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */,
+				5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */,
 				589C50EA172787C900E94E93 /* OpenAtLogin.h */,
 				589C50EB172787C900E94E93 /* OpenAtLogin.m */,
 				589C50E21727873D00E94E93 /* MainMenu.xib */,
@@ -177,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				589C50DA1727873C00E94E93 /* main.m in Sources */,
+				5810470F17BD8BF600E438FB /* PKPowerKeyEventListener.m in Sources */,
 				589C50E11727873C00E94E93 /* PKAppDelegate.m in Sources */,
 				589C50EC172787C900E94E93 /* OpenAtLogin.m in Sources */,
 			);

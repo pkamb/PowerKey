@@ -9,26 +9,38 @@
 #import "PKAppDelegate.h"
 #include <Carbon/Carbon.h>
 #import "PKPowerKeyEventListener.h"
+#import "OpenAtLogin.h"
 
 NSString *const kPowerKeyReplacementKeycodeKey = @"kPowerKeyReplacementKeycodeKey";
+NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey";
 
 @implementation PKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults registerDefaults:@{kPowerKeyReplacementKeycodeKey : [NSNumber numberWithInteger:kVK_ForwardDelete]}];
+    NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey : [NSNumber numberWithInteger:kVK_ForwardDelete],
+                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey : @YES};
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPrefs];
     
     [[PKPowerKeyEventListener sharedEventListener] monitorPowerKey];
     
-    self.preferences = [[PKPreferencesController alloc] initWithWindowNibName:@"PKPreferencesController"];    
-    [self.preferences showWindow:self];
+    self.preferences = [[PKPreferencesController alloc] initWithWindowNibName:@"PKPreferencesController"];
+    BOOL shouldShowPrefs = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey] boolValue];
+    if(shouldShowPrefs || ![OpenAtLogin loginItemExists])
+    {        
+        [self.preferences showWindow:self];
+    }
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
-    [self.preferences.window makeKeyAndOrderFront:self];
+    [self.preferences showWindow:self];
     return NO;
+}
+
+- (void)applicationWillTerminate:(NSNotification *)notification
+{
+    [[NSUserDefaults standardUserDefaults] setBool:[self.preferences.window isVisible] forKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
 }
 
 @end

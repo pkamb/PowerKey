@@ -29,7 +29,7 @@
 #import "OpenAtLogin.h"
 
 @implementation OpenAtLogin (PrivateMethods)
-- (void)enableLoginItemWithLoginItemsReference:(LSSharedFileListRef )theLoginItemsRefs ForPath:(NSString *)appPath {
++ (void)enableLoginItemWithLoginItemsReference:(LSSharedFileListRef )theLoginItemsRefs ForPath:(NSString *)appPath {
 	// We call LSSharedFileListInsertItemURL to insert the item at the bottom of Login Items list.
 	CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
     
@@ -42,13 +42,13 @@
 		CFRelease(item);
 }
 
-- (void)disableLoginItemWithLoginItemsReference:(LSSharedFileListRef )theLoginItemsRefs ForPath:(NSString *)appPath {
++ (void)disableLoginItemWithLoginItemsReference:(LSSharedFileListRef )theLoginItemsRefs ForPath:(NSString *)appPath {
 	UInt32 seedValue;
 	CFURLRef thePath = NULL;
 	// We're going to grab the contents of the shared file list (LSSharedFileListItemRef objects)
 	// and pop it in an array so we can iterate through it to find our item.
 	CFArrayRef loginItemsArray = LSSharedFileListCopySnapshot(theLoginItemsRefs, &seedValue);
-	for (id item in (__bridge NSArray *)loginItemsArray) {		
+	for (id item in (__bridge NSArray *)loginItemsArray) {
 		LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)item;
 		if (LSSharedFileListItemResolve(itemRef, 0, (CFURLRef*) &thePath, NULL) == noErr) {
 			if ([[(__bridge NSURL *)thePath path] hasPrefix:appPath]) {
@@ -62,7 +62,7 @@
 	if (loginItemsArray != NULL) CFRelease(loginItemsArray);
 }
 
-- (BOOL)loginItemExistsWithLoginItemReference:(LSSharedFileListRef)theLoginItemsRefs ForPath:(NSString *)appPath {
++ (BOOL)loginItemExistsWithLoginItemReference:(LSSharedFileListRef)theLoginItemsRefs ForPath:(NSString *)appPath {
 	BOOL found = NO;  
 	UInt32 seedValue;
 	CFURLRef thePath = NULL;
@@ -90,15 +90,7 @@
 
 @implementation OpenAtLogin
 - (void)awakeFromNib {
-	// This will retrieve the path for the application
-	// For example, /Applications/test.app
-	NSString * appPath = [[NSBundle mainBundle] bundlePath];
-
-	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-	if ([self loginItemExistsWithLoginItemReference:loginItems ForPath:appPath]) {
-		[btnToggleLoginItem setState:NSOnState];
-	}
-	CFRelease(loginItems);
+    [btnToggleLoginItem setState:([OpenAtLogin loginItemExists] ? NSOnState : NSOffState)];
 }
 
 - (IBAction)toggleLoginItem:(id)sender {
@@ -106,14 +98,28 @@
 	
 	// Create a reference to the shared file list.
 	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+        
 	if (loginItems) {
 		if ([sender state] == NSOnState)
-			[self enableLoginItemWithLoginItemsReference:loginItems ForPath:appPath];
+			[OpenAtLogin enableLoginItemWithLoginItemsReference:loginItems ForPath:appPath];
 		else
-			[self disableLoginItemWithLoginItemsReference:loginItems ForPath:appPath];
+			[OpenAtLogin disableLoginItemWithLoginItemsReference:loginItems ForPath:appPath];
 	}
 	if(loginItems)
         CFRelease(loginItems);
+}
+
++ (BOOL)loginItemExists {
+    BOOL loginItemExists = NO;
+
+	NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+	if ([self loginItemExistsWithLoginItemReference:loginItems ForPath:appPath]) {
+        loginItemExists = YES;
+	}
+	CFRelease(loginItems);
+    
+    return loginItemExists;
 }
 
 @end

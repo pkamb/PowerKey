@@ -10,6 +10,7 @@
 #import "PKPreferencesController.h"
 
 NSString *const kPowerKeyReplacementKeycodeKey;
+NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey;
 
 @interface PKAppDelegate : NSObject <NSApplicationDelegate>
 

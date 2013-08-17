@@ -41,7 +41,24 @@ CFMachPortRef eventTap;
 {
     CFRunLoopSourceRef runLoopSource;
     
-    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, kCGEventMaskForAllEvents, copyEventTapCallBack, NULL);
+    /*
+     The power key sends two events of type NSSystemDefined.
+     We'd idealy monitor *only* NSSystemDefined events.
+     But there are various bugs with certain other applications if we do.
+     Therefore, we need to grab other events as well.
+    */
+    
+    CGEventMask eventTypeMask = 0;
+    for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
+        if (type == NSKeyDown) continue;
+        if (type == NSKeyUp) continue;
+        if (type == NSEventTypeBeginGesture) continue;
+        if (type == NSEventTypeEndGesture) continue;
+        
+        eventTypeMask |= NSEventMaskFromType(type);
+    }
+    
+    eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, eventTypeMask, copyEventTapCallBack, NULL);
     
     if (!eventTap) {
         exit(YES);

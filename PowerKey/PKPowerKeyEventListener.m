@@ -53,7 +53,6 @@ CFMachPortRef eventTap;
     CGEventTapEnable(eventTap, true);
     
     CFRelease(runLoopSource);
-    CFRelease(eventTap);
 }
 
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon)

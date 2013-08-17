@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "PKPreferencesController.h"
 
-NSString *const kPowerKeyUserPrefKey;
+NSString *const kPowerKeyReplacementKeycodeKey;
 
 @interface PKAppDelegate : NSObject <NSApplicationDelegate>
 

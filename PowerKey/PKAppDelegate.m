@@ -10,14 +10,14 @@
 #include <Carbon/Carbon.h>
 #import "PKPowerKeyEventListener.h"
 
-NSString *const kPowerKeyUserPrefKey = @"POWER_KEY_KEYCODE";
+NSString *const kPowerKeyReplacementKeycodeKey = @"kPowerKeyReplacementKeycodeKey";
 
 @implementation PKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults registerDefaults:@{kPowerKeyUserPrefKey : [NSNumber numberWithInteger:kVK_ForwardDelete]}];
+    [defaults registerDefaults:@{kPowerKeyReplacementKeycodeKey : [NSNumber numberWithInteger:kVK_ForwardDelete]}];
     
     [[PKPowerKeyEventListener sharedEventListener] monitorPowerKey];
     

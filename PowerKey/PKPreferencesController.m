@@ -27,7 +27,7 @@
 {
     NSMenuItem *selectedMenuItem = ((NSPopUpButton *)sender).selectedItem;
     [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = selectedMenuItem.tag;
-    [[NSUserDefaults standardUserDefaults] setInteger:selectedMenuItem.tag forKey:kPowerKeyUserPrefKey];
+    [[NSUserDefaults standardUserDefaults] setInteger:selectedMenuItem.tag forKey:kPowerKeyReplacementKeycodeKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

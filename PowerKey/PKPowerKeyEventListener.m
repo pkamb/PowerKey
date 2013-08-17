@@ -31,7 +31,7 @@ CFMachPortRef eventTap;
     self = [super init];
     if (self) {
         refToSelf = self;
-        CGKeyCode replacementKeycode = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyUserPrefKey] integerValue];
+        CGKeyCode replacementKeycode = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyReplacementKeycodeKey] integerValue];
         self.powerKeyReplacementKeyCode = replacementKeycode ?: kVK_ForwardDelete;
     }
     return self;

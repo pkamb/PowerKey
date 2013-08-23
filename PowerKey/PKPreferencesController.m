@@ -70,6 +70,10 @@
     tab.tag = kVK_Tab;
     [powerKeyOptions addItem:tab];
     
+    NSMenuItem *f13 = [[NSMenuItem alloc] initWithTitle:@"F13" action:NULL keyEquivalent:@""];
+    f13.tag = kVK_F13;
+    [powerKeyOptions addItem:f13];
+    
     return powerKeyOptions;
 }
 

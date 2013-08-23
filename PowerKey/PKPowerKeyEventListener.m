@@ -83,15 +83,10 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             // Re-enable the event tap if it times out.
             CGEventTapEnable(eventTap, true);
             break;
-            
         case NSSystemDefined:
             event = [refToSelf newPowerKeyEventOrUnmodifiedSystemDefinedEvent:event];
             break;
-            
-        default:
-            break;
     }
-    
     return event;
 }
 
@@ -117,7 +112,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
      The first power event seems to prompt the system to show the [Restart/Sleep/ShutDown] message.
      The second power event (keyCode == NX_POWER_KEY), by itself, does not seem to prompt any system response.
      When modifier keys are held, the NX_POWER_KEY event is often not sent. Fn + Power, especially, can cause unintended results if prevented. Not recommended.
-     This app only modifies the power key events when *no* modifier keys are held; the events and system proceed normally when any modifier keys are held.
      IMPORTANT: Even if these events are prevented, the system WILL still turn off when the power key is held down for a few seconds!
      */
     
@@ -129,10 +123,10 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         keyFlags == 0 &&
         keyState == 0 &&
         keyRepeat == 0 &&
-        modifierKeys == 0)
+        !(modifierKeys & NSFunctionKeyMask))
     {
-        //Kill the event, thereby blocking the system [Restart/Sleep/ShutDown] message.
-        systemEvent = CGEventCreate(NULL);
+        // Replace the event, thereby blocking the system [Restart/Sleep/ShutDown] message.        
+        systemEvent = [self newPowerKeyReplacementEvent];
     }
     
     //Second Power key event
@@ -143,10 +137,10 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         keyFlags == 2560 &&
         keyState == 1 &&
         keyRepeat == 0 &&
-        modifierKeys == 0)
-    {
-        //Send a new replacement keystroke instead.
-        systemEvent = [self newPowerKeyReplacementEvent];
+        !(modifierKeys & NSFunctionKeyMask))
+    {        
+        // Kill the event
+        systemEvent = CGEventCreate(NULL);
     }
     
     return systemEvent;

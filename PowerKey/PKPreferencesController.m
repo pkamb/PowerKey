@@ -32,8 +32,8 @@
 }
 
 /*
- User can select one of the following power key replacements
- Save the keycode of the replacement key as the NSMenuItem's tag
+ User can select one of the following power key replacements.
+ Set the keycode of the replacement key as the NSMenuItem's tag.
  Keycodes come from 'Events.h'
 */
 - (NSMenu *)powerKeyReplacementsMenu

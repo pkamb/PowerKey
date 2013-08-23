@@ -39,8 +39,8 @@ CFMachPortRef eventTap;
 
 - (void)monitorPowerKey
 {
-    CFRunLoopSourceRef runLoopSource;
-    
+    CGEventMask eventTypeMask = NSSystemDefined;
+
     /*
      The power key sends two events of type NSSystemDefined.
      We'd idealy monitor *only* NSSystemDefined events.
@@ -48,7 +48,6 @@ CFMachPortRef eventTap;
      Therefore, we need to grab other events as well.
     */
     
-    CGEventMask eventTypeMask = 0;
     for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
         switch (type) {
             case NSKeyDown:
@@ -68,7 +67,7 @@ CFMachPortRef eventTap;
         exit(YES);
     }
     
-    runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
+    CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
     CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
     
     CGEventTapEnable(eventTap, true);
@@ -80,7 +79,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 {
     switch (type) {
         case kCGEventTapDisabledByTimeout:
-            // Re-enable the event tap if it times out.
             CGEventTapEnable(eventTap, true);
             break;
         case NSSystemDefined:
@@ -99,7 +97,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     NSInteger eventData1 = [event data1];
     NSUInteger modifierKeys = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
     
-    //http://weblog.rogueamoeba.com/2007/09/29/
+    // http://weblog.rogueamoeba.com/2007/09/29/
     int keyCode = (([event data1] & 0xFFFF0000) >> 16);
     int keyFlags = ([event data1] & 0x0000FFFF);
     int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
@@ -115,7 +113,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
      IMPORTANT: Even if these events are prevented, the system WILL still turn off when the power key is held down for a few seconds!
      */
     
-    //First Power key event
+    // First Power key event
     if (type == NSSystemDefined &&
         subtype == 1 &&
         eventData1 == 0 &&
@@ -129,7 +127,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         systemEvent = [self newPowerKeyReplacementEvent];
     }
     
-    //Second Power key event
+    // Second Power key event
     if (type == NSSystemDefined &&
         subtype == 8 &&
         eventData1 == 395776 &&

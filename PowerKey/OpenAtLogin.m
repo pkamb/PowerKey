@@ -24,8 +24,6 @@
  
  */
 
-//https://github.com/pkamb/OpenAtLogin
-
 #import "OpenAtLogin.h"
 
 @implementation OpenAtLogin (PrivateMethods)

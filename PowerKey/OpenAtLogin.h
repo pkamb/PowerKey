@@ -24,8 +24,6 @@
  
  */
 
-//https://github.com/pkamb/OpenAtLogin
-
 #import <Cocoa/Cocoa.h>
 
 @interface OpenAtLogin : NSObject {

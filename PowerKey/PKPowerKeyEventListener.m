@@ -50,12 +50,16 @@ CFMachPortRef eventTap;
     
     CGEventMask eventTypeMask = 0;
     for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
-        if (type == NSKeyDown) continue;
-        if (type == NSKeyUp) continue;
-        if (type == NSEventTypeBeginGesture) continue;
-        if (type == NSEventTypeEndGesture) continue;
-        
-        eventTypeMask |= NSEventMaskFromType(type);
+        switch (type) {
+            case NSKeyDown:
+            case NSKeyUp:
+            case NSEventTypeRotate:
+            case NSEventTypeBeginGesture:
+            case NSEventTypeEndGesture:
+                break;
+            default:
+                eventTypeMask |= NSEventMaskFromType(type);
+        }
     }
     
     eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, eventTypeMask, copyEventTapCallBack, NULL);

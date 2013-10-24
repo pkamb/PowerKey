@@ -42,7 +42,7 @@ CFMachPortRef eventTap;
     CGEventMask eventTypeMask = NSSystemDefined;
 
     /*
-     The power key sends two events of type NSSystemDefined.
+     The power key sends events of type NSSystemDefined.
      We'd idealy monitor *only* NSSystemDefined events.
      But there are various bugs with certain other applications if we do.
      Therefore, we need to grab other events as well.
@@ -92,53 +92,73 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
     
-    NSEventType type = [event type];
-    int subtype = [event subtype];
-    NSInteger eventData1 = [event data1];
-    NSUInteger modifierKeys = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+    // Early exit for common NSSystemDefined mouse events.
+    if (event.subtype == NX_SUBTYPE_AUX_MOUSE_BUTTONS) {
+        return systemEvent;
+    }
     
     // http://weblog.rogueamoeba.com/2007/09/29/
-    int keyCode = (([event data1] & 0xFFFF0000) >> 16);
-    int keyFlags = ([event data1] & 0x0000FFFF);
+    int keyCode = ((event.data1 & 0xFFFF0000) >> 16);
+    int keyFlags = (event.data1 & 0x0000FFFF);
     int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
     int keyRepeat = (keyFlags & 0x1);
-    //NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i",type , subtype, (long)eventData1, keyCode, keyFlags, keyState, keyRepeat);
+    NSUInteger modifierKeys = event.modifierFlags & NSDeviceIndependentModifierFlagsMask;
+#ifdef DEBUG
+    NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i, modifierKeys:%lu", event.type , event.subtype, (long)event.data1, keyCode, keyFlags, keyState, keyRepeat, modifierKeys);
+#endif
     
     /*
-     Pressing the power key generates two events. These are *not* up/down versions of the same event.
-     The power key does not behave like a standard key, nor like other system hotkeys (Play, Pause, Volume, etc.), which *do* have distinct up/down events.
-     The first power event seems to prompt the system to show the [Restart/Sleep/ShutDown] message.
-     The second power event (keyCode == NX_POWER_KEY), by itself, does not seem to prompt any system response.
-     When modifier keys are held, the NX_POWER_KEY event is often not sent. Fn + Power, especially, can cause unintended results if prevented. Not recommended.
-     IMPORTANT: Even if these events are prevented, the system WILL still turn off when the power key is held down for a few seconds!
+     * Pressing the Power key generates 3 NSSystemDefined keyboard events.
+     * A single NX_SUBTYPE_POWER_KEY event, and up/down versions of the NX_POWER_KEY event.
+     *
+     * PowerKey.app replaces the NX_SUBTYPE_POWER_KEY with a key event of the user's choosing.
+     * Unfortunately, the NX_POWER_KEY event cannot be replaced or killed.
+     *
+     * The NX_POWER_KEY event is no-op in OS X 10.8, but triggers an immediate sleep in 10.9.
      */
     
-    // First Power key event
-    if (type == NSSystemDefined &&
-        subtype == 1 &&
-        eventData1 == 0 &&
-        keyCode == 0 &&
-        keyFlags == 0 &&
-        keyState == 0 &&
-        keyRepeat == 0 &&
+    /*
+     * NX_SUBTYPE_POWER_KEY event
+     * ============
+     * Can be killed or replaced by a new event.
+     *
+     * 10.8: triggers the [Restart | Sleep | Cancel | Shut Down] dialog
+     * 10.9:
+     *  - no modifiers: no-op
+     *  - ctrl modifier: triggers the dialog
+     */
+    if (event.type == NSSystemDefined &&
+        event.subtype == NX_SUBTYPE_POWER_KEY &&
         !(modifierKeys & NSFunctionKeyMask))
     {
-        // Replace the event, thereby blocking the system [Restart/Sleep/ShutDown] message.        
+        // Replace event with user's prefered key.
         systemEvent = [self newPowerKeyReplacementEvent];
     }
     
-    // Second Power key event
-    if (type == NSSystemDefined &&
-        subtype == 8 &&
-        eventData1 == 395776 &&
+    /*
+     * NX_POWER_KEY event
+     * ============
+     * Cannot be killed or replaced by a new event.
+     *
+     * 10.8: no-op
+     * 10.9: triggers immediate Sleep function
+     */
+    if (event.type == NSSystemDefined &&
+        event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS &&
         keyCode == NX_POWER_KEY &&
-        keyFlags == 2560 &&
-        keyState == 1 &&
-        keyRepeat == 0 &&
         !(modifierKeys & NSFunctionKeyMask))
-    {        
-        // Kill the event
-        systemEvent = CGEventCreate(NULL);
+    {
+        switch (keyState) {
+            case 1:
+                // key down
+                break;
+            case 0:
+                // key up
+                break;
+        }
+        
+        // Attempt (but fail) to kill the event
+        systemEvent = nullEvent;
     }
     
     return systemEvent;

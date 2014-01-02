@@ -38,43 +38,47 @@
 */
 - (NSMenu *)powerKeyReplacementsMenu
 {
-    NSMenu *powerKeyOptions = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
+    NSMenu *powerKeyReplacements = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
     
-    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete" action:NULL keyEquivalent:@""];
+    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete" action:NULL keyEquivalent:@"⌦"];
     delete.tag = kVK_ForwardDelete;
     delete.keyEquivalentModifierMask = 0;
-    delete.keyEquivalent = @"⌦";
-    [powerKeyOptions addItem:delete];
+    [powerKeyReplacements addItem:delete];
+    
+    NSMenuItem *deadkey = [[NSMenuItem alloc] initWithTitle:@"No Action" action:NULL keyEquivalent:@""];
+    deadkey.tag = 0xDEAD;
+    deadkey.keyEquivalentModifierMask = 0;
+    [powerKeyReplacements addItem:deadkey];
     
     NSMenuItem *pageUp = [[NSMenuItem alloc] initWithTitle:@"Page Up" action:NULL keyEquivalent:@""];
     pageUp.tag = kVK_PageUp;
-    [powerKeyOptions addItem:pageUp];
+    [powerKeyReplacements addItem:pageUp];
     
     NSMenuItem *pageDown = [[NSMenuItem alloc] initWithTitle:@"Page Down" action:NULL keyEquivalent:@""];
     pageDown.tag = kVK_PageDown;
-    [powerKeyOptions addItem:pageDown];
+    [powerKeyReplacements addItem:pageDown];
     
     NSMenuItem *home = [[NSMenuItem alloc] initWithTitle:@"Home" action:NULL keyEquivalent:@""];
     home.tag = kVK_Home;
-    [powerKeyOptions addItem:home];
+    [powerKeyReplacements addItem:home];
     
     NSMenuItem *end = [[NSMenuItem alloc] initWithTitle:@"End" action:NULL keyEquivalent:@""];
     end.tag = kVK_End;
-    [powerKeyOptions addItem:end];
+    [powerKeyReplacements addItem:end];
     
     NSMenuItem *escape = [[NSMenuItem alloc] initWithTitle:@"Escape" action:NULL keyEquivalent:@""];
     escape.tag = kVK_Escape;
-    [powerKeyOptions addItem:escape];
+    [powerKeyReplacements addItem:escape];
     
     NSMenuItem *tab = [[NSMenuItem alloc] initWithTitle:@"Tab" action:NULL keyEquivalent:@""];
     tab.tag = kVK_Tab;
-    [powerKeyOptions addItem:tab];
+    [powerKeyReplacements addItem:tab];
     
     NSMenuItem *f13 = [[NSMenuItem alloc] initWithTitle:@"F13" action:NULL keyEquivalent:@""];
     f13.tag = kVK_F13;
-    [powerKeyOptions addItem:f13];
+    [powerKeyReplacements addItem:f13];
     
-    return powerKeyOptions;
+    return powerKeyReplacements;
 }
 
 - (IBAction)openProjectOnGithub:(id)sender

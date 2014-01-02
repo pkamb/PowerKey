@@ -92,7 +92,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
     
-    // Early exit for common NSSystemDefined mouse events.
+    // Early exit for common NSSystemDefined mouse events
     if (event.subtype == NX_SUBTYPE_AUX_MOUSE_BUTTONS) {
         return systemEvent;
     }
@@ -166,9 +166,15 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 
 - (CGEventRef)newPowerKeyReplacementEvent
 {
-    CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-    CGEventRef event = CGEventCreateKeyboardEvent(eventSource, self.powerKeyReplacementKeyCode, true);
-    CFRelease(eventSource);
+    CGEventRef event;
+    if (self.powerKeyReplacementKeyCode == 0xDEAD) {
+        event = nullEvent;
+    } else {
+        CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+        event = CGEventCreateKeyboardEvent(eventSource, self.powerKeyReplacementKeyCode, true);
+        CFRelease(eventSource);
+    }
+    
     return event;
 }
 

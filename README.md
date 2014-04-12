@@ -1,18 +1,24 @@
 #PowerKey
 
-PowerKey remaps your Macbook Pro or Macbook Air's power key to Forward Delete ⌦ or a variety of other functions.
+![PowerKey icon](http://i.imgur.com/qrLJmcV.png "PowerKey icon")
 
-## Does not prevent Shut Down!
+## Remap your Power key
 
-Your computer will still shut down if you **hold** the power key for 5+ seconds.
+PowerKey remaps your Macbook Pro or Macbook Air's power key.
 
-Be careful! You should *tap* the power key. Don't hold it down.
+Remapping to Forward Delete ⌦ is the most popular replacement.
 
 ## Download
 
 Release versions of `PowerKey.app` can be found on GitHub:
 
 https://github.com/pkamb/PowerKey/releases
+
+## Does not prevent Shut Down!
+
+Your computer will still shut down if you **hold** the power key for 5+ seconds.
+
+Be careful! You should *tap* the power key. Don't hold it down.
 
 ## Key Replacements
 
@@ -35,22 +41,21 @@ OS X 10.9 [introduced new behavior](http://support.apple.com/kb/HT5869?viewlocal
  - Tap the power button once to put your Mac to sleep.
  - Tap the power button again to wake your Mac.
 
+In the 10.9.2 update, Apple made this behavior configurable:
+
+    defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool NO
+
 To disable this immediate Sleep behavior and make the power key usable with PowerKey:
 
  1. Update OS X to version 10.9.2 or greater.
  2. Open Terminal.
- 3. Run the command:
-
-    defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool NO
-    
+ 3. Run the command: `defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool NO`
  4. Log out of your OS X account, then log back in.
  5. Run PowerKey.app; pressing the key will now *not* immediately put your Mac to sleep.
  
 See [Issue #14](https://github.com/pkamb/PowerKey/issues/14) for more information.
 
 ## Screenshots
-
-![PowerKey icon](http://i.imgur.com/qrLJmcV.png "PowerKey icon")
 
 ![PowerKey screenshot](http://i.imgur.com/6Z2CMat.png "PowerKey screenshot")
 
@@ -72,7 +77,7 @@ Apple changed the way the Power key works in OS X 10.9. The key now puts the com
 
 You will need to run an additional command to return the Power key to pre-Mavericks behavior.
 
-Please see the section ["Additional steps for OS X 10.9 Mavericks"]() for more information.
+Please see the section ["Additional steps for OS X 10.9 Mavericks"](https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks) for more information.
 
 #### Pressing the Power key doesn't always work.
 

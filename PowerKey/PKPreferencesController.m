@@ -86,4 +86,9 @@
     system("open https://github.com/pkamb/powerkey");
 }
 
+- (IBAction)openMavericksFixExplanation:(id)sender
+{
+    system("open https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks");
+}
+
 @end

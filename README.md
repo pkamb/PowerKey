@@ -1,6 +1,6 @@
 #PowerKey
 
-![PowerKey icon](http://i.imgur.com/qrLJmcV.png "PowerKey icon")
+![PowerKey icon](https://raw.github.com/pkamb/PowerKey/master/etc/screenshots/powerkeyIcon.png "PowerKey icon")
 
 ## Remap your Power key
 
@@ -57,9 +57,9 @@ See [Issue #14](https://github.com/pkamb/PowerKey/issues/14) for more informatio
 
 ## Screenshots
 
-![PowerKey screenshot](http://i.imgur.com/6Z2CMat.png "PowerKey screenshot")
+![PowerKey screenshot](https://raw.github.com/pkamb/PowerKey/master/etc/screenshots/settingsWindow.png "PowerKey settings window screenshot")
 
-![PowerKey remapping options](http://i.imgur.com/NzmRKN3.png "PowerKey remapping options")
+![PowerKey remapping options](https://raw.github.com/pkamb/PowerKey/master/etc/screenshots/remappingOptions.png "PowerKey remapping options")
 
 ## Frequently Asked Questions
 

@@ -4,7 +4,7 @@
 
 ## Remap your Power key
 
-PowerKey remaps your Macbook Pro or Macbook Air's power key.
+PowerKey remaps your Macbook Pro or Macbook Air's Power key.
 
 Remapping to Forward Delete ⌦ is the most popular replacement.
 
@@ -16,13 +16,13 @@ https://github.com/pkamb/PowerKey/releases
 
 ## Does not prevent Shut Down!
 
-Your computer will still shut down if you **hold** the power key for 5+ seconds.
+Your computer will still shut down if you **hold** the Power key for 5+ seconds.
 
-Be careful! You should *tap* the power key. Don't hold it down.
+Be careful! You should *tap* the Power key. Don't hold it down.
 
 ## Key Replacements
 
-Choose from one of the following power key replacements.
+Choose from one of the following Power key replacements.
 
  - Delete
  - No Action
@@ -36,7 +36,7 @@ Choose from one of the following power key replacements.
 
 ## Additional steps for OS X 10.9 Mavericks
 
-OS X 10.9 [introduced new behavior](http://support.apple.com/kb/HT5869?viewlocale=en_US) for the power key: 
+OS X 10.9 [introduced new behavior](http://support.apple.com/kb/HT5869?viewlocale=en_US) for the Power key: 
 
  - Tap the power button once to put your Mac to sleep.
  - Tap the power button again to wake your Mac.
@@ -45,7 +45,7 @@ In the 10.9.2 update, Apple made this behavior configurable:
 
     defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool NO
 
-To disable this immediate Sleep behavior and make the power key usable with PowerKey:
+To disable this immediate Sleep behavior and make the Power key usable with PowerKey:
 
  1. Update OS X to version 10.9.2 or greater.
  2. Open Terminal.

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PKPreferencesController">
@@ -20,14 +20,14 @@
         </customObject>
         <window title="PowerKey" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="310" height="335"/>
+            <rect key="contentRect" x="335" y="390" width="310" height="355"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" autoresizesSubviews="NO" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="310" height="335"/>
+                <rect key="frame" x="0.0" y="0.0" width="310" height="355"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box autoresizesSubviews="NO" title="Settings" borderType="line" id="7">
-                        <rect key="frame" x="17" y="228" width="276" height="87"/>
+                        <rect key="frame" x="17" y="257" width="276" height="87"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="274" height="71"/>
@@ -47,12 +47,12 @@
                                 <popUpButton verticalHuggingPriority="750" id="22">
                                     <rect key="frame" x="90" y="37" width="169" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <popUpButtonCell key="cell" type="push" title="//programmatically" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="23">
+                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="23">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
+                                        <font key="font" metaFont="menu"/>
                                         <menu key="menu" title="OtherViews" id="24">
                                             <items>
-                                                <menuItem title="//programmatically" state="on" id="25" userLabel="//Insert Here">
+                                                <menuItem title="//programmatically" id="25" userLabel="//Insert Here">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                             </items>
@@ -98,22 +98,33 @@
                             <action selector="terminate:" target="-3" id="69"/>
                         </connections>
                     </button>
-                    <box autoresizesSubviews="NO" title="WARNING" boxType="oldStyle" borderType="line" id="10">
-                        <rect key="frame" x="20" y="134" width="270" height="78"/>
+                    <box autoresizesSubviews="NO" title="OS X 10.9" boxType="oldStyle" borderType="line" id="tsY-Lp-Rbt">
+                        <rect key="frame" x="20" y="134" width="270" height="107"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="268" height="62"/>
+                            <rect key="frame" x="1" y="1" width="268" height="91"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" id="16">
-                                    <rect key="frame" x="13" y="15" width="242" height="34"/>
+                                <textField verticalHuggingPriority="750" id="uMh-I6-yyV">
+                                    <rect key="frame" x="13" y="44" width="242" height="34"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Holding the power key will still shut down your computer!" id="17">
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="An additional terminal command is required for OS X 10.9 Mavericks." id="Y4I-X6-W2l">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <button verticalHuggingPriority="750" id="0mC-QV-Zsb">
+                                    <rect key="frame" x="9" y="8" width="250" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Fix for PowerKey in OS X 10.9" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NcR-La-E0f">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="openMavericksFixExplanation:" target="-2" id="ITd-rW-lcd"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -138,7 +149,7 @@
                                 <button verticalHuggingPriority="750" id="13">
                                     <rect key="frame" x="163" y="7" width="99" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="push" title="github" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
+                                    <buttonCell key="cell" type="push" title="GitHub" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>

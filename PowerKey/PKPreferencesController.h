@@ -15,5 +15,6 @@
 - (IBAction)selectPowerKeyReplacement:(id)sender;
 - (NSMenu *)powerKeyReplacementsMenu;
 - (IBAction)openProjectOnGithub:(id)sender;
+- (IBAction)openMavericksFixExplanation:(id)sender;
 
 @end

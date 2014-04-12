@@ -40,7 +40,7 @@
 {
     NSMenu *powerKeyReplacements = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
     
-    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete" action:NULL keyEquivalent:@"⌦"];
+    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete ⌦" action:NULL keyEquivalent:@"⌦"];
     delete.tag = kVK_ForwardDelete;
     delete.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:delete];
@@ -49,6 +49,10 @@
     deadkey.tag = 0xDEAD;
     deadkey.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:deadkey];
+    
+    NSMenuItem *backspace = [[NSMenuItem alloc] initWithTitle:@"Delete (backspace)" action:NULL keyEquivalent:@""];
+    backspace.tag = kVK_Delete;
+    [powerKeyReplacements addItem:backspace];
     
     NSMenuItem *pageUp = [[NSMenuItem alloc] initWithTitle:@"Page Up" action:NULL keyEquivalent:@""];
     pageUp.tag = kVK_PageUp;

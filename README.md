@@ -33,6 +33,7 @@ Choose from one of the following Power key replacements.
  - Escape
  - Tab
  - F13
+ - Script
 
 ## Additional steps for OS X 10.9 Mavericks
 

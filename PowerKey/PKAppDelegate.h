@@ -11,6 +11,7 @@
 
 NSString *const kPowerKeyReplacementKeycodeKey;
 NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey;
+NSString *const kPowerKeyScriptPathKey;
 
 @interface PKAppDelegate : NSObject <NSApplicationDelegate>
 

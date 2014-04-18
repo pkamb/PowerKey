@@ -13,13 +13,15 @@
 
 NSString *const kPowerKeyReplacementKeycodeKey = @"kPowerKeyReplacementKeycodeKey";
 NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey";
+NSString *const kPowerKeyScriptPathKey = @"kPowerKeyScriptPathKey";
 
 @implementation PKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey : [NSNumber numberWithInteger:kVK_ForwardDelete],
-                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey : @YES};
+                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey : @YES,
+                                   kPowerKeyScriptPathKey: @""};
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPrefs];
     
     [[PKPowerKeyEventListener sharedEventListener] monitorPowerKey];

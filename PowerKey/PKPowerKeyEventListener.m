@@ -31,8 +31,9 @@ CFMachPortRef eventTap;
     self = [super init];
     if (self) {
         refToSelf = self;
-        CGKeyCode replacementKeycode = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyReplacementKeycodeKey] integerValue];
-        self.powerKeyReplacementKeyCode = replacementKeycode ?: kVK_ForwardDelete;
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        self.powerKeyReplacementKeyCode = [defaults integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
+        self.scriptPath = [defaults stringForKey:kPowerKeyScriptPathKey] ?: @"";
     }
     return self;
 }
@@ -167,9 +168,19 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyReplacementEvent
 {
     CGEventRef event;
-    if (self.powerKeyReplacementKeyCode == 0xDEAD) {
+    if (self.powerKeyReplacementKeyCode == kPowerKeyDeadKeyTag) {
         event = nullEvent;
-    } else {
+    }
+    else if (self.powerKeyReplacementKeyCode == kPowerKeyScriptTag) {
+        event = nullEvent;
+        @try {
+            [NSTask launchedTaskWithLaunchPath:self.scriptPath arguments:@[]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Error running script '%@'. %@: %@", self.scriptPath, exception.name, exception.reason);
+        }
+    }
+    else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
         event = CGEventCreateKeyboardEvent(eventSource, self.powerKeyReplacementKeyCode, true);
         CFRelease(eventSource);

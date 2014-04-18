@@ -8,7 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PKPreferencesController : NSWindowController
+const NSInteger kPowerKeyDeadKeyTag;
+const NSInteger kPowerKeyScriptTag;
+
+@interface PKPreferencesController : NSWindowController<NSOpenSavePanelDelegate>
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
 

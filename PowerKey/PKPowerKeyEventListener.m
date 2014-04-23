@@ -16,8 +16,7 @@ CFMachPortRef eventTap;
 
 @implementation PKPowerKeyEventListener
 
-+ (PKPowerKeyEventListener *)sharedEventListener
-{
++ (PKPowerKeyEventListener *)sharedEventListener {
 	static PKPowerKeyEventListener *sharedEventListener = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -26,8 +25,7 @@ CFMachPortRef eventTap;
 	return sharedEventListener;
 }
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         refToSelf = self;
@@ -38,8 +36,7 @@ CFMachPortRef eventTap;
     return self;
 }
 
-- (void)monitorPowerKey
-{
+- (void)monitorPowerKey {
     CGEventMask eventTypeMask = NSSystemDefined;
 
     /*
@@ -76,8 +73,7 @@ CFMachPortRef eventTap;
     CFRelease(runLoopSource);
 }
 
-CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon)
-{
+CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
     switch (type) {
         case kCGEventTapDisabledByTimeout:
             CGEventTapEnable(eventTap, true);
@@ -89,8 +85,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return event;
 }
 
-- (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent
-{
+- (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
     
     // Early exit for common NSSystemDefined mouse events
@@ -165,8 +160,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return systemEvent;
 }
 
-- (CGEventRef)newPowerKeyReplacementEvent
-{
+- (CGEventRef)newPowerKeyReplacementEvent {
     CGEventRef event;
     if (self.powerKeyReplacementKeyCode == kPowerKeyDeadKeyTag) {
         event = nullEvent;

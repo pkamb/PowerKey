@@ -16,25 +16,25 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
 @implementation PKPreferencesController
 
-- (void)windowDidLoad
-{
+- (void)windowDidLoad {
     [super windowDidLoad];
 
     [self.powerKeySelector setMenu:[self powerKeyReplacementsMenu]];
     [self selectPreferredMenuItem];
 }
 
-- (void)selectPreferredMenuItem
-{
+- (void)selectPreferredMenuItem {
     NSMenuItem *item = [[self.powerKeySelector menu] itemWithTag:[PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode];
     item = (item) ?: [[self.powerKeySelector menu] itemWithTag:kVK_ForwardDelete];
+    
     [self.powerKeySelector selectItem:item];
-    if (item.tag == kPowerKeyScriptTag)
+    
+    if (item.tag == kPowerKeyScriptTag) {
         [self updateScriptMenuItem:item];
+    }
 }
 
-- (IBAction)selectPowerKeyReplacement:(id)sender
-{
+- (IBAction)selectPowerKeyReplacement:(id)sender {
     NSMenuItem *selectedMenuItem = ((NSPopUpButton *)sender).selectedItem;
     NSMenuItem *scriptMenuItem = nil;
     NSString *scriptPath;
@@ -70,17 +70,16 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [self updateScriptMenuItem:scriptMenuItem];
 }
 
-- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError
-{
+- (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError {
     NSNumber *isExecutable;
     [url getResourceValue:&isExecutable forKey:NSURLIsExecutableKey error:outError];
     return [isExecutable boolValue];
 }
 
-- (void)updateScriptMenuItem:(NSMenuItem *)item
-{
-    if (!item)
+- (void)updateScriptMenuItem:(NSMenuItem *)item {
+    if (!item) {
         item = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
+    }
     NSString *path = [PKPowerKeyEventListener sharedEventListener].scriptPath;
     NSString *baseText = NSLocalizedString(@"Script", nil);
     item.title = [path length] ? [baseText stringByAppendingFormat:@" - %@", path] : baseText;
@@ -91,8 +90,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
  Set the keycode of the replacement key as the NSMenuItem's tag.
  Keycodes come from 'Events.h'
 */
-- (NSMenu *)powerKeyReplacementsMenu
-{
+- (NSMenu *)powerKeyReplacementsMenu {
     NSMenu *powerKeyReplacements = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
     
     NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete ⌦" action:NULL keyEquivalent:@"⌦"];
@@ -143,13 +141,11 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     return powerKeyReplacements;
 }
 
-- (IBAction)openProjectOnGithub:(id)sender
-{
+- (IBAction)openProjectOnGithub:(id)sender {
     system("open https://github.com/pkamb/powerkey");
 }
 
-- (IBAction)openMavericksFixExplanation:(id)sender
-{
+- (IBAction)openMavericksFixExplanation:(id)sender {
     system("open https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks");
 }
 

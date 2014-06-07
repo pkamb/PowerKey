@@ -45,10 +45,10 @@
     delete.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:delete];
     
-    NSMenuItem *deadkey = [[NSMenuItem alloc] initWithTitle:@"No Action" action:NULL keyEquivalent:@""];
-    deadkey.tag = 0xDEAD;
-    deadkey.keyEquivalentModifierMask = 0;
-    [powerKeyReplacements addItem:deadkey];
+    NSMenuItem *deadKey = [[NSMenuItem alloc] initWithTitle:@"No Action" action:NULL keyEquivalent:@""];
+    deadKey.tag = 0xDEAD;
+    deadKey.keyEquivalentModifierMask = 0;
+    [powerKeyReplacements addItem:deadKey];
     
     NSMenuItem *backspace = [[NSMenuItem alloc] initWithTitle:@"Delete (backspace)" action:NULL keyEquivalent:@""];
     backspace.tag = kVK_Delete;

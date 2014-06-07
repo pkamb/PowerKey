@@ -50,32 +50,39 @@
     deadKey.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:deadKey];
     
-    NSMenuItem *backspace = [[NSMenuItem alloc] initWithTitle:@"Delete (backspace)" action:NULL keyEquivalent:@""];
+    NSMenuItem *backspace = [[NSMenuItem alloc] initWithTitle:@"Delete (backspace)" action:NULL keyEquivalent:@"⌫"];
     backspace.tag = kVK_Delete;
+    backspace.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:backspace];
     
-    NSMenuItem *pageUp = [[NSMenuItem alloc] initWithTitle:@"Page Up" action:NULL keyEquivalent:@""];
+    NSMenuItem *pageUp = [[NSMenuItem alloc] initWithTitle:@"Page Up" action:NULL keyEquivalent:@"⇞"];
     pageUp.tag = kVK_PageUp;
+    pageUp.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:pageUp];
     
-    NSMenuItem *pageDown = [[NSMenuItem alloc] initWithTitle:@"Page Down" action:NULL keyEquivalent:@""];
+    NSMenuItem *pageDown = [[NSMenuItem alloc] initWithTitle:@"Page Down" action:NULL keyEquivalent:@"⇟"];
     pageDown.tag = kVK_PageDown;
+    pageDown.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:pageDown];
     
-    NSMenuItem *home = [[NSMenuItem alloc] initWithTitle:@"Home" action:NULL keyEquivalent:@""];
+    NSMenuItem *home = [[NSMenuItem alloc] initWithTitle:@"Home" action:NULL keyEquivalent:@"↖︎"];
     home.tag = kVK_Home;
+    home.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:home];
     
-    NSMenuItem *end = [[NSMenuItem alloc] initWithTitle:@"End" action:NULL keyEquivalent:@""];
+    NSMenuItem *end = [[NSMenuItem alloc] initWithTitle:@"End" action:NULL keyEquivalent:@"↘︎"];
     end.tag = kVK_End;
+    end.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:end];
     
-    NSMenuItem *escape = [[NSMenuItem alloc] initWithTitle:@"Escape" action:NULL keyEquivalent:@""];
+    NSMenuItem *escape = [[NSMenuItem alloc] initWithTitle:@"Escape" action:NULL keyEquivalent:@"⎋"];
     escape.tag = kVK_Escape;
+    escape.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:escape];
     
-    NSMenuItem *tab = [[NSMenuItem alloc] initWithTitle:@"Tab" action:NULL keyEquivalent:@""];
+    NSMenuItem *tab = [[NSMenuItem alloc] initWithTitle:@"Tab" action:NULL keyEquivalent:@"⇥"];
     tab.tag = kVK_Tab;
+    tab.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:tab];
     
     NSMenuItem *returnKey = [[NSMenuItem alloc] initWithTitle:@"Return" action:NULL keyEquivalent:@"↩"];
@@ -85,6 +92,7 @@
     
     NSMenuItem *f13 = [[NSMenuItem alloc] initWithTitle:@"F13" action:NULL keyEquivalent:@""];
     f13.tag = kVK_F13;
+    f13.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:f13];
     
     return powerKeyReplacements;

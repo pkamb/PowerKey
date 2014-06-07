@@ -40,7 +40,7 @@
 {
     NSMenu *powerKeyReplacements = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
     
-    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete ⌦" action:NULL keyEquivalent:@"⌦"];
+    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete" action:NULL keyEquivalent:@"⌦"];
     delete.tag = kVK_ForwardDelete;
     delete.keyEquivalentModifierMask = 0;
     [powerKeyReplacements addItem:delete];

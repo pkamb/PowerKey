@@ -24,14 +24,16 @@ Be careful! You should *tap* the Power key. Don't hold it down.
 
 Choose from one of the following Power key replacements.
 
- - Delete
+ - Delete (forward)
  - No Action
+ - Delete (backspace)
  - Page Up
  - Page Down
  - Home
  - End
  - Escape
  - Tab
+ - Return
  - F13
 
 ## Additional steps for OS X 10.9 Mavericks

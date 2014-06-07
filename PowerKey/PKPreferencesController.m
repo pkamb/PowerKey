@@ -78,6 +78,11 @@
     tab.tag = kVK_Tab;
     [powerKeyReplacements addItem:tab];
     
+    NSMenuItem *returnKey = [[NSMenuItem alloc] initWithTitle:@"Return" action:NULL keyEquivalent:@"↩"];
+    returnKey.tag = kVK_Return;
+    returnKey.keyEquivalentModifierMask = 0;
+    [powerKeyReplacements addItem:returnKey];
+    
     NSMenuItem *f13 = [[NSMenuItem alloc] initWithTitle:@"F13" action:NULL keyEquivalent:@""];
     f13.tag = kVK_F13;
     [powerKeyReplacements addItem:f13];

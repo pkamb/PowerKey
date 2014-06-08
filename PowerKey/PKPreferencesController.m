@@ -86,58 +86,34 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 }
 
 /*
- User can select one of the following power key replacements.
- Set the keycode of the replacement key as the NSMenuItem's tag.
- Keycodes come from 'Events.h'
+ Convenience method for creating a power key replacement option for the menu.
+ Keycode is stored as the NSMenuItem's `tag` and come from 'Events.h'
 */
+- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(NSInteger)keyCode keyEquivalent:(NSString *)keyEquivalent {
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:keyEquivalent];
+    menuItem.tag = keyCode;
+    menuItem.keyEquivalentModifierMask = 0;
+    
+    return menuItem;
+}
+
 - (NSMenu *)powerKeyReplacementsMenu {
     NSMenu *powerKeyReplacements = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
+        
+    // User can select one of the following power key replacements.
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Delete" keyCode:kVK_ForwardDelete keyEquivalent:@"⌦"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"No Action" keyCode:kPowerKeyDeadKeyTag keyEquivalent:@""]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Delete (backspace)" keyCode:kVK_Delete keyEquivalent:@"⌫"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Page Up" keyCode:kVK_PageUp keyEquivalent:@"⇞"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Page Down" keyCode:kVK_PageDown keyEquivalent:@"⇟"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Home" keyCode:kVK_Home keyEquivalent:@"↖︎"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"End" keyCode:kVK_End keyEquivalent:@"↘︎"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Escape" keyCode:kVK_Escape keyEquivalent:@"⎋"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Tab" keyCode:kVK_Tab keyEquivalent:@"⇥"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Return" keyCode:kVK_Return keyEquivalent:@"↩"]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"F13" keyCode:kVK_F13 keyEquivalent:@""]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Script" keyCode:kPowerKeyScriptTag keyEquivalent:@""]];
     
-    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:@"Delete ⌦" action:NULL keyEquivalent:@"⌦"];
-    delete.tag = kVK_ForwardDelete;
-    delete.keyEquivalentModifierMask = 0;
-    [powerKeyReplacements addItem:delete];
-    
-    NSMenuItem *deadkey = [[NSMenuItem alloc] initWithTitle:@"No Action" action:NULL keyEquivalent:@""];
-    deadkey.tag = kPowerKeyDeadKeyTag;
-    deadkey.keyEquivalentModifierMask = 0;
-    [powerKeyReplacements addItem:deadkey];
-    
-    NSMenuItem *backspace = [[NSMenuItem alloc] initWithTitle:@"Delete (backspace)" action:NULL keyEquivalent:@""];
-    backspace.tag = kVK_Delete;
-    [powerKeyReplacements addItem:backspace];
-    
-    NSMenuItem *pageUp = [[NSMenuItem alloc] initWithTitle:@"Page Up" action:NULL keyEquivalent:@""];
-    pageUp.tag = kVK_PageUp;
-    [powerKeyReplacements addItem:pageUp];
-    
-    NSMenuItem *pageDown = [[NSMenuItem alloc] initWithTitle:@"Page Down" action:NULL keyEquivalent:@""];
-    pageDown.tag = kVK_PageDown;
-    [powerKeyReplacements addItem:pageDown];
-    
-    NSMenuItem *home = [[NSMenuItem alloc] initWithTitle:@"Home" action:NULL keyEquivalent:@""];
-    home.tag = kVK_Home;
-    [powerKeyReplacements addItem:home];
-    
-    NSMenuItem *end = [[NSMenuItem alloc] initWithTitle:@"End" action:NULL keyEquivalent:@""];
-    end.tag = kVK_End;
-    [powerKeyReplacements addItem:end];
-    
-    NSMenuItem *escape = [[NSMenuItem alloc] initWithTitle:@"Escape" action:NULL keyEquivalent:@""];
-    escape.tag = kVK_Escape;
-    [powerKeyReplacements addItem:escape];
-    
-    NSMenuItem *tab = [[NSMenuItem alloc] initWithTitle:@"Tab" action:NULL keyEquivalent:@""];
-    tab.tag = kVK_Tab;
-    [powerKeyReplacements addItem:tab];
-    
-    NSMenuItem *f13 = [[NSMenuItem alloc] initWithTitle:@"F13" action:NULL keyEquivalent:@""];
-    f13.tag = kVK_F13;
-    [powerKeyReplacements addItem:f13];
-    
-    NSMenuItem *script = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Script", nil) action:NULL keyEquivalent:@""];
-    script.tag = kPowerKeyScriptTag;
-    [powerKeyReplacements addItem:script];
     return powerKeyReplacements;
 }
 

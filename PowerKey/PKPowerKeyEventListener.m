@@ -167,7 +167,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyReplacementEvent
 {
     CGEventRef event;
-    if (self.powerKeyReplacementKeyCode == 0xDEAD) {
+    if (self.powerKeyReplacementKeyCode == kPowerKeyDeadKeyTag) {
         event = nullEvent;
     } else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);

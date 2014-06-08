@@ -11,6 +11,9 @@
 #import "PKAppDelegate.h"
 #import "PKPowerKeyEventListener.h"
 
+const NSInteger kPowerKeyDeadKeyTag = 0xDEAD;
+const NSInteger kPowerKeyScriptTag = 0xC0DE;
+
 @implementation PKPreferencesController
 
 - (void)windowDidLoad
@@ -48,7 +51,7 @@
     
     // User can select one of the following power key replacements.
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Delete" keyCode:kVK_ForwardDelete keyEquivalent:@"⌦"]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"No Action" keyCode:0xDEAD keyEquivalent:@""]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"No Action" keyCode:kPowerKeyDeadKeyTag keyEquivalent:@""]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Delete (backspace)" keyCode:kVK_Delete keyEquivalent:@"⌫"]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Page Up" keyCode:kVK_PageUp keyEquivalent:@"⇞"]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Page Down" keyCode:kVK_PageDown keyEquivalent:@"⇟"]];

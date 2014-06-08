@@ -17,7 +17,7 @@ const NSInteger kPowerKeyScriptTag;
 
 - (IBAction)selectPowerKeyReplacement:(id)sender;
 
-- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(NSInteger)keyCode keyEquivalent:(NSString *)keyEquivalent;
+- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(CGKeyCode)keyCode keyEquivalent:(NSString *)keyEquivalent;
 - (NSMenu *)powerKeyReplacementsMenu;
 
 - (IBAction)openProjectOnGithub:(id)sender;

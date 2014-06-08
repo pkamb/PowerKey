@@ -38,7 +38,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
  Convenience method for creating a power key replacement option for the menu.
  Keycode is stored as the NSMenuItem's `tag` and come from 'Events.h'
 */
-- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(NSInteger)keyCode keyEquivalent:(NSString *)keyEquivalent {
+- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(CGKeyCode)keyCode keyEquivalent:(NSString *)keyEquivalent {
     NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:keyEquivalent];
     menuItem.tag = keyCode;
     menuItem.keyEquivalentModifierMask = 0;

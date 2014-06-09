@@ -31,7 +31,7 @@ CFMachPortRef eventTap;
     if (self) {
         refToSelf = self;
         self.powerKeyReplacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-        self.scriptPath = [[NSUserDefaults standardUserDefaults] stringForKey:kPowerKeyScriptPathKey] ?: @"";
+        self.scriptURL = [[NSUserDefaults standardUserDefaults] URLForKey:kPowerKeyScriptURLKey];
     }
     
     return self;
@@ -170,10 +170,10 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     else if (self.powerKeyReplacementKeyCode == kPowerKeyScriptTag) {
         event = nullEvent;
         @try {
-            [NSTask launchedTaskWithLaunchPath:self.scriptPath arguments:@[]];
+            [NSTask launchedTaskWithLaunchPath:self.scriptURL.path arguments:@[]];
         }
         @catch (NSException *exception) {
-            NSLog(@"Error running script '%@'. %@: %@", self.scriptPath, exception.name, exception.reason);
+            NSLog(@"Error running script '%@'. %@: %@", self.scriptURL.path, exception.name, exception.reason);
         }
     }
     else {

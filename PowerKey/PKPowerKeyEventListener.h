@@ -11,7 +11,7 @@
 @interface PKPowerKeyEventListener : NSObject
 
 @property (assign) CGKeyCode powerKeyReplacementKeyCode;
-@property (copy) NSString *scriptPath;
+@property (nonatomic, retain) NSURL *scriptURL;
 
 + (PKPowerKeyEventListener *)sharedEventListener;
 - (void)monitorPowerKey;

@@ -37,7 +37,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 - (IBAction)selectPowerKeyReplacement:(id)sender {
     NSMenuItem *selectedMenuItem = ((NSPopUpButton *)sender).selectedItem;
     NSMenuItem *scriptMenuItem = nil;
-    NSString *scriptPath;
+    NSURL *scriptURL;
 
     if (selectedMenuItem.tag == kPowerKeyScriptTag) {
         scriptMenuItem = selectedMenuItem;
@@ -48,7 +48,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         panel.allowsMultipleSelection = NO;
         NSInteger panelResult = [panel runModal];
         if (panelResult == NSFileHandlingPanelOKButton) {
-            scriptPath = ((NSURL *)[panel URLs][0]).path;
+            scriptURL = [panel URL];
         }
         else if (panelResult == NSFileHandlingPanelCancelButton) {
             // Roll back to last option
@@ -58,14 +58,14 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         }
     }
     else {
-        scriptPath = @"";
+        scriptURL = nil;
     }
     
     [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = selectedMenuItem.tag;
-    [PKPowerKeyEventListener sharedEventListener].scriptPath = scriptPath;
+    [PKPowerKeyEventListener sharedEventListener].scriptURL = scriptURL;
     
     [[NSUserDefaults standardUserDefaults] setInteger:selectedMenuItem.tag forKey:kPowerKeyReplacementKeycodeKey];
-    [[NSUserDefaults standardUserDefaults] setObject:scriptPath forKey:kPowerKeyScriptPathKey];
+    [[NSUserDefaults standardUserDefaults] setURL:scriptURL forKey:kPowerKeyScriptURLKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self updateScriptMenuItem:scriptMenuItem];
@@ -81,7 +81,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     if (!item) {
         item = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
     }
-    NSString *path = [PKPowerKeyEventListener sharedEventListener].scriptPath;
+    NSString *path = [PKPowerKeyEventListener sharedEventListener].scriptURL.path;
     NSString *baseText = NSLocalizedString(@"Script", nil);
     item.title = [path length] ? [baseText stringByAppendingFormat:@" - %@", path] : baseText;
 }

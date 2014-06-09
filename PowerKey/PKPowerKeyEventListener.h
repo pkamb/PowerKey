@@ -21,4 +21,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent;
 - (CGEventRef)newPowerKeyReplacementEvent;
 
+- (void)runScript;
+
 @end

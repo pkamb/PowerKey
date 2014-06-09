@@ -169,12 +169,8 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     }
     else if (self.powerKeyReplacementKeyCode == kPowerKeyScriptTag) {
         event = nullEvent;
-        @try {
-            [NSTask launchedTaskWithLaunchPath:self.scriptURL.path arguments:@[]];
-        }
-        @catch (NSException *exception) {
-            NSLog(@"Error running script '%@'. %@: %@", self.scriptURL.path, exception.name, exception.reason);
-        }
+        
+        [self runScript];
     }
     else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
@@ -185,4 +181,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return event;
 }
 
+- (void)runScript {
+
+}
 @end

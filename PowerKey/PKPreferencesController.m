@@ -53,6 +53,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         else if (panelResult == NSFileHandlingPanelCancelButton) {
             // Roll back to last option
             [self selectPreferredMenuItem];
+            
             return;
         }
     }
@@ -60,14 +61,12 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         scriptPath = @"";
     }
     
-    PKPowerKeyEventListener *listener = [PKPowerKeyEventListener sharedEventListener];
-    listener.powerKeyReplacementKeyCode = selectedMenuItem.tag;
-    listener.scriptPath = scriptPath;
+    [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = selectedMenuItem.tag;
+    [PKPowerKeyEventListener sharedEventListener].scriptPath = scriptPath;
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:selectedMenuItem.tag forKey:kPowerKeyReplacementKeycodeKey];
-    [defaults setObject:scriptPath forKey:kPowerKeyScriptPathKey];
-    [defaults synchronize];
+    [[NSUserDefaults standardUserDefaults] setInteger:selectedMenuItem.tag forKey:kPowerKeyReplacementKeycodeKey];
+    [[NSUserDefaults standardUserDefaults] setObject:scriptPath forKey:kPowerKeyScriptPathKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self updateScriptMenuItem:scriptMenuItem];
 }

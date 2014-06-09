@@ -22,6 +22,7 @@ CFMachPortRef eventTap;
 	dispatch_once(&onceToken, ^{
 		sharedEventListener = [[PKPowerKeyEventListener alloc] init];
 	});
+    
 	return sharedEventListener;
 }
 
@@ -29,10 +30,10 @@ CFMachPortRef eventTap;
     self = [super init];
     if (self) {
         refToSelf = self;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        self.powerKeyReplacementKeyCode = [defaults integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-        self.scriptPath = [defaults stringForKey:kPowerKeyScriptPathKey] ?: @"";
+        self.powerKeyReplacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
+        self.scriptPath = [[NSUserDefaults standardUserDefaults] stringForKey:kPowerKeyScriptPathKey] ?: @"";
     }
+    
     return self;
 }
 
@@ -82,6 +83,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             event = [refToSelf newPowerKeyEventOrUnmodifiedSystemDefinedEvent:event];
             break;
     }
+    
     return event;
 }
 

@@ -34,6 +34,7 @@ NSString *const kPowerKeyScriptPathKey = @"kPowerKeyScriptPathKey";
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
     [self.preferences showWindow:self];
+    
     return NO;
 }
 

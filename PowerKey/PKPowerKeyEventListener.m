@@ -182,6 +182,58 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 }
 
 - (void)runScript {
-
+    if ([self isValidScriptWithURL:self.scriptURL]) {
+        [self runScriptWithURL:self.scriptURL];
+    } else if ([self isValidAppleScriptWithURL:self.scriptURL]) {
+        [self runAppleScriptWithURL:self.scriptURL];
+    } else {
+        NSLog(@"The selected Script or AppleScript is invalid.");
+    }
 }
+
+- (BOOL)isValidScriptWithURL:(NSURL *)url {
+    NSNumber *isExecutable;
+    NSError *executableError;
+    [url getResourceValue:&isExecutable forKey:NSURLIsExecutableKey error:&executableError];
+    
+    NSNumber *isDirectory; // Directories have the isExecutable flag set; ignore them.
+    NSError *directoryError;
+    [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&directoryError];
+    
+    return [isExecutable boolValue] && ![isDirectory boolValue];
+}
+
+- (void)runScriptWithURL:(NSURL *)scriptURL {
+    @try {
+        [NSTask launchedTaskWithLaunchPath:scriptURL.path arguments:@[]];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Error running script '%@'. %@: %@", scriptURL.path, exception.name, exception.reason);
+    }
+}
+
+- (BOOL)isValidAppleScriptWithURL:(NSURL *)url {
+    NSDictionary *appleScriptErrors;
+    NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:url error:&appleScriptErrors];
+    
+    return appleScript != nil;
+}
+
+- (void)runAppleScriptWithURL:(NSURL *)scriptURL {
+    if (scriptURL) {
+        NSDictionary *appleScriptErrors;
+        NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:self.scriptURL error:&appleScriptErrors];
+        
+        if (appleScript) {
+            NSDictionary *executionErrors;
+            [appleScript executeAndReturnError:&executionErrors];
+        } else {
+            if (appleScriptErrors) {
+                NSLog(@"Error running AppleScript: %@", appleScriptErrors);
+            }
+        }
+        
+    }
+}
+
 @end

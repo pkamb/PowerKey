@@ -72,9 +72,10 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError {
-    NSNumber *isExecutable;
-    [url getResourceValue:&isExecutable forKey:NSURLIsExecutableKey error:outError];
-    return [isExecutable boolValue];
+    BOOL script = [[PKPowerKeyEventListener sharedEventListener] isValidScriptWithURL:url];
+    BOOL appleScript = [[PKPowerKeyEventListener sharedEventListener] isValidAppleScriptWithURL:url];
+    
+    return script || appleScript;
 }
 
 - (void)updateScriptMenuItem:(NSMenuItem *)item {

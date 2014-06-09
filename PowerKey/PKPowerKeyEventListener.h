@@ -23,4 +23,10 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 
 - (void)runScript;
 
+- (BOOL)isValidScriptWithURL:(NSURL *)url;
+- (void)runScriptWithURL:(NSURL *)scriptURL;
+
+- (BOOL)isValidAppleScriptWithURL:(NSURL *)url;
+- (void)runAppleScriptWithURL:(NSURL *)scriptURL;
+
 @end

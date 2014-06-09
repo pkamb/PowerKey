@@ -44,6 +44,8 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         NSOpenPanel *panel = [NSOpenPanel openPanel];
         panel.delegate = self;
         panel.canChooseFiles = YES;
+        panel.canChooseDirectories = NO;
+        panel.allowsMultipleSelection = NO;
         NSInteger panelResult = [panel runModal];
         if (panelResult == NSFileHandlingPanelOKButton) {
             scriptPath = ((NSURL *)[panel URLs][0]).path;

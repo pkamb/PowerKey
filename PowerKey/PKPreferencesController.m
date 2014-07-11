@@ -13,6 +13,7 @@
 
 const NSInteger kPowerKeyDeadKeyTag = 0xDEAD;
 const NSInteger kPowerKeyScriptTag = 0xC0DE;
+const NSInteger kPowerKeyLaunchpadTag = 0xF001;
 
 @implementation PKPreferencesController
 
@@ -61,6 +62,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Tab" keyCode:kVK_Tab keyEquivalent:@"⇥"]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Return" keyCode:kVK_Return keyEquivalent:@"↩"]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"F13" keyCode:kVK_F13 keyEquivalent:@""]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Launchpad" keyCode:kPowerKeyLaunchpadTag keyEquivalent:@""]];
     
     return powerKeyReplacements;
 }

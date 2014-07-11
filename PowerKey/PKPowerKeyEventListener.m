@@ -169,6 +169,9 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     CGEventRef event;
     if (self.powerKeyReplacementKeyCode == kPowerKeyDeadKeyTag) {
         event = nullEvent;
+    } else if (self.powerKeyReplacementKeyCode == kPowerKeyLaunchpadTag) {
+        [[NSWorkspace sharedWorkspace] launchApplication:@"Launchpad.app"];
+        event = nullEvent;
     } else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
         event = CGEventCreateKeyboardEvent(eventSource, self.powerKeyReplacementKeyCode, true);

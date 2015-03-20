@@ -25,12 +25,12 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
 - (void)selectPreferredMenuItem {
     NSMenuItem *item = [[self.powerKeySelector menu] itemWithTag:[PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode];
-    item = (item) ?: [[self.powerKeySelector menu] itemWithTag:kVK_ForwardDelete];
+    item = item ?: [[self.powerKeySelector menu] itemWithTag:kVK_ForwardDelete];
     
     [self.powerKeySelector selectItem:item];
     
     if (item.tag == kPowerKeyScriptTag) {
-        [self updateScriptMenuItem:item];
+        [self setScriptMenuItemText];
     }
 }
 
@@ -68,7 +68,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [[NSUserDefaults standardUserDefaults] setURL:scriptURL forKey:kPowerKeyScriptURLKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self updateScriptMenuItem:scriptMenuItem];
+    [self setScriptMenuItemText];
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError {
@@ -78,13 +78,16 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     return script || appleScript;
 }
 
-- (void)updateScriptMenuItem:(NSMenuItem *)item {
-    if (!item) {
-        item = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
+- (void)setScriptMenuItemText {
+    NSMenuItem *item = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
+    if (item) {
+        NSString *scriptMenuItemText = NSLocalizedString(@"Script", nil);
+
+        NSString *scriptPath = [PKPowerKeyEventListener sharedEventListener].scriptURL.path;
+        if (scriptPath && scriptPath.length > 0) {
+            scriptMenuItemText = [scriptMenuItemText stringByAppendingFormat:@" - %@", scriptPath];
+        }
     }
-    NSString *path = [PKPowerKeyEventListener sharedEventListener].scriptURL.path;
-    NSString *baseText = NSLocalizedString(@"Script", nil);
-    item.title = [path length] ? [baseText stringByAppendingFormat:@" - %@", path] : baseText;
 }
 
 /*

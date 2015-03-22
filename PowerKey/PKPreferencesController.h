@@ -24,4 +24,7 @@ const NSInteger kPowerKeyScriptTag;
 - (IBAction)openProjectOnGithub:(id)sender;
 - (IBAction)openMavericksFixExplanation:(id)sender;
 
+- (NSURL *)applicationSupportDirectory;
+- (void)copyBundleResourceToSupportDirectory:(NSString *)resource withExtension:(NSString *)extension;
+
 @end

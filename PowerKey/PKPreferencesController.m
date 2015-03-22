@@ -18,6 +18,9 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    
+    [self copyBundleResourceToSupportDirectory:@"helloPowerKey" withExtension:@"sh"];
+    [self copyBundleResourceToSupportDirectory:@"helloPowerKeyAppleScript" withExtension:@"scpt"];
 
     [self.powerKeySelector setMenu:[self powerKeyReplacementsMenu]];
     
@@ -37,6 +40,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         panel.canChooseFiles = YES;
         panel.canChooseDirectories = NO;
         panel.allowsMultipleSelection = NO;
+        [panel setDirectoryURL:[self applicationSupportDirectory]];
         
         NSInteger panelResult = [panel runModal];
         switch (panelResult) {
@@ -139,6 +143,33 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
 - (IBAction)openMavericksFixExplanation:(id)sender {
     system("open https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks");
+}
+
+- (NSURL *)applicationSupportDirectory {
+    NSArray *urls = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
+    NSURL *applicationSupport = [[urls firstObject] URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier] isDirectory:YES];
+    
+    // Create support directory, if it does not exist
+    if (![[NSFileManager defaultManager] fileExistsAtPath:applicationSupport.path]) {
+        [[NSFileManager defaultManager] createDirectoryAtURL:applicationSupport withIntermediateDirectories:NO attributes:nil error:nil];
+    }
+    
+    return applicationSupport;
+}
+
+- (void)copyBundleResourceToSupportDirectory:(NSString *)resource withExtension:(NSString *)extension {
+    NSURL *applicationSupportDirectory = [self applicationSupportDirectory];
+    
+    NSURL *sourceURL = [[NSBundle mainBundle] URLForResource:resource withExtension:extension];
+    NSURL *destinationURL = [applicationSupportDirectory URLByAppendingPathComponent:sourceURL.lastPathComponent];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:destinationURL.path]) {
+        NSError *error;
+        [[NSFileManager defaultManager] copyItemAtURL:sourceURL toURL:destinationURL error:&error];
+        if (error) {
+            NSLog(@"Error copying bundle resource to Application Support directory: %@", error);
+        }
+    }
 }
 
 @end

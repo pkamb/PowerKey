@@ -18,6 +18,8 @@
 		589C50E11727873C00E94E93 /* PKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 589C50E01727873C00E94E93 /* PKAppDelegate.m */; };
 		589C50E41727873D00E94E93 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 589C50E21727873D00E94E93 /* MainMenu.xib */; };
 		589C50EC172787C900E94E93 /* OpenAtLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 589C50EB172787C900E94E93 /* OpenAtLogin.m */; };
+		58C110321ABF332B00BB3E7F /* helloPowerKey.sh in Resources */ = {isa = PBXBuildFile; fileRef = 58C110301ABF332B00BB3E7F /* helloPowerKey.sh */; };
+		58C110331ABF332B00BB3E7F /* helloPowerKeyAppleScript.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 58C110311ABF332B00BB3E7F /* helloPowerKeyAppleScript.scpt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		589C50E31727873D00E94E93 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		589C50EA172787C900E94E93 /* OpenAtLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenAtLogin.h; sourceTree = "<group>"; };
 		589C50EB172787C900E94E93 /* OpenAtLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenAtLogin.m; sourceTree = "<group>"; };
+		58C110301ABF332B00BB3E7F /* helloPowerKey.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = helloPowerKey.sh; sourceTree = "<group>"; };
+		58C110311ABF332B00BB3E7F /* helloPowerKeyAppleScript.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = helloPowerKeyAppleScript.scpt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,11 +120,21 @@
 			children = (
 				589C50D51727873C00E94E93 /* PowerKey-Info.plist */,
 				589C50D61727873C00E94E93 /* InfoPlist.strings */,
+				58C1102F1ABF332B00BB3E7F /* scripts */,
 				589C50D91727873C00E94E93 /* main.m */,
 				589C50DB1727873C00E94E93 /* PowerKey-Prefix.pch */,
 				589C50DC1727873C00E94E93 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		58C1102F1ABF332B00BB3E7F /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				58C110301ABF332B00BB3E7F /* helloPowerKey.sh */,
+				58C110311ABF332B00BB3E7F /* helloPowerKeyAppleScript.scpt */,
+			);
+			path = scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,7 +191,9 @@
 			files = (
 				589C50D81727873C00E94E93 /* InfoPlist.strings in Resources */,
 				589C50DE1727873C00E94E93 /* Credits.rtf in Resources */,
+				58C110331ABF332B00BB3E7F /* helloPowerKeyAppleScript.scpt in Resources */,
 				589C50E41727873D00E94E93 /* MainMenu.xib in Resources */,
+				58C110321ABF332B00BB3E7F /* helloPowerKey.sh in Resources */,
 				588C22401727C1A30089CBBF /* powerkey.iconset in Resources */,
 				5898DF7A17BEC4550048F11F /* PKPreferencesController.xib in Resources */,
 			);

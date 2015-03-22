@@ -101,9 +101,11 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
     int keyRepeat = (keyFlags & 0x1);
     NSUInteger modifierKeys = event.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-#ifdef DEBUG
-    NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i, modifierKeys:%lu", event.type , event.subtype, (long)event.data1, keyCode, keyFlags, keyState, keyRepeat, modifierKeys);
-#endif
+    
+    BOOL printEventInfo = NO;
+    if (printEventInfo) {
+        NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i, modifierKeys:%lu", event.type, event.subtype, (long)event.data1, keyCode, keyFlags, keyState, keyRepeat, modifierKeys);
+    }
     
     /*
      * Pressing the Power key generates 3 NSSystemDefined keyboard events.

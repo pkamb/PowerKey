@@ -205,12 +205,12 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return [isExecutable boolValue] && ![isDirectory boolValue];
 }
 
-- (void)runScriptWithURL:(NSURL *)scriptURL {
+- (void)runScriptWithURL:(NSURL *)url {
     @try {
-        [NSTask launchedTaskWithLaunchPath:scriptURL.path arguments:@[]];
+        [NSTask launchedTaskWithLaunchPath:url.path arguments:@[]];
     }
     @catch (NSException *exception) {
-        NSLog(@"Error running script '%@'. %@: %@", scriptURL.path, exception.name, exception.reason);
+        NSLog(@"Error running script '%@'. %@: %@", url.path, exception.name, exception.reason);
     }
 }
 
@@ -221,20 +221,20 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return appleScript != nil;
 }
 
-- (void)runAppleScriptWithURL:(NSURL *)scriptURL {
-    if (scriptURL) {
-        NSDictionary *appleScriptErrors;
-        NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:self.scriptURL error:&appleScriptErrors];
-        
-        if (appleScript) {
-            NSDictionary *executionErrors;
-            [appleScript executeAndReturnError:&executionErrors];
-        } else {
-            if (appleScriptErrors) {
-                NSLog(@"Error running AppleScript: %@", appleScriptErrors);
-            }
+- (void)runAppleScriptWithURL:(NSURL *)url {
+    NSDictionary *appleScriptErrors;
+    NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:url error:&appleScriptErrors];
+    
+    if (appleScript) {
+        NSDictionary *executionErrors;
+        [appleScript executeAndReturnError:&executionErrors];
+        if (appleScriptErrors) {
+            NSLog(@"Error running AppleScript: %@", executionErrors);
         }
-        
+    } else {
+        if (appleScriptErrors) {
+            NSLog(@"Error in AppleScript file: %@", appleScriptErrors);
+        }
     }
 }
 

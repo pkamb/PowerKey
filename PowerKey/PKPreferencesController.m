@@ -75,9 +75,9 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     
     NSMenuItem *scriptMenuItem = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
     if (scriptMenuItem) {
-        NSString *scriptMenuItemText = NSLocalizedString(@"Script", nil);
+        NSString *scriptMenuItemText = NSLocalizedString(@"Script", @"Script menu item title.");
         if (scriptURL && scriptURL.path.length > 0) {
-            scriptMenuItemText = [scriptMenuItemText stringByAppendingFormat:@" - %@", scriptURL.path];
+            scriptMenuItemText = [scriptMenuItemText stringByAppendingFormat:@" - %@", scriptURL.path.lastPathComponent];
         }
         scriptMenuItem.title = scriptMenuItemText;
     }

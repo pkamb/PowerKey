@@ -124,6 +124,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Tab" keyCode:kVK_Tab keyEquivalent:@"⇥"]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Return" keyCode:kVK_Return keyEquivalent:@"↩"]];
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"F13" keyCode:kVK_F13 keyEquivalent:@""]];
+    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Enter" keyCode:kVK_ANSI_KeypadEnter keyEquivalent:@"⌤"]];
     
     [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Script" keyCode:kPowerKeyScriptTag keyEquivalent:@""]];
     

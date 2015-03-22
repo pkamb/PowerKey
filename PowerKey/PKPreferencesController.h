@@ -15,7 +15,7 @@ const NSInteger kPowerKeyScriptTag;
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
 
-- (IBAction)selectPowerKeyReplacement:(id)sender;
+- (IBAction)didSelectPowerKeyReplacement:(id)sender;
 
 - (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(CGKeyCode)keyCode keyEquivalent:(NSString *)keyEquivalent;
 - (NSMenu *)powerKeyReplacementsMenu;

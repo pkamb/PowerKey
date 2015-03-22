@@ -20,55 +20,69 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [super windowDidLoad];
 
     [self.powerKeySelector setMenu:[self powerKeyReplacementsMenu]];
-    [self selectPreferredMenuItem];
+    
+    CGKeyCode replacementKeyCode = [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode;
+    NSURL *scriptURL = [PKPowerKeyEventListener sharedEventListener].scriptURL;
+    
+    [self selectPowerKeyReplacementKeyCode:replacementKeyCode withScriptURL:scriptURL];
 }
 
-- (void)selectPreferredMenuItem {
-    NSMenuItem *item = [[self.powerKeySelector menu] itemWithTag:[PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode];
-    item = item ?: [[self.powerKeySelector menu] itemWithTag:kVK_ForwardDelete];
-    
-    [self.powerKeySelector selectItem:item];
-    
-    if (item.tag == kPowerKeyScriptTag) {
-        [self setScriptMenuItemText];
-    }
-}
+- (IBAction)didSelectPowerKeyReplacement:(id)sender {
+    NSInteger selectedKeycode = ((NSPopUpButton *)sender).selectedItem.tag;
+    NSURL *selectedScriptURL = nil;
 
-- (IBAction)selectPowerKeyReplacement:(id)sender {
-    NSMenuItem *selectedMenuItem = ((NSPopUpButton *)sender).selectedItem;
-    NSMenuItem *scriptMenuItem = nil;
-    NSURL *scriptURL;
-
-    if (selectedMenuItem.tag == kPowerKeyScriptTag) {
-        scriptMenuItem = selectedMenuItem;
+    if (selectedKeycode == kPowerKeyScriptTag) {
         NSOpenPanel *panel = [NSOpenPanel openPanel];
         panel.delegate = self;
         panel.canChooseFiles = YES;
         panel.canChooseDirectories = NO;
         panel.allowsMultipleSelection = NO;
+        
         NSInteger panelResult = [panel runModal];
-        if (panelResult == NSFileHandlingPanelOKButton) {
-            scriptURL = [panel URL];
-        }
-        else if (panelResult == NSFileHandlingPanelCancelButton) {
-            // Roll back to last option
-            [self selectPreferredMenuItem];
-            
-            return;
+        switch (panelResult) {
+            case NSFileHandlingPanelOKButton:
+                selectedScriptURL = panel.URLs.firstObject;
+                break;
+            case NSFileHandlingPanelCancelButton:
+            default:
+                // Roll back to previous selection.
+                selectedKeycode = [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode;
+                selectedScriptURL = [PKPowerKeyEventListener sharedEventListener].scriptURL;
+                break;
         }
     }
-    else {
+    
+    [self selectPowerKeyReplacementKeyCode:selectedKeycode withScriptURL:selectedScriptURL];
+}
+
+- (void)selectPowerKeyReplacementKeyCode:(CGKeyCode)keyCode withScriptURL:(NSURL *)scriptURL {
+    if ([self.powerKeySelector indexOfItemWithTag:keyCode] == -1) {
+        keyCode = kVK_ForwardDelete;
         scriptURL = nil;
+        NSAssert([self.powerKeySelector indexOfItemWithTag:keyCode] != -1, @"Could not find a default Power key replacement.");
     }
     
-    [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = selectedMenuItem.tag;
+    [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = keyCode;
     [PKPowerKeyEventListener sharedEventListener].scriptURL = scriptURL;
-    
-    [[NSUserDefaults standardUserDefaults] setInteger:selectedMenuItem.tag forKey:kPowerKeyReplacementKeycodeKey];
-    [[NSUserDefaults standardUserDefaults] setURL:scriptURL forKey:kPowerKeyScriptURLKey];
+
+    [[NSUserDefaults standardUserDefaults] setInteger:keyCode forKey:kPowerKeyReplacementKeycodeKey];
+    if (scriptURL) {
+        [[NSUserDefaults standardUserDefaults] setURL:scriptURL forKey:kPowerKeyScriptURLKey];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPowerKeyScriptURLKey];
+    }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self setScriptMenuItemText];
+    NSMenuItem *scriptMenuItem = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
+    if (scriptMenuItem) {
+        NSString *scriptMenuItemText = NSLocalizedString(@"Script", nil);
+        if (scriptURL && scriptURL.path.length > 0) {
+            scriptMenuItemText = [scriptMenuItemText stringByAppendingFormat:@" - %@", scriptURL.path];
+        }
+        scriptMenuItem.title = scriptMenuItemText;
+    }
+    
+    [self.powerKeySelector selectItemWithTag:keyCode];
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError {
@@ -76,18 +90,6 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     BOOL appleScript = [[PKPowerKeyEventListener sharedEventListener] isValidAppleScriptWithURL:url];
     
     return script || appleScript;
-}
-
-- (void)setScriptMenuItemText {
-    NSMenuItem *item = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];
-    if (item) {
-        NSString *scriptMenuItemText = NSLocalizedString(@"Script", nil);
-
-        NSString *scriptPath = [PKPowerKeyEventListener sharedEventListener].scriptURL.path;
-        if (scriptPath && scriptPath.length > 0) {
-            scriptMenuItemText = [scriptMenuItemText stringByAppendingFormat:@" - %@", scriptPath];
-        }
-    }
 }
 
 /*

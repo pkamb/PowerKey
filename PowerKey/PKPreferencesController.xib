@@ -58,7 +58,7 @@
                                             </items>
                                         </menu>
                                         <connections>
-                                            <action selector="selectPowerKeyReplacement:" target="-2" id="72"/>
+                                            <action selector="didSelectPowerKeyReplacement:" target="-2" id="gYU-uI-4Ys"/>
                                         </connections>
                                     </popUpButtonCell>
                                 </popUpButton>

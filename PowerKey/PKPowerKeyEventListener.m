@@ -75,13 +75,10 @@ CFMachPortRef eventTap;
 }
 
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
-    switch (type) {
-        case kCGEventTapDisabledByTimeout:
-            CGEventTapEnable(eventTap, true);
-            break;
-        case NSSystemDefined:
-            event = [refToSelf newPowerKeyEventOrUnmodifiedSystemDefinedEvent:event];
-            break;
+    if (type == kCGEventTapDisabledByTimeout) {
+        CGEventTapEnable(eventTap, true);
+    } else if (type == NSSystemDefined) {
+        event = [refToSelf newPowerKeyEventOrUnmodifiedSystemDefinedEvent:event];
     }
     
     return event;

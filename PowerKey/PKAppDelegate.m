@@ -18,8 +18,8 @@ NSString *const kPowerKeyScriptURLKey = @"kPowerKeyScriptURLKey";
 @implementation PKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey : [NSNumber numberWithInteger:kVK_ForwardDelete],
-                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey : @YES};
+    NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey: [NSNumber numberWithInteger:kVK_ForwardDelete],
+                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey: @YES};
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPrefs];
     
     [[PKPowerKeyEventListener sharedEventListener] monitorPowerKey];

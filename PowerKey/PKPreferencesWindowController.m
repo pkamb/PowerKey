@@ -1,12 +1,12 @@
 //
-//  PKPreferencesController.m
+//  PKPreferencesWindowController.m
 //  PowerKey
 //
 //  Created by Peter Kamb on 8/16/13.
 //  Copyright (c) 2013 Peter Kamb. All rights reserved.
 //
 
-#import "PKPreferencesController.h"
+#import "PKPreferencesWindowController.h"
 #include <Carbon/Carbon.h>
 #import "PKAppDelegate.h"
 #import "PKPowerKeyEventListener.h"
@@ -14,7 +14,7 @@
 const NSInteger kPowerKeyDeadKeyTag = 0xDEAD;
 const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
-@implementation PKPreferencesController
+@implementation PKPreferencesWindowController
 
 - (void)windowDidLoad {
     [super windowDidLoad];

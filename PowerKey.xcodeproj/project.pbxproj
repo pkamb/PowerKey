@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		5810470F17BD8BF600E438FB /* PKPowerKeyEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */; };
 		588C22401727C1A30089CBBF /* powerkey.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 588C223F1727C1A30089CBBF /* powerkey.iconset */; };
-		5898DF7917BEC4550048F11F /* PKPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5898DF7717BEC4550048F11F /* PKPreferencesController.m */; };
-		5898DF7A17BEC4550048F11F /* PKPreferencesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5898DF7817BEC4550048F11F /* PKPreferencesController.xib */; };
+		5898DF7917BEC4550048F11F /* PKPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5898DF7717BEC4550048F11F /* PKPreferencesWindowController.m */; };
+		5898DF7A17BEC4550048F11F /* PKPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */; };
 		589C50CE1727873C00E94E93 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 589C50CD1727873C00E94E93 /* Cocoa.framework */; };
 		589C50D81727873C00E94E93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 589C50D61727873C00E94E93 /* InfoPlist.strings */; };
 		589C50DA1727873C00E94E93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 589C50D91727873C00E94E93 /* main.m */; };
@@ -26,9 +26,9 @@
 		5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPowerKeyEventListener.h; sourceTree = "<group>"; };
 		5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPowerKeyEventListener.m; sourceTree = "<group>"; };
 		588C223F1727C1A30089CBBF /* powerkey.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = powerkey.iconset; sourceTree = "<group>"; };
-		5898DF7617BEC4550048F11F /* PKPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPreferencesController.h; sourceTree = "<group>"; };
-		5898DF7717BEC4550048F11F /* PKPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPreferencesController.m; sourceTree = "<group>"; };
-		5898DF7817BEC4550048F11F /* PKPreferencesController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKPreferencesController.xib; sourceTree = "<group>"; };
+		5898DF7617BEC4550048F11F /* PKPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPreferencesWindowController.h; sourceTree = "<group>"; };
+		5898DF7717BEC4550048F11F /* PKPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPreferencesWindowController.m; sourceTree = "<group>"; };
+		5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKPreferencesWindowController.xib; sourceTree = "<group>"; };
 		589C50CA1727873C00E94E93 /* PowerKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		589C50CD1727873C00E94E93 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		589C50D01727873C00E94E93 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -105,9 +105,9 @@
 				589C50E21727873D00E94E93 /* MainMenu.xib */,
 				5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */,
 				5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */,
-				5898DF7617BEC4550048F11F /* PKPreferencesController.h */,
-				5898DF7717BEC4550048F11F /* PKPreferencesController.m */,
-				5898DF7817BEC4550048F11F /* PKPreferencesController.xib */,
+				5898DF7617BEC4550048F11F /* PKPreferencesWindowController.h */,
+				5898DF7717BEC4550048F11F /* PKPreferencesWindowController.m */,
+				5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */,
 				589C50EA172787C900E94E93 /* OpenAtLogin.h */,
 				589C50EB172787C900E94E93 /* OpenAtLogin.m */,
 				589C50D41727873C00E94E93 /* Supporting Files */,
@@ -195,7 +195,7 @@
 				589C50E41727873D00E94E93 /* MainMenu.xib in Resources */,
 				58C110321ABF332B00BB3E7F /* helloPowerKey.sh in Resources */,
 				588C22401727C1A30089CBBF /* powerkey.iconset in Resources */,
-				5898DF7A17BEC4550048F11F /* PKPreferencesController.xib in Resources */,
+				5898DF7A17BEC4550048F11F /* PKPreferencesWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +210,7 @@
 				5810470F17BD8BF600E438FB /* PKPowerKeyEventListener.m in Sources */,
 				589C50E11727873C00E94E93 /* PKAppDelegate.m in Sources */,
 				589C50EC172787C900E94E93 /* OpenAtLogin.m in Sources */,
-				5898DF7917BEC4550048F11F /* PKPreferencesController.m in Sources */,
+				5898DF7917BEC4550048F11F /* PKPreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

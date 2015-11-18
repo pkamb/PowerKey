@@ -1,5 +1,5 @@
 //
-//  PKPreferencesController.h
+//  PKPreferencesWindowController.h
 //  PowerKey
 //
 //  Created by Peter Kamb on 8/16/13.
@@ -11,7 +11,7 @@
 const NSInteger kPowerKeyDeadKeyTag;
 const NSInteger kPowerKeyScriptTag;
 
-@interface PKPreferencesController : NSWindowController<NSOpenSavePanelDelegate>
+@interface PKPreferencesWindowController : NSWindowController<NSOpenSavePanelDelegate>
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
 

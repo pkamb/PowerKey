@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PKPreferencesController.h"
+#import "PKPreferencesWindowController.h"
 
 NSString *const kPowerKeyReplacementKeycodeKey;
 NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey;
@@ -15,7 +15,7 @@ NSString *const kPowerKeyScriptURLKey;
 
 @interface PKAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (nonatomic, retain) PKPreferencesController *preferences;
+@property (nonatomic, retain) PKPreferencesWindowController *preferencesWindowController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag;

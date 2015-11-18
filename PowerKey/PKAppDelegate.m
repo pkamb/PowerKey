@@ -24,21 +24,22 @@ NSString *const kPowerKeyScriptURLKey = @"kPowerKeyScriptURLKey";
     
     [[PKPowerKeyEventListener sharedEventListener] monitorPowerKey];
     
-    self.preferences = [[PKPreferencesController alloc] initWithWindowNibName:@"PKPreferencesController"];
+    self.preferencesWindowController = [[PKPreferencesWindowController alloc] initWithWindowNibName:@"PKPreferencesWindowController"];
+    
     BOOL shouldShowPrefs = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey] boolValue];
     if(shouldShowPrefs || ![OpenAtLogin loginItemExists]) {        
-        [self.preferences showWindow:self];
+        [self.preferencesWindowController showWindow:self];
     }
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
-    [self.preferences showWindow:self];
+    [self.preferencesWindowController showWindow:self];
     
     return NO;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
-    [[NSUserDefaults standardUserDefaults] setBool:[self.preferences.window isVisible] forKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
+    [[NSUserDefaults standardUserDefaults] setBool:[self.preferencesWindowController.window isVisible] forKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
 }
 
 @end

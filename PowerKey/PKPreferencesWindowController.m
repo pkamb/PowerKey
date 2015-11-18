@@ -26,7 +26,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [self.powerKeySelector setMenu:[self powerKeyReplacementsMenu]];
     
     CGKeyCode replacementKeyCode = [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode;
-    NSURL *scriptURL = [PKPowerKeyEventListener sharedEventListener].scriptURL;
+    NSURL *scriptURL = [[NSUserDefaults standardUserDefaults] URLForKey:kPowerKeyScriptURLKey];
     
     [self selectPowerKeyReplacementKeyCode:replacementKeyCode withScriptURL:scriptURL];
 }
@@ -52,7 +52,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
             default:
                 // Roll back to previous selection.
                 selectedKeycode = [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode;
-                selectedScriptURL = [PKPowerKeyEventListener sharedEventListener].scriptURL;
+                selectedScriptURL = [[NSUserDefaults standardUserDefaults] URLForKey:kPowerKeyScriptURLKey];
                 break;
         }
     }
@@ -68,14 +68,14 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     }
     
     [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = keyCode;
-    [PKPowerKeyEventListener sharedEventListener].scriptURL = scriptURL;
-
     [[NSUserDefaults standardUserDefaults] setInteger:keyCode forKey:kPowerKeyReplacementKeycodeKey];
+    
     if (scriptURL) {
         [[NSUserDefaults standardUserDefaults] setURL:scriptURL forKey:kPowerKeyScriptURLKey];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPowerKeyScriptURLKey];
     }
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSMenuItem *scriptMenuItem = [[self.powerKeySelector menu] itemWithTag:kPowerKeyScriptTag];

@@ -10,6 +10,7 @@
 #include <Carbon/Carbon.h>
 #import "PKAppDelegate.h"
 #import "PKPowerKeyEventListener.h"
+#import "PKScriptController.h"
 
 const NSInteger kPowerKeyDeadKeyTag = 0xDEAD;
 const NSInteger kPowerKeyScriptTag = 0xC0DE;
@@ -90,8 +91,8 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 }
 
 - (BOOL)panel:(id)sender validateURL:(NSURL *)url error:(NSError **)outError {
-    BOOL script = [[PKPowerKeyEventListener sharedEventListener] isValidScriptWithURL:url];
-    BOOL appleScript = [[PKPowerKeyEventListener sharedEventListener] isValidAppleScriptWithURL:url];
+    BOOL script = [PKScriptController isValidScriptWithURL:url];
+    BOOL appleScript = [PKScriptController isValidAppleScriptWithURL:url];
     
     return script || appleScript;
 }

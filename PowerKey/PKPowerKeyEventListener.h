@@ -21,12 +21,4 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent;
 - (CGEventRef)newPowerKeyReplacementEvent;
 
-- (void)runScript;
-
-- (BOOL)isValidScriptWithURL:(NSURL *)url;
-- (void)runScriptWithURL:(NSURL *)url;
-
-- (BOOL)isValidAppleScriptWithURL:(NSURL *)url;
-- (void)runAppleScriptWithURL:(NSURL *)url;
-
 @end

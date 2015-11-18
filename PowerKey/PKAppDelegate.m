@@ -13,7 +13,6 @@
 
 NSString *const kPowerKeyReplacementKeycodeKey = @"kPowerKeyReplacementKeycodeKey";
 NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey";
-NSString *const kPowerKeyScriptURLKey = @"kPowerKeyScriptURLKey";
 
 @implementation PKAppDelegate
 

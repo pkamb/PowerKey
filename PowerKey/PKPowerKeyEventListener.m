@@ -10,6 +10,7 @@
 #include <Carbon/Carbon.h>
 #include <IOKit/hidsystem/ev_keymap.h>
 #import "PKAppDelegate.h"
+#import "PKScriptController.h"
 
 id refToSelf;
 CFMachPortRef eventTap;
@@ -31,7 +32,6 @@ CFMachPortRef eventTap;
     if (self) {
         refToSelf = self;
         self.powerKeyReplacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-        self.scriptURL = [[NSUserDefaults standardUserDefaults] URLForKey:kPowerKeyScriptURLKey];
     }
     
     return self;
@@ -169,7 +169,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     else if (self.powerKeyReplacementKeyCode == kPowerKeyScriptTag) {
         event = nullEvent;
         
-        [self runScript];
+        [PKScriptController runScript];
     }
     else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
@@ -178,61 +178,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     }
     
     return event;
-}
-
-- (void)runScript {
-    if ([self isValidScriptWithURL:self.scriptURL]) {
-        [self runScriptWithURL:self.scriptURL];
-    } else if ([self isValidAppleScriptWithURL:self.scriptURL]) {
-        [self runAppleScriptWithURL:self.scriptURL];
-    } else {
-        NSLog(@"The selected Script or AppleScript is invalid.");
-    }
-}
-
-- (BOOL)isValidScriptWithURL:(NSURL *)url {
-    NSNumber *isExecutable;
-    NSError *executableError;
-    [url getResourceValue:&isExecutable forKey:NSURLIsExecutableKey error:&executableError];
-    
-    NSNumber *isDirectory; // Directories have the isExecutable flag set; ignore them.
-    NSError *directoryError;
-    [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:&directoryError];
-    
-    return [isExecutable boolValue] && ![isDirectory boolValue];
-}
-
-- (void)runScriptWithURL:(NSURL *)url {
-    @try {
-        [NSTask launchedTaskWithLaunchPath:url.path arguments:@[]];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Error running script '%@'. %@: %@", url.path, exception.name, exception.reason);
-    }
-}
-
-- (BOOL)isValidAppleScriptWithURL:(NSURL *)url {
-    NSDictionary *appleScriptErrors;
-    NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:url error:&appleScriptErrors];
-    
-    return appleScript != nil;
-}
-
-- (void)runAppleScriptWithURL:(NSURL *)url {
-    NSDictionary *appleScriptErrors;
-    NSAppleScript *appleScript = [[NSAppleScript alloc] initWithContentsOfURL:url error:&appleScriptErrors];
-    
-    if (appleScript) {
-        NSDictionary *executionErrors;
-        [appleScript executeAndReturnError:&executionErrors];
-        if (appleScriptErrors) {
-            NSLog(@"Error running AppleScript: %@", executionErrors);
-        }
-    } else {
-        if (appleScriptErrors) {
-            NSLog(@"Error in AppleScript file: %@", appleScriptErrors);
-        }
-    }
 }
 
 @end

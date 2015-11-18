@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+NSString *const kPowerKeyScriptURLKey;
+
 @interface PKScriptController : NSObject
+
++ (void)runScript;
+
++ (BOOL)isValidScriptWithURL:(NSURL *)url;
++ (void)runScriptWithURL:(NSURL *)url;
+
++ (BOOL)isValidAppleScriptWithURL:(NSURL *)url;
++ (void)runAppleScriptWithURL:(NSURL *)url;
 
 @end

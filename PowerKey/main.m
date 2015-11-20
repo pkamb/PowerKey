@@ -7,8 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PKAppDelegate.h"
 
 int main(int argc, char *argv[])
-{
-    return NSApplicationMain(argc, (const char **)argv);
+{    
+    PKAppDelegate *delegate = [[PKAppDelegate alloc] init];
+    [[NSApplication sharedApplication] setDelegate:delegate];
+    [NSApp run];
 }

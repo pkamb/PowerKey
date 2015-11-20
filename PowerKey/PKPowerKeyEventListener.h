@@ -17,6 +17,5 @@
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon);
 
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent;
-- (CGEventRef)newPowerKeyReplacementEvent;
 
 @end

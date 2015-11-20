@@ -123,8 +123,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         if (keyDown) {
             systemEvent = nullEvent;
             
-            CGEventRef replacementEvent = [self newPowerKeyReplacementEvent];
-            CGEventPost(kCGHIDEventTap, replacementEvent);
+            [self inputPowerKeyReplacement];
         }
         
         // Power Key Event #3
@@ -137,26 +136,20 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return systemEvent;
 }
 
-- (CGEventRef)newPowerKeyReplacementEvent {
-    CGEventRef event;
+- (void)inputPowerKeyReplacement {
+    CGKeyCode keyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
     
-    CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-    
-    if (replacementKeyCode == kPowerKeyDeadKeyTag) {
-        event = nullEvent;
-    }
-    else if (replacementKeyCode == kPowerKeyScriptTag) {
-        event = nullEvent;
-        
+    if (keyCode == kPowerKeyDeadKeyTag) {
+        // do nothing
+    } else if (keyCode == kPowerKeyScriptTag) {
         [PKScriptController runScript];
-    }
-    else {
+    } else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-        event = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);
+        CGEventRef event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
         CFRelease(eventSource);
+        
+        CGEventPost(kCGHIDEventTap, event);
     }
-    
-    return event;
 }
 
 @end

@@ -21,10 +21,10 @@
         </customObject>
         <window title="PowerKey" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="310" height="431"/>
+            <rect key="contentRect" x="335" y="390" width="310" height="493"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" autoresizesSubviews="NO" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="310" height="431"/>
+                <rect key="frame" x="0.0" y="0.0" width="310" height="493"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="8">
@@ -51,35 +51,6 @@
                             <action selector="terminate:" target="-3" id="69"/>
                         </connections>
                     </button>
-                    <box autoresizesSubviews="NO" title="Tips" boxType="oldStyle" borderType="line" id="tsY-Lp-Rbt">
-                        <rect key="frame" x="20" y="134" width="270" height="180"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="268" height="164"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textField verticalHuggingPriority="750" id="uMh-I6-yyV">
-                                    <rect key="frame" x="13" y="15" width="242" height="136"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <animations/>
-                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Y4I-X6-W2l">
-                                        <font key="font" metaFont="system"/>
-                                        <string key="title">PowerKey works best if you use a firm, hard tap to press the power key.
-
-Be careful – don't hold the power key!
-
-This app will not prevent your Mac from sleeping or shutting down if you hold down the key :(</string>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                            </subviews>
-                            <animations/>
-                        </view>
-                        <animations/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </box>
                     <box autoresizesSubviews="NO" title="About" borderType="line" id="11">
                         <rect key="frame" x="17" y="57" width="276" height="61"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -116,27 +87,44 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <box autoresizesSubviews="NO" title="Settings" borderType="line" id="7">
-                        <rect key="frame" x="17" y="330" width="276" height="87"/>
+                    <box autoresizesSubviews="NO" title="Tips" boxType="oldStyle" borderType="line" id="tsY-Lp-Rbt">
+                        <rect key="frame" x="20" y="134" width="270" height="180"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="274" height="71"/>
+                            <rect key="frame" x="1" y="1" width="268" height="164"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button id="20">
-                                    <rect key="frame" x="16" y="12" width="108" height="18"/>
+                                <textField verticalHuggingPriority="750" id="uMh-I6-yyV">
+                                    <rect key="frame" x="13" y="15" width="242" height="136"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <animations/>
-                                    <buttonCell key="cell" type="check" title="Open at login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="27">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="Y4I-X6-W2l">
                                         <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="toggleLoginItem:" target="67" id="68"/>
-                                    </connections>
-                                </button>
+                                        <string key="title">PowerKey works best if you use a firm, hard tap to press the power key.
+
+Be careful – don't hold the power key!
+
+This app will not prevent your Mac from sleeping or shutting down if you hold down the key :(</string>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <animations/>
+                        </view>
+                        <animations/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box autoresizesSubviews="NO" title="Settings" borderType="line" id="7">
+                        <rect key="frame" x="17" y="330" width="276" height="152"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView">
+                            <rect key="frame" x="1" y="1" width="274" height="136"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
                                 <popUpButton verticalHuggingPriority="750" id="22">
-                                    <rect key="frame" x="90" y="37" width="169" height="26"/>
+                                    <rect key="frame" x="90" y="102" width="169" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <animations/>
                                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="23">
@@ -155,7 +143,7 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                                     </popUpButtonCell>
                                 </popUpButton>
                                 <textField verticalHuggingPriority="750" id="21">
-                                    <rect key="frame" x="16" y="43" width="70" height="17"/>
+                                    <rect key="frame" x="16" y="108" width="70" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <animations/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Power key:" id="26">
@@ -164,6 +152,60 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="DDA-6U-zOW">
+                                    <rect key="frame" x="18" y="39" width="238" height="55"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <clipView key="contentView" id="Neq-C3-ThL">
+                                        <rect key="frame" x="1" y="1" width="236" height="53"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="FYK-A3-JkQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="236" height="53"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <animations/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="minSize" width="236" height="53"/>
+                                                <size key="maxSize" width="463" height="10000000"/>
+                                                <attributedString key="textStorage">
+                                                    <fragment content="Test the power key here...">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <size key="minSize" width="236" height="53"/>
+                                                <size key="maxSize" width="463" height="10000000"/>
+                                            </textView>
+                                        </subviews>
+                                        <animations/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </clipView>
+                                    <animations/>
+                                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Kfz-1x-xyI">
+                                        <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <animations/>
+                                    </scroller>
+                                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="jQv-fO-l89">
+                                        <rect key="frame" x="-100" y="-100" width="15" height="53"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <animations/>
+                                    </scroller>
+                                </scrollView>
+                                <button id="20">
+                                    <rect key="frame" x="16" y="12" width="108" height="18"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <animations/>
+                                    <buttonCell key="cell" type="check" title="Open at login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="27">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="toggleLoginItem:" target="67" id="68"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <animations/>
                         </view>
@@ -174,7 +216,7 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                 </subviews>
                 <animations/>
             </view>
-            <point key="canvasLocation" x="-7" y="203.5"/>
+            <point key="canvasLocation" x="-8" y="227.5"/>
         </window>
     </objects>
 </document>

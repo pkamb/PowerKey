@@ -20,6 +20,9 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 - (void)windowDidLoad {
     [super windowDidLoad];
     
+    NSString *versionNumber = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+    self.versionNumberLabel.stringValue = [NSString stringWithFormat:@"version %@", versionNumber];
+    
     [self copyBundleResourceToSupportDirectory:@"helloPowerKey" withExtension:@"sh"];
     [self copyBundleResourceToSupportDirectory:@"helloPowerKeyAppleScript" withExtension:@"scpt"];
 

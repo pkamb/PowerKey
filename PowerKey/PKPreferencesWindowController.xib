@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PKPreferencesWindowController">
             <connections>
                 <outlet property="powerKeySelector" destination="22" id="63"/>
+                <outlet property="versionNumberLabel" destination="J65-Xs-kbC" id="4ud-Ns-PUM"/>
                 <outlet property="window" destination="5" id="64"/>
             </connections>
         </customObject>
@@ -21,10 +22,10 @@
         </customObject>
         <window title="PowerKey" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-            <rect key="contentRect" x="335" y="390" width="310" height="493"/>
+            <rect key="contentRect" x="335" y="390" width="310" height="510"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" autoresizesSubviews="NO" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="310" height="493"/>
+                <rect key="frame" x="0.0" y="0.0" width="310" height="510"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" id="8">
@@ -52,14 +53,14 @@
                         </connections>
                     </button>
                     <box autoresizesSubviews="NO" title="About" borderType="line" id="11">
-                        <rect key="frame" x="17" y="57" width="276" height="61"/>
+                        <rect key="frame" x="17" y="57" width="276" height="77"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="274" height="45"/>
+                            <rect key="frame" x="1" y="1" width="274" height="61"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" id="13">
-                                    <rect key="frame" x="173" y="7" width="89" height="32"/>
+                                    <rect key="frame" x="173" y="23" width="89" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <animations/>
                                     <buttonCell key="cell" type="push" title="Support" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
@@ -71,12 +72,22 @@
                                     </connections>
                                 </button>
                                 <textField verticalHuggingPriority="750" id="F2U-N4-PH7">
-                                    <rect key="frame" x="16" y="17" width="157" height="17"/>
+                                    <rect key="frame" x="16" y="33" width="157" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <animations/>
                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Created by Peter Kamb" id="5eb-pM-upS">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="J65-Xs-kbC">
+                                    <rect key="frame" x="16" y="14" width="242" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <animations/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="version x.y.z" id="kdl-FW-ddr">
+                                        <font key="font" metaFont="system" size="11"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
@@ -88,7 +99,7 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" title="Tips" boxType="oldStyle" borderType="line" id="tsY-Lp-Rbt">
-                        <rect key="frame" x="20" y="134" width="270" height="180"/>
+                        <rect key="frame" x="20" y="150" width="270" height="180"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="268" height="164"/>
@@ -117,7 +128,7 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" title="Settings" borderType="line" id="7">
-                        <rect key="frame" x="17" y="330" width="276" height="152"/>
+                        <rect key="frame" x="17" y="346" width="276" height="152"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView">
                             <rect key="frame" x="1" y="1" width="274" height="136"/>
@@ -216,7 +227,7 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                 </subviews>
                 <animations/>
             </view>
-            <point key="canvasLocation" x="-8" y="227.5"/>
+            <point key="canvasLocation" x="-8" y="236"/>
         </window>
     </objects>
 </document>

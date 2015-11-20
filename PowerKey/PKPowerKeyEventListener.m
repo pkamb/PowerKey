@@ -86,7 +86,10 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
     
-    // Early exit for common NSSystemDefined mouse events
+    if (event.type != NSSystemDefined) {
+        return systemEvent;
+    }
+    
     if (event.subtype == NX_SUBTYPE_AUX_MOUSE_BUTTONS) {
         return systemEvent;
     }
@@ -100,61 +103,35 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     BOOL printEventInfo = NO;
     if (printEventInfo) {
-        NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i, modifierKeys:%lu", event.type, event.subtype, (long)event.data1, keyCode, keyFlags, keyState, keyRepeat, modifierKeys);
+        NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i, modifierKeys:%lu",
+              event.type, event.subtype, (long)event.data1, keyCode, keyFlags, keyState, keyRepeat, modifierKeys);
     }
     
-    /*
-     * Pressing the Power key generates 3 NSSystemDefined keyboard events.
-     * A single NX_SUBTYPE_POWER_KEY event, and up/down versions of the NX_POWER_KEY event.
-     *
-     * PowerKey.app replaces the NX_SUBTYPE_POWER_KEY with a key event of the user's choosing.
-     * Unfortunately, the NX_POWER_KEY event cannot be replaced or killed.
-     *
-     * The NX_POWER_KEY event is no-op in OS X 10.8, but triggers an immediate sleep in 10.9.
-     */
+    // Pressing the power key generates 3 NSSystemDefined keyboard events.
+    // Attempt to kill each power key events by returning `nullEvent`.
+    // Additionally, post the user-selected key replacement as a new event.
     
-    /*
-     * NX_SUBTYPE_POWER_KEY event
-     * ============
-     * Can be killed or replaced by a new event.
-     *
-     * 10.8: triggers the [Restart | Sleep | Cancel | Shut Down] dialog
-     * 10.9:
-     *  - no modifiers: no-op
-     *  - ctrl modifier: triggers the dialog
-     */
-    if (event.type == NSSystemDefined &&
-        event.subtype == NX_SUBTYPE_POWER_KEY &&
-        !(modifierKeys & NSFunctionKeyMask))
-    {
-        // Replace event with user's prefered key.
-        systemEvent = [self newPowerKeyReplacementEvent];
+    // Power Key Event #1
+    if (event.subtype == NX_SUBTYPE_POWER_KEY) {
+        systemEvent = nullEvent;
     }
     
-    /*
-     * NX_POWER_KEY event
-     * ============
-     * Cannot be killed or replaced by a new event.
-     *
-     * 10.8: no-op
-     * 10.9: triggers immediate Sleep function
-     */
-    if (event.type == NSSystemDefined &&
-        event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS &&
-        keyCode == NX_POWER_KEY &&
-        !(modifierKeys & NSFunctionKeyMask))
-    {
-        switch (keyState) {
-            case 1:
-                // key down
-                break;
-            case 0:
-                // key up
-                break;
+    if (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
+        
+        // Power Key Event #2
+        BOOL keyDown = (keyState == 1);
+        if (keyDown) {
+            systemEvent = nullEvent;
+            
+            CGEventRef replacementEvent = [self newPowerKeyReplacementEvent];
+            CGEventPost(kCGHIDEventTap, replacementEvent);
         }
         
-        // Attempt (but fail) to kill the event
-        systemEvent = nullEvent;
+        // Power Key Event #3
+        BOOL keyUp = (keyState == 0);
+        if (keyUp) {
+            systemEvent = nullEvent;
+        }
     }
     
     return systemEvent;

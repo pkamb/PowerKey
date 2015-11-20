@@ -137,12 +137,8 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     return powerKeyReplacements;
 }
 
-- (IBAction)openProjectOnGithub:(id)sender {
-    system("open https://github.com/pkamb/powerkey");
-}
-
-- (IBAction)openMavericksFixExplanation:(id)sender {
-    system("open https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks");
+- (IBAction)openSupportLink:(id)sender {
+    system("open https://github.com/pkamb/powerkey#frequently-asked-questions");
 }
 
 - (NSURL *)applicationSupportDirectory {

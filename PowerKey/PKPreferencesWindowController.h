@@ -21,8 +21,7 @@ const NSInteger kPowerKeyScriptTag;
 - (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(CGKeyCode)keyCode keyEquivalent:(NSString *)keyEquivalent;
 - (NSMenu *)powerKeyReplacementsMenu;
 
-- (IBAction)openProjectOnGithub:(id)sender;
-- (IBAction)openMavericksFixExplanation:(id)sender;
+- (IBAction)openSupportLink:(id)sender;
 
 - (NSURL *)applicationSupportDirectory;
 - (void)copyBundleResourceToSupportDirectory:(NSString *)resource withExtension:(NSString *)extension;

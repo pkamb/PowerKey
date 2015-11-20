@@ -31,7 +31,6 @@ CFMachPortRef eventTap;
     self = [super init];
     if (self) {
         refToSelf = self;
-        self.powerKeyReplacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
     }
     
     return self;
@@ -163,17 +162,20 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 
 - (CGEventRef)newPowerKeyReplacementEvent {
     CGEventRef event;
-    if (self.powerKeyReplacementKeyCode == kPowerKeyDeadKeyTag) {
+    
+    CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
+    
+    if (replacementKeyCode == kPowerKeyDeadKeyTag) {
         event = nullEvent;
     }
-    else if (self.powerKeyReplacementKeyCode == kPowerKeyScriptTag) {
+    else if (replacementKeyCode == kPowerKeyScriptTag) {
         event = nullEvent;
         
         [PKScriptController runScript];
     }
     else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-        event = CGEventCreateKeyboardEvent(eventSource, self.powerKeyReplacementKeyCode, true);
+        event = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);
         CFRelease(eventSource);
     }
     

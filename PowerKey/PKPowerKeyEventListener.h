@@ -10,9 +10,8 @@
 
 @interface PKPowerKeyEventListener : NSObject
 
-@property (assign) CGKeyCode powerKeyReplacementKeyCode;
-
 + (PKPowerKeyEventListener *)sharedEventListener;
+
 - (void)monitorPowerKey;
 
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon);

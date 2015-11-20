@@ -25,7 +25,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
     [self.powerKeySelector setMenu:[self powerKeyReplacementsMenu]];
     
-    CGKeyCode replacementKeyCode = [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode;
+    CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey];
     NSURL *scriptURL = [[NSUserDefaults standardUserDefaults] URLForKey:kPowerKeyScriptURLKey];
     
     [self selectPowerKeyReplacementKeyCode:replacementKeyCode withScriptURL:scriptURL];
@@ -51,7 +51,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
             case NSFileHandlingPanelCancelButton:
             default:
                 // Roll back to previous selection.
-                selectedKeycode = [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode;
+                selectedKeycode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey];
                 selectedScriptURL = [[NSUserDefaults standardUserDefaults] URLForKey:kPowerKeyScriptURLKey];
                 break;
         }
@@ -67,7 +67,6 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
         NSAssert([self.powerKeySelector indexOfItemWithTag:keyCode] != -1, @"Could not find a default Power key replacement.");
     }
     
-    [PKPowerKeyEventListener sharedEventListener].powerKeyReplacementKeyCode = keyCode;
     [[NSUserDefaults standardUserDefaults] setInteger:keyCode forKey:kPowerKeyReplacementKeycodeKey];
     
     if (scriptURL) {

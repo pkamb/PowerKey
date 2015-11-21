@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5810470F17BD8BF600E438FB /* PKPowerKeyEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */; };
+		58133AB01BFFEDC200A6FD4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58133AAF1BFFEDC200A6FD4F /* Images.xcassets */; };
 		585BC3DC1BFC00F4007B4D89 /* PKScriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = 585BC3DB1BFC00F4007B4D89 /* PKScriptController.m */; };
-		588C22401727C1A30089CBBF /* powerkey.iconset in Resources */ = {isa = PBXBuildFile; fileRef = 588C223F1727C1A30089CBBF /* powerkey.iconset */; };
 		5898DF7917BEC4550048F11F /* PKPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5898DF7717BEC4550048F11F /* PKPreferencesWindowController.m */; };
 		5898DF7A17BEC4550048F11F /* PKPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */; };
 		589C50CE1727873C00E94E93 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 589C50CD1727873C00E94E93 /* Cocoa.framework */; };
@@ -25,9 +25,9 @@
 /* Begin PBXFileReference section */
 		5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPowerKeyEventListener.h; sourceTree = "<group>"; };
 		5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPowerKeyEventListener.m; sourceTree = "<group>"; };
+		58133AAF1BFFEDC200A6FD4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		585BC3DA1BFC00F4007B4D89 /* PKScriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKScriptController.h; sourceTree = "<group>"; };
 		585BC3DB1BFC00F4007B4D89 /* PKScriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKScriptController.m; sourceTree = "<group>"; };
-		588C223F1727C1A30089CBBF /* powerkey.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; path = powerkey.iconset; sourceTree = "<group>"; };
 		5898DF7617BEC4550048F11F /* PKPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPreferencesWindowController.h; sourceTree = "<group>"; };
 		5898DF7717BEC4550048F11F /* PKPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPreferencesWindowController.m; sourceTree = "<group>"; };
 		5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PKPreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -64,7 +64,6 @@
 		589C50C11727873C00E94E93 = {
 			isa = PBXGroup;
 			children = (
-				588C223F1727C1A30089CBBF /* powerkey.iconset */,
 				589C50D31727873C00E94E93 /* PowerKey */,
 				589C50CC1727873C00E94E93 /* Frameworks */,
 				589C50CB1727873C00E94E93 /* Products */,
@@ -112,6 +111,7 @@
 				5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */,
 				589C50EA172787C900E94E93 /* OpenAtLogin.h */,
 				589C50EB172787C900E94E93 /* OpenAtLogin.m */,
+				58133AAF1BFFEDC200A6FD4F /* Images.xcassets */,
 				589C50D41727873C00E94E93 /* Supporting Files */,
 			);
 			path = PowerKey;
@@ -193,9 +193,9 @@
 			files = (
 				589C50D81727873C00E94E93 /* InfoPlist.strings in Resources */,
 				589C50DE1727873C00E94E93 /* Credits.rtf in Resources */,
+				58133AB01BFFEDC200A6FD4F /* Images.xcassets in Resources */,
 				58C110331ABF332B00BB3E7F /* helloPowerKeyAppleScript.scpt in Resources */,
 				58C110321ABF332B00BB3E7F /* helloPowerKey.sh in Resources */,
-				588C22401727C1A30089CBBF /* powerkey.iconset in Resources */,
 				5898DF7A17BEC4550048F11F /* PKPreferencesWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +298,7 @@
 		589C50E81727873D00E94E93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PowerKey/PowerKey-Prefix.pch";
@@ -311,6 +312,7 @@
 		589C50E91727873D00E94E93 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PowerKey/PowerKey-Prefix.pch";

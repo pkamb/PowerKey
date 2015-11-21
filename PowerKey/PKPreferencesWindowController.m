@@ -165,7 +165,9 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     }
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
+- (IBAction)runInBackground:(id)sender {
+    [self.window orderOut:sender];
+    
     [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
 }
 

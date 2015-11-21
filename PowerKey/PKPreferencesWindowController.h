@@ -11,7 +11,7 @@
 const NSInteger kPowerKeyDeadKeyTag;
 const NSInteger kPowerKeyScriptTag;
 
-@interface PKPreferencesWindowController : NSWindowController<NSWindowDelegate, NSOpenSavePanelDelegate>
+@interface PKPreferencesWindowController : NSWindowController<NSOpenSavePanelDelegate>
 
 @property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
 @property (nonatomic, retain) IBOutlet NSTextField *versionNumberLabel;

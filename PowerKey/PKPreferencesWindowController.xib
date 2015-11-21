@@ -21,7 +21,7 @@
             </connections>
         </customObject>
         <window title="PowerKey" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
             <rect key="contentRect" x="335" y="390" width="310" height="510"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" autoresizesSubviews="NO" id="6">
@@ -37,7 +37,7 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="performClose:" target="5" id="70"/>
+                            <action selector="runInBackground:" target="-2" id="nnp-2l-6PC"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="9">

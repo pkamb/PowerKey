@@ -168,7 +168,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
 - (IBAction)runInBackground:(id)sender {
     [self.window orderOut:sender];
     
-    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
+    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyAccessory];
 }
 
 @end

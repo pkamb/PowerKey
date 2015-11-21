@@ -32,6 +32,8 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKe
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
+    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
+    
     [self.preferencesWindowController showWindow:self];
     
     return NO;

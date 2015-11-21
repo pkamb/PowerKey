@@ -227,6 +227,9 @@ This app will not prevent your Mac from sleeping or shutting down if you hold do
                 </subviews>
                 <animations/>
             </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="F4P-MY-com"/>
+            </connections>
             <point key="canvasLocation" x="-8" y="236"/>
         </window>
         <menu title="AMainMenu" systemMenu="main" id="IaR-dU-rfD">

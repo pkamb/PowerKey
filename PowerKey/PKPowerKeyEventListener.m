@@ -134,6 +134,32 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         }
     }
     
+    // Pressing the eject key generates 3 NSSystemDefined keyboard events.
+    // Attempt to kill each eject key events by returning `nullEvent`.
+    // Additionally, post the user-selected key replacement as a new event.
+    
+    // Eject Key Event #1
+    if (event.subtype == NX_SUBTYPE_EJECT_KEY) {
+        [self inputPowerKeyReplacement:CGEventGetFlags(systemEvent)];
+        
+        systemEvent = nullEvent;
+    }
+    
+    if (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
+        
+        // Eject Key Event #2
+        BOOL keyDown = (keyState == 1);
+        if (keyDown) {
+            systemEvent = nullEvent;
+        }
+        
+        // Eject Key Event #3
+        BOOL keyUp = (keyState == 0);
+        if (keyUp) {
+            systemEvent = nullEvent;
+        }
+    }
+    
     return systemEvent;
 }
 

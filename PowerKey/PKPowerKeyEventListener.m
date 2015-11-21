@@ -48,6 +48,7 @@ CFMachPortRef eventTap;
     
     for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
         switch (type) {
+            case NSMouseMoved:
             case NSKeyDown:
             case NSKeyUp:
             case NSEventTypeRotate:

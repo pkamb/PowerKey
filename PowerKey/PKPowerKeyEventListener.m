@@ -104,8 +104,40 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     BOOL printEventInfo = NO;
     if (printEventInfo) {
-        NSLog(@"EVENT: type:%lu subtype:%i, eventData:%li, keyCode:%i, keyFlags:%i, keyState:%i, keyRepeat:%i, modifierKeys:%lu",
-              event.type, event.subtype, (long)event.data1, keyCode, keyFlags, keyState, keyRepeat, modifierKeys);
+        
+        NSString *eventTypeString = nil;
+        if (event.type == NSSystemDefined) {
+            eventTypeString = @"NSSystemDefined";
+        } else {
+            eventTypeString = [NSString stringWithFormat:@"%@", @(event.type)];
+        }
+        
+        NSString *eventSubtypeString = nil;
+        if (event.subtype == NX_SUBTYPE_POWER_KEY) {
+            eventSubtypeString = @"NX_SUBTYPE_POWER_KEY";
+            
+            // Should this actually be `NSPowerOffEventType` from `NSEventSubtype`?
+            
+        } else if (event.subtype == NX_SUBTYPE_EJECT_KEY) {
+            eventSubtypeString = @"NX_SUBTYPE_EJECT_KEY";
+        } else if (event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
+            eventSubtypeString = @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
+        } else {
+            eventSubtypeString = [NSString stringWithFormat:@"%@", @(event.subtype)];
+        }
+        
+        NSString *keyCodeString = nil;
+        if (keyCode == NX_POWER_KEY) {
+            keyCodeString = @"NX_POWER_KEY";
+        } else if (keyCode == NX_KEYTYPE_EJECT) {
+            keyCodeString = @"NX_KEYTYPE_EJECT";
+        } else {
+            keyCodeString = [NSString stringWithFormat:@"%@", @(keyCode)];
+        }
+        
+        NSString *keyStateString = (keyState == 0) ? @"KeyUp" : @"KeyDown";
+        
+        NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
     }
     
     // Pressing the power key generates 3 NSSystemDefined keyboard events.

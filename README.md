@@ -16,9 +16,11 @@ https://github.com/pkamb/PowerKey/releases
 
 ## Does not prevent Shut Down!
 
-Your computer will still shut down if you **hold** the Power key for 5+ seconds.
+Your computer will still sleep or shut down if you **hold** the Power key.
 
-Be careful! You should *tap* the Power key. Don't hold it down.
+Be careful! PowerKey works best if you use a firm, hard tap to press the power key.
+
+Don't hold the power key! Tap it!
 
 ## Key Replacements
 
@@ -31,32 +33,14 @@ Choose from one of the following Power key replacements.
  - Page Down
  - Home
  - End
+ - Help
+ - Clear
  - Escape
  - Tab
  - Return
+ - Enter
  - F13
- - Script
-
-## Additional steps for OS X 10.9 Mavericks
-
-OS X 10.9 [introduced new behavior](http://support.apple.com/kb/HT5869?viewlocale=en_US) for the Power key: 
-
- - Tap the power button once to put your Mac to sleep.
- - Tap the power button again to wake your Mac.
-
-In the 10.9.2 update, Apple made this behavior configurable:
-
-    defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool NO
-
-To disable this immediate Sleep behavior and make the Power key usable with PowerKey:
-
- 1. Update OS X to version 10.9.2 or greater.
- 2. Open Terminal.
- 3. Run the command: `defaults write com.apple.loginwindow PowerButtonSleepsSystem -bool NO`
- 4. Log out of your OS X account, then log back in.
- 5. Run PowerKey.app; pressing the key will now *not* immediately put your Mac to sleep.
- 
-See [Issue #14](https://github.com/pkamb/PowerKey/issues/14) for more information.
+ - Script or Apple Script
 
 ## Screenshots
 
@@ -66,31 +50,41 @@ See [Issue #14](https://github.com/pkamb/PowerKey/issues/14) for more informatio
 
 ## Frequently Asked Questions
 
-#### But my Macbook has an Eject key!
-
-The Eject key has been replaced by Power on the newer Macbook Pro and Macbook Air models that do not feature an optical drive.
-
-Your laptop's metal Power button (in the chassis) will actually work with this app, but it's up to you to decide if that's desirable.
-
-PowerKey does not currently support remapping the Eject key.
-
-#### I'm using OS X 10.9 Mavericks, and my Mac immediately goes to Sleep.
-
-Apple changed the way the Power key works in OS X 10.9. The key now puts the computer to sleep.
-
-You will need to run an additional command to return the Power key to pre-Mavericks behavior.
-
-Please see the section ["Additional steps for OS X 10.9 Mavericks"](https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks) for more information.
-
 #### Pressing the Power key doesn't always work.
 
-Apple has made "dangerous" keys such as Caps-Lock and Power somewhat harder to accidentally press:
+Apple has made mode-switching keys such as Caps-Lock and Power somewhat harder to accidentally press:
 
  > [Mac Notebooks: Caps Lock modified to reduce accidental activation](http://support.apple.com/kb/ht1192)
 
 You must *firmly* press the key for half-a-tick longer than a normal keypress for it to be recognized.
 
-We are [working on removing this delay](https://github.com/tekezo/NoEjectDelay/issues/1), but it may not be possible.
+#### The display is turning off!
+
+PowerKey doesn't modify the behavior of *holding* the power key.
+
+Depending on how long you hold the power key, this may result in your display turning off, the computer going to sleep, or a forced shutdown.
+
+When using PowerKey, be sure to only press the power key with a firm, hard tap.
+
+#### But my MacBook has an Eject key!
+
+The Eject key has been replaced by a Power key on the newer Macbook, Macbook Pro, and Macbook Air models that do not feature an optical drive.
+
+But PowerKey **does** work with the Eject key as well, so you're in luck.
+
+Your laptop's metal Power button (in the chassis) will actually work with this app as well, but it's up to you to decide if that's desirable.
+
+#### I'm using OS X 10.9 Mavericks, and my Mac immediately goes to Sleep.
+
+In OS X 10.9 Mavericks, tapping the power key *immediately* puts the computer to sleep.
+
+This behavior has been corrected in later versions of OS X, so please take the time to upgrade from Mavericks if possible.
+
+If using Mavericks, you will need to run an additional command to enable PowerKey. 
+
+Please see the section ["Additional steps for OS X 10.9 Mavericks"](https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks) for more information.
+
+
 
 ## Support
 

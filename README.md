@@ -18,7 +18,9 @@ The release version of `PowerKey.app` can be [purchased via Gumroad](https://gum
 
 https://gumroad.com/l/powerkey
 
-The release version of PowerKey is signed with our DeveloperID, making it easier to run by default on Mac OS X.
+The release version of PowerKey is signed with our DeveloperID, making it easier to run by default on Mac OS X. Purchasing the code-signed release version of PowerKey will allow you to run the app without modifying your Mac's Gatekeeper security settings.
+
+Purchasing PowerKey also supports continued development of the app!
 
 PowerKey can also be installed by cloning this repo and building the app via Xcode.
 

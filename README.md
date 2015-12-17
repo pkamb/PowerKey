@@ -1,6 +1,6 @@
 #PowerKey
 
-![PowerKey icon](https://raw.github.com/pkamb/PowerKey/master/etc/screenshots/powerkeyIcon.png "PowerKey icon")
+![MacBook keyboard with power key](https://raw.github.com/pkamb/PowerKey/master/etc/images/keyboard.png "MacBook keyboard with power key")
 
 ## Remap your Power key
 
@@ -8,11 +8,17 @@ PowerKey remaps your Macbook Pro or Macbook Air's Power key.
 
 Remapping to Forward Delete ⌦ is the most popular replacement.
 
-## Download
+## Purchase and Download
 
-Release versions of `PowerKey.app` can be found on GitHub:
+The release version of `PowerKey.app` can be [purchased via Gumroad](https://gumroad.com/l/powerkey).
 
-https://github.com/pkamb/PowerKey/releases
+https://gumroad.com/l/powerkey
+
+The release version of PowerKey is signed with our DeveloperID, making it easier to run by default on Mac OS X.
+
+PowerKey can also be installed by cloning this repo and building the app via Xcode.
+
+![PowerKey app on desktop](https://raw.github.com/pkamb/PowerKey/master/etc/images/desktop_app_icon.png "PowerKey app on desktop")
 
 ## Does not prevent Shut Down!
 
@@ -21,6 +27,8 @@ Your computer will still sleep or shut down if you **hold** the Power key.
 Be careful! PowerKey works best if you use a firm, hard tap to press the power key.
 
 Don't hold the power key! Tap it!
+
+![PowerKey replacements](https://raw.github.com/pkamb/PowerKey/master/etc/images/power_key_replacements.png "PowerKey replacements")
 
 ## Key Replacements
 
@@ -41,12 +49,6 @@ Choose from one of the following Power key replacements.
  - Enter
  - F13
  - Script or Apple Script
-
-## Screenshots
-
-![PowerKey screenshot](https://raw.github.com/pkamb/PowerKey/master/etc/screenshots/settingsWindow_small.png "PowerKey settings window screenshot")
-
-![PowerKey remapping options](https://raw.github.com/pkamb/PowerKey/master/etc/screenshots/remappingOptions_small.png "PowerKey remapping options")
 
 ## Frequently Asked Questions
 
@@ -80,11 +82,7 @@ In OS X 10.9 Mavericks, tapping the power key *immediately* puts the computer to
 
 This behavior has been corrected in later versions of OS X, so please take the time to upgrade from Mavericks if possible.
 
-If using Mavericks, you will need to run an additional command to enable PowerKey. 
-
-Please see the section ["Additional steps for OS X 10.9 Mavericks"](https://github.com/pkamb/PowerKey#additional-steps-for-os-x-109-mavericks) for more information.
-
-
+If using Mavericks, you will need to run an additional command to enable PowerKey. Please see [Issue #14](https://github.com/pkamb/PowerKey/issues/14) for more information.
 
 ## Support
 

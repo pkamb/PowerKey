@@ -89,3 +89,8 @@ If using Mavericks, you will need to run an additional command to enable PowerKe
 If you have any issues or suggestions, please [create a GitHub issue](https://github.com/pkamb/PowerKey/issues):
 
 https://github.com/pkamb/PowerKey/issues
+
+## Credits
+
+Photo of Macbook Pro keyboard by Kārlis Dambrāns:  
+https://www.flickr.com/photos/janitors/10037328385/

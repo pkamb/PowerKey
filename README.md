@@ -26,7 +26,7 @@ Your computer will still sleep or shut down if you **hold** the Power key.
 
 Be careful! PowerKey works best if you use a firm, hard tap to press the power key.
 
-Don't hold the power key! Tap it!
+Don't hold the power key. Tap it!
 
 ## Key Replacements
 
@@ -47,8 +47,8 @@ Choose from one of the following Power key replacements.
  - Enter
  - F13
  - Script or Apple Script
- 
- ![PowerKey replacements](https://raw.github.com/pkamb/PowerKey/master/etc/images/power_key_replacements.png "PowerKey replacements")
+  
+![PowerKey replacements](https://raw.github.com/pkamb/PowerKey/master/etc/images/power_key_replacements.png "PowerKey replacements")
 
 ## Frequently Asked Questions
 

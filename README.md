@@ -4,9 +4,13 @@
 
 ## Remap your Power key
 
-PowerKey remaps your Macbook Pro or Macbook Air's Power key.
+PowerKey remaps your Apple MacBook, MacBook Pro or MacBook Air's Power key.
 
-Remapping to Forward Delete ⌦ is the most popular replacement.
+Remapping the Power key to Forward Delete ⌦ is the most popular replacement.
+
+The Forward Delete key is extremely convenient when writing or coding, and you're probably already used to tapping it frequently on keyboards other than your MacBook's.
+
+Use PowerKey to restore useful functionality to your Macbook's keyboard!
 
 ## Purchase and Download
 

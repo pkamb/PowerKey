@@ -10,7 +10,7 @@ Remapping the Power key to Forward Delete ⌦ is the most popular replacement.
 
 PowerKey can also be used to run a Script or Apple Script each time you tap the Power Key.
 
-## Forward Delete for Mac
+## Forward Delete for Mac OS X
 
 The Forward Delete key is extremely convenient when writing or coding, and you're probably already used to tapping it frequently on keyboards other than your MacBook's.
 

@@ -8,6 +8,10 @@ PowerKey remaps your Apple MacBook, MacBook Pro or MacBook Air's Power key.
 
 Remapping the Power key to Forward Delete ⌦ is the most popular replacement.
 
+PowerKey can also be used to run a Script or Apple Script each time you tap the Power Key.
+
+## Forward Delete for Mac
+
 The Forward Delete key is extremely convenient when writing or coding, and you're probably already used to tapping it frequently on keyboards other than your MacBook's.
 
 Use PowerKey to restore useful functionality to your Macbook's keyboard!

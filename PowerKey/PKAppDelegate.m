@@ -17,16 +17,17 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKe
 @implementation PKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey: [NSNumber numberWithInteger:kVK_ForwardDelete],
-                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey: @YES};
+    NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey: @(kVK_ForwardDelete),
+                                   kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey: @YES,
+                                   };
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultPrefs];
     
     [[PKPowerKeyEventListener sharedEventListener] monitorPowerKey];
     
     self.preferencesWindowController = [[PKPreferencesWindowController alloc] initWithWindowNibName:@"PKPreferencesWindowController"];
     
-    BOOL shouldShowPrefs = [[[NSUserDefaults standardUserDefaults] objectForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey] boolValue];
-    if(shouldShowPrefs || ![OpenAtLogin loginItemExists]) {        
+    BOOL shouldShowPrefs = [[NSUserDefaults standardUserDefaults] boolForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
+    if(shouldShowPrefs || ![OpenAtLogin loginItemExists]) {
         [self.preferencesWindowController showWindow:self];
     }
 }

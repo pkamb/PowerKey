@@ -29,13 +29,13 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKe
     BOOL shouldShowPrefs = [[NSUserDefaults standardUserDefaults] boolForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
     if(shouldShowPrefs || ![OpenAtLogin loginItemExists]) {
         [self.preferencesWindowController showWindow:self];
+        [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
     }
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
-    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
-    
     [self.preferencesWindowController showWindow:self];
+    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
     
     return NO;
 }

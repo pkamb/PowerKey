@@ -16,11 +16,9 @@ const NSInteger kPowerKeyScriptTag;
 @property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
 @property (nonatomic, retain) IBOutlet NSTextField *versionNumberLabel;
 
-- (IBAction)didSelectPowerKeyReplacement:(id)sender;
-
+- (IBAction)runInBackground:(id)sender;
 - (IBAction)openSupportLink:(id)sender;
 
-- (NSURL *)applicationSupportDirectory;
-- (void)copyBundleResourceToSupportDirectory:(NSString *)resource withExtension:(NSString *)extension;
+- (IBAction)didSelectPowerKeyReplacement:(id)sender;
 
 @end

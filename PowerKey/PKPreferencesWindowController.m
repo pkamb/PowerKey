@@ -34,6 +34,16 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [self selectPowerKeyReplacementKeyCode:replacementKeyCode withScriptURL:scriptURL];
 }
 
+- (IBAction)runInBackground:(id)sender {
+    [self.window orderOut:sender];
+    
+    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyAccessory];
+}
+
+- (IBAction)openSupportLink:(id)sender {
+    system("open https://github.com/pkamb/powerkey#frequently-asked-questions");
+}
+
 - (NSArray *)powerKeyReplacements {
     NSArray *replacements =  @[@[@"Delete", @(kVK_ForwardDelete)],
                                @[@"No Action", @(kPowerKeyDeadKeyTag)],
@@ -135,10 +145,6 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     return script || appleScript;
 }
 
-- (IBAction)openSupportLink:(id)sender {
-    system("open https://github.com/pkamb/powerkey#frequently-asked-questions");
-}
-
 - (NSURL *)applicationSupportDirectory {
     NSArray *urls = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask];
     NSURL *applicationSupport = [[urls firstObject] URLByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier] isDirectory:YES];
@@ -164,12 +170,6 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
             NSLog(@"Error copying bundle resource to Application Support directory: %@", error);
         }
     }
-}
-
-- (IBAction)runInBackground:(id)sender {
-    [self.window orderOut:sender];
-    
-    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyAccessory];
 }
 
 @end

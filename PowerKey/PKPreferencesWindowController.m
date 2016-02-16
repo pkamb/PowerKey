@@ -34,6 +34,42 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     [self selectPowerKeyReplacementKeyCode:replacementKeyCode withScriptURL:scriptURL];
 }
 
+- (NSArray *)powerKeyReplacements {
+    NSArray *replacements =  @[@[@"Delete", @(kVK_ForwardDelete)],
+                               @[@"No Action", @(kPowerKeyDeadKeyTag)],
+                               @[@"Delete (backspace)", @(kVK_Delete)],
+                               @[@"Page Up", @(kVK_PageUp)],
+                               @[@"Page Down", @(kVK_PageDown)],
+                               @[@"Home", @(kVK_Home)],
+                               @[@"End", @(kVK_End)],
+                               @[@"Help", @(kVK_Help)],
+                               @[@"Clear", @(kVK_ANSI_KeypadClear)],
+                               @[@"Escape", @(kVK_Escape)],
+                               @[@"Tab", @(kVK_Tab)],
+                               @[@"Return", @(kVK_Return)],
+                               @[@"Enter", @(kVK_ANSI_KeypadEnter)],
+                               @[@"F13", @(kVK_F13)],
+                               @[@"Script", @(kPowerKeyScriptTag)],
+                               ];
+    
+    return replacements;
+}
+
+- (NSMenu *)powerKeyReplacementsMenu {
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
+    
+    NSArray *replacements = [self powerKeyReplacements];
+    for (NSArray *replacement in replacements) {
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:replacement[0] action:NULL keyEquivalent:@""];
+        menuItem.tag = [replacement[1] integerValue];
+        menuItem.keyEquivalentModifierMask = 0;
+        
+        [menu addItem:menuItem];
+    }
+    
+    return menu;
+}
+
 - (IBAction)didSelectPowerKeyReplacement:(id)sender {
     NSInteger selectedKeycode = ((NSPopUpButton *)sender).selectedItem.tag;
     NSURL *selectedScriptURL = nil;
@@ -97,41 +133,6 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
     BOOL appleScript = [PKScriptController isValidAppleScriptWithURL:url];
     
     return script || appleScript;
-}
-
-- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(CGKeyCode)keyCode {
-    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:title action:NULL keyEquivalent:@""];
-    menuItem.tag = keyCode;
-    menuItem.keyEquivalentModifierMask = 0;
-    
-    return menuItem;
-}
-
-- (NSMenu *)powerKeyReplacementsMenu {
-    NSMenu *powerKeyReplacements = [[NSMenu alloc] initWithTitle:@"Power Key Replacements"];
-        
-    // Select one of the following Power key replacements.
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Delete" keyCode:kVK_ForwardDelete]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"No Action" keyCode:kPowerKeyDeadKeyTag]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Delete (backspace)" keyCode:kVK_Delete]];
-    
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Page Up" keyCode:kVK_PageUp]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Page Down" keyCode:kVK_PageDown]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Home" keyCode:kVK_Home]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"End" keyCode:kVK_End]];
-    
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Help" keyCode:kVK_Help]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Clear" keyCode:kVK_ANSI_KeypadClear]];
-
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Escape" keyCode:kVK_Escape]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Tab" keyCode:kVK_Tab]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Return" keyCode:kVK_Return]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Enter" keyCode:kVK_ANSI_KeypadEnter]];
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"F13" keyCode:kVK_F13]];
-    
-    [powerKeyReplacements addItem:[self powerKeyReplacementMenuItemWithTitle:@"Script" keyCode:kPowerKeyScriptTag]];
-    
-    return powerKeyReplacements;
 }
 
 - (IBAction)openSupportLink:(id)sender {

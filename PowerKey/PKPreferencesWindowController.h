@@ -18,10 +18,6 @@ const NSInteger kPowerKeyScriptTag;
 
 - (IBAction)didSelectPowerKeyReplacement:(id)sender;
 
-- (NSMenuItem *)powerKeyReplacementMenuItemWithTitle:(NSString *)title keyCode:(CGKeyCode)keyCode;
-
-- (NSMenu *)powerKeyReplacementsMenu;
-
 - (IBAction)openSupportLink:(id)sender;
 
 - (NSURL *)applicationSupportDirectory;

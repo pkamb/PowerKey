@@ -149,30 +149,30 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL ejectKeyEvent2 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
     BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
     
+    CGEventRef replacementEvent = systemEvent;
+    
     if (powerKeyEvent1 || ejectKeyEvent1) {
         
         CGKeyCode keyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
         
         if (keyCode == kPowerKeyDeadKeyTag) {
             // do nothing
-            systemEvent = nullEvent;
+            replacementEvent = nullEvent;
         } else if (keyCode == kPowerKeyScriptTag) {
             [PKScriptController runScript];
             
-            systemEvent = nullEvent;
+            replacementEvent = nullEvent;
         } else {
             CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-            CGEventRef event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
-            CGEventSetFlags(event, CGEventGetFlags(systemEvent));
+            replacementEvent = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
+            CGEventSetFlags(replacementEvent, CGEventGetFlags(systemEvent));
             CFRelease(eventSource);
-            
-            systemEvent = event;
         }
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
-        systemEvent = nullEvent;
+        replacementEvent = nullEvent;
     }
     
-    return systemEvent;
+    return replacementEvent;
 }
 
 @end

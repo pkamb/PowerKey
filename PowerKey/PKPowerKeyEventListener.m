@@ -28,8 +28,7 @@ CFMachPortRef eventTap;
 }
 
 - (id)init {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         refToSelf = self;
     }
     

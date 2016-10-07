@@ -153,10 +153,13 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     if (powerKeyEvent1 || ejectKeyEvent1) {
         
+        // Replace the first Power or Eject key event with an event/action chosen by the user.
+        
         CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
         
         if (replacementKeyCode == kPowerKeyDeadKeyTag) {
-            // do nothing
+            // no action
+            
             replacementEvent = nullEvent;
         } else if (replacementKeyCode == kPowerKeyScriptTag) {
             [PKScriptController runScript];
@@ -169,7 +172,15 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             CFRelease(eventSource);
         }
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
+        
+        // Block the second and third events.
+        
         replacementEvent = nullEvent;
+    } else {
+        
+        // This event was not a Power or Eject key event; return the original event.
+        
+        replacementEvent = systemEvent;
     }
     
     return replacementEvent;

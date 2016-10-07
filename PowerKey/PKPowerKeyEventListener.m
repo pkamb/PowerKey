@@ -150,35 +150,29 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
     
     if (powerKeyEvent1 || ejectKeyEvent1) {
-        systemEvent = [self newPowerKeyReplacement:CGEventGetFlags(systemEvent)];
+        
+        CGKeyCode keyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
+        
+        if (keyCode == kPowerKeyDeadKeyTag) {
+            // do nothing
+            systemEvent = nullEvent;
+        } else if (keyCode == kPowerKeyScriptTag) {
+            [PKScriptController runScript];
+            
+            systemEvent = nullEvent;
+        } else {
+            CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+            CGEventRef event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
+            CGEventSetFlags(event, CGEventGetFlags(systemEvent));
+            CFRelease(eventSource);
+            
+            systemEvent = event;
+        }
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
         systemEvent = nullEvent;
     }
     
     return systemEvent;
-}
-
-- (CGEventRef)newPowerKeyReplacement:(CGEventFlags)modifierFlags {
-    
-    CGEventRef event;
-    
-    CGKeyCode keyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-    
-    if (keyCode == kPowerKeyDeadKeyTag) {
-        // do nothing
-        event = nullEvent;
-    } else if (keyCode == kPowerKeyScriptTag) {
-        [PKScriptController runScript];
-        
-        event = nullEvent;
-    } else {
-        CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-        event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
-        CGEventSetFlags(event, modifierFlags);
-        CFRelease(eventSource);
-    }
-    
-    return event;
 }
 
 @end

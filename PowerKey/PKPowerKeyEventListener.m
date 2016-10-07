@@ -145,9 +145,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     // Power Key Event #1
     if (event.subtype == NX_SUBTYPE_POWER_KEY) {
-        [self inputPowerKeyReplacement:CGEventGetFlags(systemEvent)];
-
-        systemEvent = nullEvent;
+        systemEvent = [self newPowerKeyReplacement:CGEventGetFlags(systemEvent)];
     }
     
     if (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
@@ -171,9 +169,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     // Eject Key Event #1
     if (event.subtype == NX_SUBTYPE_EJECT_KEY) {
-        [self inputPowerKeyReplacement:CGEventGetFlags(systemEvent)];
-        
-        systemEvent = nullEvent;
+        systemEvent = [self newPowerKeyReplacement:CGEventGetFlags(systemEvent)];
     }
     
     if (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
@@ -194,21 +190,27 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     return systemEvent;
 }
 
-- (void)inputPowerKeyReplacement:(CGEventFlags)modifierFlags {
+- (CGEventRef)newPowerKeyReplacement:(CGEventFlags)modifierFlags {
+    
+    CGEventRef event;
+    
     CGKeyCode keyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
     
     if (keyCode == kPowerKeyDeadKeyTag) {
         // do nothing
+        event = nullEvent;
     } else if (keyCode == kPowerKeyScriptTag) {
         [PKScriptController runScript];
+        
+        event = nullEvent;
     } else {
         CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-        CGEventRef event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
+        event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
         CGEventSetFlags(event, modifierFlags);
         CFRelease(eventSource);
-        
-        CGEventPost(kCGHIDEventTap, event);
     }
+    
+    return event;
 }
 
 @end

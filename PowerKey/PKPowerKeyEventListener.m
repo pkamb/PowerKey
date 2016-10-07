@@ -139,52 +139,20 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
     }
     
-    // Pressing the power key generates 3 NSSystemDefined keyboard events.
-    // Attempt to kill each power key events by returning `nullEvent`.
-    // Additionally, post the user-selected key replacement as a new event.
+    // The Power and Eject keys each generate 3 NSSystemDefined keyboard events.
     
-    // Power Key Event #1
-    if (event.subtype == NX_SUBTYPE_POWER_KEY) {
+    BOOL powerKeyEvent1 = (event.subtype == NX_SUBTYPE_POWER_KEY);
+    BOOL powerKeyEvent2 = (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
+    BOOL powerKeyEvent3 = (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
+    
+    BOOL ejectKeyEvent1 = (event.subtype == NX_SUBTYPE_EJECT_KEY);
+    BOOL ejectKeyEvent2 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
+    BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
+    
+    if (powerKeyEvent1 || ejectKeyEvent1) {
         systemEvent = [self newPowerKeyReplacement:CGEventGetFlags(systemEvent)];
-    }
-    
-    if (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
-        
-        // Power Key Event #2
-        BOOL keyDown = (keyState == 1);
-        if (keyDown) {
-            systemEvent = nullEvent;
-        }
-        
-        // Power Key Event #3
-        BOOL keyUp = (keyState == 0);
-        if (keyUp) {
-            systemEvent = nullEvent;
-        }
-    }
-    
-    // Pressing the eject key generates 3 NSSystemDefined keyboard events.
-    // Attempt to kill each eject key events by returning `nullEvent`.
-    // Additionally, post the user-selected key replacement as a new event.
-    
-    // Eject Key Event #1
-    if (event.subtype == NX_SUBTYPE_EJECT_KEY) {
-        systemEvent = [self newPowerKeyReplacement:CGEventGetFlags(systemEvent)];
-    }
-    
-    if (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
-        
-        // Eject Key Event #2
-        BOOL keyDown = (keyState == 1);
-        if (keyDown) {
-            systemEvent = nullEvent;
-        }
-        
-        // Eject Key Event #3
-        BOOL keyUp = (keyState == 0);
-        if (keyUp) {
-            systemEvent = nullEvent;
-        }
+    } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
+        systemEvent = nullEvent;
     }
     
     return systemEvent;

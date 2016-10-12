@@ -36,20 +36,20 @@ CFMachPortRef eventTap;
 }
 
 - (void)monitorPowerKey {
-    CGEventMask eventTypeMask = NSSystemDefined;
+    CGEventMask eventTypeMask = NSEventTypeSystemDefined;
 
     /*
-     The power key sends events of type NSSystemDefined.
-     We'd idealy monitor *only* NSSystemDefined events.
+     The power key sends events of type NSEventTypeSystemDefined.
+     We'd idealy monitor *only* NSEventTypeSystemDefined events.
      But there are various bugs with certain other applications if we do.
      Therefore, we need to grab other events as well.
     */
     
-    for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
+    for (NSEventType type = NSEventTypeLeftMouseDown; type < NSEventTypeGesture; ++type) {
         switch (type) {
-            case NSMouseMoved:
-            case NSKeyDown:
-            case NSKeyUp:
+            case NSEventTypeMouseMoved:
+            case NSEventTypeKeyDown:
+            case NSEventTypeKeyUp:
             case NSEventTypeRotate:
             case NSEventTypeBeginGesture:
             case NSEventTypeEndGesture:
@@ -86,7 +86,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
     
-    if (event.type != NSSystemDefined) {
+    if (event.type != NSEventTypeSystemDefined) {
         return systemEvent;
     }
     
@@ -105,8 +105,8 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     if (printEventInfo) {
         
         NSString *eventTypeString = nil;
-        if (event.type == NSSystemDefined) {
-            eventTypeString = @"NSSystemDefined";
+        if (event.type == NSEventTypeSystemDefined) {
+            eventTypeString = @"NSEventTypeSystemDefined";
         } else {
             eventTypeString = [NSString stringWithFormat:@"%@", @(event.type)];
         }
@@ -139,7 +139,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
     }
     
-    // The Power and Eject keys each generate 3 NSSystemDefined keyboard events.
+    // The Power and Eject keys each generate 3 NSEventTypeSystemDefined keyboard events.
     
     BOOL powerKeyEvent1 = (event.subtype == NX_SUBTYPE_POWER_KEY);
     BOOL powerKeyEvent2 = (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);

@@ -167,9 +167,15 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             replacementEvent = nullEvent;
         } else {
             CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-            replacementEvent = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);
-            CGEventSetFlags(replacementEvent, CGEventGetFlags(systemEvent));
+            CGEventRef inputEvent = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);
+            CGEventSetFlags(inputEvent, CGEventGetFlags(systemEvent));
             CFRelease(eventSource);
+            
+            // Better performance by posting the newly created event as a new keyboard event,
+            // rather than attempting to return the event in place of the system keyboard event.
+            CGEventPost(kCGHIDEventTap, inputEvent);
+            
+            replacementEvent = nullEvent;
         }
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
         

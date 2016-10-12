@@ -27,7 +27,7 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKe
     self.preferencesWindowController = [[PKPreferencesWindowController alloc] initWithWindowNibName:@"PKPreferencesWindowController"];
     
     BOOL shouldShowPrefs = [[NSUserDefaults standardUserDefaults] boolForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
-    if(shouldShowPrefs || ![OpenAtLogin loginItemExists]) {
+    if (shouldShowPrefs || ![OpenAtLogin loginItemExists]) {
         [self.preferencesWindowController showWindow:self];
         [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
     }

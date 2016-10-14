@@ -175,6 +175,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             // Better performance by posting the newly created event as a new keyboard event,
             // rather than attempting to return the event in place of the system keyboard event.
             CGEventPost(kCGHIDEventTap, inputEvent);
+            CFRelease(inputEvent);
         }
         
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {

@@ -16,7 +16,7 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKe
 
 @implementation PKAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
     NSDictionary *defaultPrefs = @{kPowerKeyReplacementKeycodeKey: @(kVK_ForwardDelete),
                                    kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey: @YES,
                                    };
@@ -27,13 +27,13 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKe
     self.preferencesWindowController = [[PKPreferencesWindowController alloc] initWithWindowNibName:@"PKPreferencesWindowController"];
     
     BOOL shouldShowPrefs = [[NSUserDefaults standardUserDefaults] boolForKey:kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey];
-    if(shouldShowPrefs || ![OpenAtLogin loginItemExists]) {
+    if (shouldShowPrefs || ![OpenAtLogin loginItemExists]) {
         [self.preferencesWindowController showWindow:self];
         [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
     }
 }
 
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag {
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
     [self.preferencesWindowController showWindow:self];
     [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyRegular];
     

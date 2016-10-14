@@ -28,8 +28,7 @@ CFMachPortRef eventTap;
 }
 
 - (id)init {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         refToSelf = self;
     }
     
@@ -37,20 +36,20 @@ CFMachPortRef eventTap;
 }
 
 - (void)monitorPowerKey {
-    CGEventMask eventTypeMask = NSSystemDefined;
+    CGEventMask eventTypeMask = NSEventTypeSystemDefined;
 
     /*
-     The power key sends events of type NSSystemDefined.
-     We'd idealy monitor *only* NSSystemDefined events.
+     The power key sends events of type NSEventTypeSystemDefined.
+     We'd idealy monitor *only* NSEventTypeSystemDefined events.
      But there are various bugs with certain other applications if we do.
      Therefore, we need to grab other events as well.
     */
     
-    for (NSEventType type = NSLeftMouseDown; type < NSEventTypeGesture; ++type) {
+    for (NSEventType type = NSEventTypeLeftMouseDown; type < NSEventTypeGesture; ++type) {
         switch (type) {
-            case NSMouseMoved:
-            case NSKeyDown:
-            case NSKeyUp:
+            case NSEventTypeMouseMoved:
+            case NSEventTypeKeyDown:
+            case NSEventTypeKeyUp:
             case NSEventTypeRotate:
             case NSEventTypeBeginGesture:
             case NSEventTypeEndGesture:
@@ -77,7 +76,7 @@ CFMachPortRef eventTap;
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
     if (type == kCGEventTapDisabledByTimeout) {
         CGEventTapEnable(eventTap, true);
-    } else if (type == NSSystemDefined) {
+    } else if (type == NSEventTypeSystemDefined) {
         event = [refToSelf newPowerKeyEventOrUnmodifiedSystemDefinedEvent:event];
     }
     
@@ -87,7 +86,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
 - (CGEventRef)newPowerKeyEventOrUnmodifiedSystemDefinedEvent:(CGEventRef)systemEvent {
     NSEvent *event = [NSEvent eventWithCGEvent:systemEvent];
     
-    if (event.type != NSSystemDefined) {
+    if (event.type != NSEventTypeSystemDefined) {
         return systemEvent;
     }
     
@@ -106,8 +105,8 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     if (printEventInfo) {
         
         NSString *eventTypeString = nil;
-        if (event.type == NSSystemDefined) {
-            eventTypeString = @"NSSystemDefined";
+        if (event.type == NSEventTypeSystemDefined) {
+            eventTypeString = @"NSEventTypeSystemDefined";
         } else {
             eventTypeString = [NSString stringWithFormat:@"%@", @(event.type)];
         }
@@ -140,76 +139,57 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
     }
     
-    // Pressing the power key generates 3 NSSystemDefined keyboard events.
-    // Attempt to kill each power key events by returning `nullEvent`.
-    // Additionally, post the user-selected key replacement as a new event.
+    // The Power and Eject keys each generate 3 NSEventTypeSystemDefined keyboard events.
     
-    // Power Key Event #1
-    if (event.subtype == NX_SUBTYPE_POWER_KEY) {
-        [self inputPowerKeyReplacement:CGEventGetFlags(systemEvent)];
-
-        systemEvent = nullEvent;
-    }
+    BOOL powerKeyEvent1 = (event.subtype == NX_SUBTYPE_POWER_KEY);
+    BOOL powerKeyEvent2 = (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
+    BOOL powerKeyEvent3 = (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
     
-    if (keyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
+    BOOL ejectKeyEvent1 = (event.subtype == NX_SUBTYPE_EJECT_KEY);
+    BOOL ejectKeyEvent2 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
+    BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
+    
+    CGEventRef replacementEvent = systemEvent;
+    
+    if (powerKeyEvent1 || ejectKeyEvent1) {
         
-        // Power Key Event #2
-        BOOL keyDown = (keyState == 1);
-        if (keyDown) {
-            systemEvent = nullEvent;
+        // Block first Power or Eject key event
+        replacementEvent = nullEvent;
+        
+        // Input an event/action chosen by the user.
+        CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
+        if (replacementKeyCode == kPowerKeyDeadKeyTag) {
+            
+            // no action
+            
+        } else if (replacementKeyCode == kPowerKeyScriptTag) {
+            
+            [PKScriptController runScript];
+            
+        } else {
+            CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
+            CGEventRef inputEvent = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);
+            CGEventSetFlags(inputEvent, CGEventGetFlags(systemEvent));
+            CFRelease(eventSource);
+            
+            // Better performance by posting the newly created event as a new keyboard event,
+            // rather than attempting to return the event in place of the system keyboard event.
+            CGEventPost(kCGHIDEventTap, inputEvent);
+            CFRelease(inputEvent);
         }
         
-        // Power Key Event #3
-        BOOL keyUp = (keyState == 0);
-        if (keyUp) {
-            systemEvent = nullEvent;
-        }
-    }
-    
-    // Pressing the eject key generates 3 NSSystemDefined keyboard events.
-    // Attempt to kill each eject key events by returning `nullEvent`.
-    // Additionally, post the user-selected key replacement as a new event.
-    
-    // Eject Key Event #1
-    if (event.subtype == NX_SUBTYPE_EJECT_KEY) {
-        [self inputPowerKeyReplacement:CGEventGetFlags(systemEvent)];
+    } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
         
-        systemEvent = nullEvent;
-    }
-    
-    if (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
+        // Block the second and third events.
+        replacementEvent = nullEvent;
         
-        // Eject Key Event #2
-        BOOL keyDown = (keyState == 1);
-        if (keyDown) {
-            systemEvent = nullEvent;
-        }
-        
-        // Eject Key Event #3
-        BOOL keyUp = (keyState == 0);
-        if (keyUp) {
-            systemEvent = nullEvent;
-        }
-    }
-    
-    return systemEvent;
-}
-
-- (void)inputPowerKeyReplacement:(CGEventFlags)modifierFlags {
-    CGKeyCode keyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-    
-    if (keyCode == kPowerKeyDeadKeyTag) {
-        // do nothing
-    } else if (keyCode == kPowerKeyScriptTag) {
-        [PKScriptController runScript];
     } else {
-        CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
-        CGEventRef event = CGEventCreateKeyboardEvent(eventSource, keyCode, true);
-        CGEventSetFlags(event, modifierFlags);
-        CFRelease(eventSource);
         
-        CGEventPost(kCGHIDEventTap, event);
+        // This event was not a Power or Eject key event; return the original event.
+        replacementEvent = systemEvent;
     }
+    
+    return replacementEvent;
 }
 
 @end

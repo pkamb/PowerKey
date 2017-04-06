@@ -190,7 +190,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             CFRelease(inputEvent);
         }
         
-    } else if ((powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3 || touchidKeyEvent2 || touchidKeyEvent3) && keyCode != NX_KEYTYPE_SOUND_UP) {
+    } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
         
         // Block the second and third events. (JDL: Unless the key is SOUND_UP)
         replacementEvent = nullEvent;

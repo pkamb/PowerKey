@@ -8,6 +8,7 @@
 
 #import "PKPowerKeyEventListener.h"
 #include <Carbon/Carbon.h>
+#include <AppKit/NSEvent.h>
 #include <IOKit/hidsystem/ev_keymap.h>
 #import "PKAppDelegate.h"
 #import "PKScriptController.h"
@@ -158,6 +159,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         
         // Input an event/action chosen by the user.
         CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
+
         if (replacementKeyCode == kPowerKeyDeadKeyTag) {
             
             // no action
@@ -166,6 +168,20 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             
             [PKScriptController runScript];
             
+        } else if ([@[@NX_KEYTYPE_PLAY, @NX_KEYTYPE_PREVIOUS, @NX_KEYTYPE_NEXT] containsObject:@(replacementKeyCode)]) {
+            // Helper method for special keys.
+            // Source: http://stackoverflow.com/questions/11045814/emulate-media-key-press-on-mac
+            NSEvent *inputEvent = [NSEvent otherEventWithType: NSSystemDefined
+                                                     location: NSMakePoint(0,0)
+                                                modifierFlags: 0xa00
+                                                    timestamp: 0
+                                                 windowNumber: 0
+                                                      context: 0
+                                                      subtype: 8
+                                                        data1: (replacementKeyCode << 16) | ((0xa) << 8)
+                                                        data2: -1];
+
+            CGEventPost(0, [inputEvent CGEvent]);
         } else {
             CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
             CGEventRef inputEvent = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);

@@ -8,6 +8,8 @@
 
 #import "PKPreferencesWindowController.h"
 #include <Carbon/Carbon.h>
+#include <IOKit/hidsystem/ev_keymap.h>
+#import <Foundation/Foundation.h>
 #import "PKAppDelegate.h"
 #import "PKPowerKeyEventListener.h"
 #import "PKScriptController.h"
@@ -58,6 +60,9 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
                                @[@"Tab", @(kVK_Tab)],
                                @[@"Return", @(kVK_Return)],
                                @[@"Enter", @(kVK_ANSI_KeypadEnter)],
+                               @[@"Play/Pause (media)", @(NX_KEYTYPE_PLAY)],
+                               @[@"Previous (media)", @(NX_KEYTYPE_PREVIOUS)],
+                               @[@"Next (media)", @(NX_KEYTYPE_NEXT)],
                                @[@"F13", @(kVK_F13)],
                                @[@"Script", @(kPowerKeyScriptTag)],
                                ];

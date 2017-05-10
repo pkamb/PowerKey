@@ -159,7 +159,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         
         // Input an event/action chosen by the user.
         CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
-
         if (replacementKeyCode == kPowerKeyDeadKeyTag) {
             
             // no action

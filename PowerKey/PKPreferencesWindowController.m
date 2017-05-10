@@ -9,7 +9,6 @@
 #import "PKPreferencesWindowController.h"
 #include <Carbon/Carbon.h>
 #include <IOKit/hidsystem/ev_keymap.h>
-#import <Foundation/Foundation.h>
 #import "PKAppDelegate.h"
 #import "PKPowerKeyEventListener.h"
 #import "PKScriptController.h"

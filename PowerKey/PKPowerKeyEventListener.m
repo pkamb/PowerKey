@@ -121,6 +121,12 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             eventSubtypeString = @"NX_SUBTYPE_EJECT_KEY";
         } else if (event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
             eventSubtypeString = @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
+        } else if (event.subtype == NX_SUBTYPE_MENU) {
+            // JDL: Single click on TouchID button
+            eventSubtypeString = @"NX_SUBTYPE_MENU";
+        } else if (event.subtype == NX_SUBTYPE_ACCESSIBILITY) {
+            // JDL: Triple click on TouchID button
+            eventSubtypeString = @"NX_SUBTYPE_ACCESSIBILITY";
         } else {
             eventSubtypeString = [NSString stringWithFormat:@"%@", @(event.subtype)];
         }
@@ -148,10 +154,16 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL ejectKeyEvent1 = (event.subtype == NX_SUBTYPE_EJECT_KEY);
     BOOL ejectKeyEvent2 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
     BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
+
+    // JDL: This handles a single or triple press on the TouchID button
+    BOOL touchidKeyEvent1 = (event.subtype == NX_SUBTYPE_MENU || event.subtype == NX_SUBTYPE_ACCESSIBILITY);
+    // JDL: NX_KEYTYPE_SOUND_UP seems to match keyCode 0
+    BOOL touchidKeyEvent2 = (keyCode == NX_KEYTYPE_SOUND_UP && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
+    BOOL touchidKeyEvent3 = (keyCode == NX_KEYTYPE_SOUND_UP && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
     
     CGEventRef replacementEvent = systemEvent;
     
-    if (powerKeyEvent1 || ejectKeyEvent1) {
+    if (powerKeyEvent1 || ejectKeyEvent1 || touchidKeyEvent1) {
         
         // Block first Power or Eject key event
         replacementEvent = nullEvent;
@@ -180,7 +192,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
         
-        // Block the second and third events.
+        // Block the second and third events. (JDL: Unless the key is SOUND_UP)
         replacementEvent = nullEvent;
         
     } else {

@@ -121,11 +121,9 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             eventSubtypeString = @"NX_SUBTYPE_EJECT_KEY";
         } else if (event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
             eventSubtypeString = @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
-        } else if (event.subtype == NX_SUBTYPE_MENU) {
-            // JDL: Single click on TouchID button
+        } else if ((short)event.subtype == NX_SUBTYPE_MENU) {
             eventSubtypeString = @"NX_SUBTYPE_MENU";
-        } else if (event.subtype == NX_SUBTYPE_ACCESSIBILITY) {
-            // JDL: Triple click on TouchID button
+        } else if ((short)event.subtype == NX_SUBTYPE_ACCESSIBILITY) {
             eventSubtypeString = @"NX_SUBTYPE_ACCESSIBILITY";
         } else {
             eventSubtypeString = [NSString stringWithFormat:@"%@", @(event.subtype)];
@@ -156,7 +154,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
 
     // JDL: This handles a single or triple press on the TouchID button
-    BOOL touchidKeyEvent1 = (event.subtype == NX_SUBTYPE_MENU || event.subtype == NX_SUBTYPE_ACCESSIBILITY);
+    BOOL touchidKeyEvent1 = ((short)event.subtype == NX_SUBTYPE_MENU || (short)event.subtype == NX_SUBTYPE_ACCESSIBILITY);
     // JDL: NX_KEYTYPE_SOUND_UP seems to match keyCode 0
     BOOL touchidKeyEvent2 = (keyCode == NX_KEYTYPE_SOUND_UP && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
     BOOL touchidKeyEvent3 = (keyCode == NX_KEYTYPE_SOUND_UP && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);

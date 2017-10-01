@@ -156,11 +156,11 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL ejectKeyEvent2 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
     BOOL ejectKeyEvent3 = (keyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
 
-    BOOL touchidKeyEvent1 = ((short)event.subtype == NX_SUBTYPE_MENU);
+    BOOL touchIDKeyEventSingleTap = ((short)event.subtype == NX_SUBTYPE_MENU);
     
     CGEventRef replacementEvent = systemEvent;
     
-    if (powerKeyEvent1 || ejectKeyEvent1 || touchidKeyEvent1) {
+    if (powerKeyEvent1 || ejectKeyEvent1 || touchIDKeyEventSingleTap) {
         
         // Block first key event
         replacementEvent = nullEvent;

@@ -161,7 +161,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     CGEventRef replacementEvent = systemEvent;
     
-    if (powerKeyEvent1 || ejectKeyEvent1 || touchIDKeyEventSingleTap) {
+    if (powerKeyEvent1 || ejectKeyEvent1 || touchIDKeyEventSingleTap || touchIDKeyEventTripleTap) {
         
         // Block first key event
         replacementEvent = nullEvent;

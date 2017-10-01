@@ -154,7 +154,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     if (powerKeyEvent1 || ejectKeyEvent1) {
         
         // Block first Power or Eject key event
-        replacementEvent = nullEvent;
+        replacementEvent = NULL;
         
         // Input an event/action chosen by the user.
         CGKeyCode replacementKeyCode = [[NSUserDefaults standardUserDefaults] integerForKey:kPowerKeyReplacementKeycodeKey] ?: kVK_ForwardDelete;
@@ -181,7 +181,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     } else if (powerKeyEvent2 || powerKeyEvent3 || ejectKeyEvent2 || ejectKeyEvent3) {
         
         // Block the second and third events.
-        replacementEvent = nullEvent;
+        replacementEvent = NULL;
         
     } else {
         

@@ -35,22 +35,21 @@
     }
 }
 
+- (NSString *)specialKeyCodeString {
+    switch (self.specialKeyCode) {
+        case NX_POWER_KEY: return @"NX_POWER_KEY";
+        case NX_KEYTYPE_EJECT: return @"NX_KEYTYPE_EJECT";
+        default: return [NSString stringWithFormat:@"%@", @(self.specialKeyCode)];
+    }
+}
+
 - (NSDictionary *)debugInformation {
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-    
-    NSString *specialKeyCodeCodeString = nil;
-    if (self.specialKeyCode == NX_POWER_KEY) {
-        specialKeyCodeCodeString = @"NX_POWER_KEY";
-    } else if (self.specialKeyCode == NX_KEYTYPE_EJECT) {
-        specialKeyCodeCodeString = @"NX_KEYTYPE_EJECT";
-    } else {
-        specialKeyCodeCodeString = [NSString stringWithFormat:@"%@", @(self.specialKeyCode)];
-    }
     
     NSDictionary *debugInformation = @{
                                        @"type": self.eventTypeString,
                                        @"subtype": self.eventSubtypeString,
-                                       @"specialKeyCode": specialKeyCodeCodeString,
+                                       @"specialKeyCode": self.specialKeyCodeString,
                                        @"keyState": (self.keyState == 0) ? @"KeyUp" : @"KeyDown",
                                        @"keyRepeat": @(self.keyRepeat),
                                        @"modifierKeys": @(modifierKeys),

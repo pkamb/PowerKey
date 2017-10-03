@@ -24,26 +24,19 @@
     }
 }
 
+- (NSString *)eventSubtypeString {
+    switch ((short)self.subtype) {
+        case NX_SUBTYPE_POWER_KEY: return @"NX_SUBTYPE_POWER_KEY"; // `NSPowerOffEventType` from `NSEventSubtype`?
+        case NX_SUBTYPE_EJECT_KEY: return @"NX_SUBTYPE_EJECT_KEY";
+        case NX_SUBTYPE_AUX_CONTROL_BUTTONS: return @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
+        case NX_SUBTYPE_MENU: return @"NX_SUBTYPE_MENU";
+        case NX_SUBTYPE_ACCESSIBILITY: return @"NX_SUBTYPE_ACCESSIBILITY";
+        default: return [NSString stringWithFormat:@"%@", @(self.subtype)];
+    }
+}
+
 - (NSDictionary *)debugInformation {
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-    
-    NSString *eventSubtypeString = nil;
-    if (self.subtype == NX_SUBTYPE_POWER_KEY) {
-        eventSubtypeString = @"NX_SUBTYPE_POWER_KEY";
-        
-        // Should this actually be `NSPowerOffEventType` from `NSEventSubtype`?
-        
-    } else if (self.subtype == NX_SUBTYPE_EJECT_KEY) {
-        eventSubtypeString = @"NX_SUBTYPE_EJECT_KEY";
-    } else if (self.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
-        eventSubtypeString = @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
-    } else if ((short)self.subtype == NX_SUBTYPE_MENU) {
-        eventSubtypeString = @"NX_SUBTYPE_MENU";
-    } else if ((short)self.subtype == NX_SUBTYPE_ACCESSIBILITY) {
-        eventSubtypeString = @"NX_SUBTYPE_ACCESSIBILITY";
-    } else {
-        eventSubtypeString = [NSString stringWithFormat:@"%@", @(self.subtype)];
-    }
     
     NSString *specialKeyCodeCodeString = nil;
     if (self.specialKeyCode == NX_POWER_KEY) {
@@ -56,7 +49,7 @@
     
     NSDictionary *debugInformation = @{
                                        @"type": self.eventTypeString,
-                                       @"subtype": eventSubtypeString,
+                                       @"subtype": self.eventSubtypeString,
                                        @"specialKeyCode": specialKeyCodeCodeString,
                                        @"keyState": (self.keyState == 0) ? @"KeyUp" : @"KeyDown",
                                        @"keyRepeat": @(self.keyRepeat),

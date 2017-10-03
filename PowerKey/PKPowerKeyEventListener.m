@@ -51,18 +51,18 @@ CFMachPortRef eventTap;
         eventSubtypeString = [NSString stringWithFormat:@"%@", @(self.subtype)];
     }
     
-    NSString *keyCodeString = nil;
+    NSString *specialKeyCodeCodeString = nil;
     if (self.specialKeyCode == NX_POWER_KEY) {
-        keyCodeString = @"NX_POWER_KEY";
+        specialKeyCodeCodeString = @"NX_POWER_KEY";
     } else if (self.specialKeyCode == NX_KEYTYPE_EJECT) {
-        keyCodeString = @"NX_KEYTYPE_EJECT";
+        specialKeyCodeCodeString = @"NX_KEYTYPE_EJECT";
     } else {
-        keyCodeString = [NSString stringWithFormat:@"%@", @(self.specialKeyCode)];
+        specialKeyCodeCodeString = [NSString stringWithFormat:@"%@", @(self.specialKeyCode)];
     }
     
     NSString *keyStateString = (self.keyState == 0) ? @"KeyUp" : @"KeyDown";
     
-    NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(self.keyRepeat), @(modifierKeys));
+    NSLog(@"Event: type:%@, subtype:%@, specialKeyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", , eventSubtypeString, specialKeyCodeCodeString, keyStateString, @(self.keyRepeat), @(modifierKeys));
     
     return nil;
 }

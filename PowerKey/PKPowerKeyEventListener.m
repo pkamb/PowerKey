@@ -21,11 +21,14 @@ CFMachPortRef eventTap;
     return ((self.data1 & 0xFFFF0000) >> 16);
 }
 
+- (int)keyFlags {
+    return (self.data1 & 0x0000FFFF);
+}
+
 - (NSDictionary *)debugInformation {
     // http://weblog.rogueamoeba.com/2007/09/29/
-    int keyFlags = (self.data1 & 0x0000FFFF);
-    int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
-    int keyRepeat = (keyFlags & 0x1);
+    int keyState = (((self.keyFlags & 0xFF00) >> 8)) == 0xA;
+    int keyRepeat = (self.keyFlags & 0x1);
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
 
     NSString *eventTypeString = nil;
@@ -151,8 +154,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     }
     
     int specialKeyCode = [event specialKeyCode];
-    int keyFlags = (event.data1 & 0x0000FFFF);
-    int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
+    int keyState = (((event.keyFlags & 0xFF00) >> 8)) == 0xA;
     
     BOOL printEventInfo = NO;
     if (printEventInfo) {

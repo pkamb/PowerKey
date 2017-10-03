@@ -14,6 +14,4 @@ NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey;
 
 @interface PKAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (nonatomic, strong) PKPreferencesWindowController *preferencesWindowController;
-
 @end

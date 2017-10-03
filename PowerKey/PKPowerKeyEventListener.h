@@ -11,7 +11,6 @@
 @interface PKPowerKeyEventListener : NSObject
 
 + (PKPowerKeyEventListener *)sharedEventListener;
-
 - (void)monitorPowerKey;
 
 @end

@@ -15,6 +15,14 @@
 id refToSelf;
 CFMachPortRef eventTap;
 
+@implementation NSEvent (PKNSEvent)
+
+- (NSDictionary *)debugInformation {
+    return nil;
+}
+
+@end
+
 @implementation PKPowerKeyEventListener
 
 + (PKPowerKeyEventListener *)sharedEventListener {

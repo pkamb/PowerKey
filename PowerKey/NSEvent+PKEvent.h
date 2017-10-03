@@ -10,4 +10,11 @@
 
 @interface NSEvent (PKEvent)
 
+- (int)specialKeyCode;
+- (int)keyFlags;
+- (int)keyState;
+- (int)keyRepeat;
+
+- (NSDictionary *)debugInformation;
+
 @end

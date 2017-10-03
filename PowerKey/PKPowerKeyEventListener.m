@@ -18,6 +18,51 @@ CFMachPortRef eventTap;
 @implementation NSEvent (PKNSEvent)
 
 - (NSDictionary *)debugInformation {
+    // http://weblog.rogueamoeba.com/2007/09/29/
+    int keyCode = ((self.data1 & 0xFFFF0000) >> 16);
+    int keyFlags = (self.data1 & 0x0000FFFF);
+    int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
+    int keyRepeat = (keyFlags & 0x1);
+    NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
+
+    NSString *eventTypeString = nil;
+    if (self.type == NSEventTypeSystemDefined) {
+        eventTypeString = @"NSEventTypeSystemDefined";
+    } else {
+        eventTypeString = [NSString stringWithFormat:@"%@", @(self.type)];
+    }
+    
+    NSString *eventSubtypeString = nil;
+    if (self.subtype == NX_SUBTYPE_POWER_KEY) {
+        eventSubtypeString = @"NX_SUBTYPE_POWER_KEY";
+        
+        // Should this actually be `NSPowerOffEventType` from `NSEventSubtype`?
+        
+    } else if (self.subtype == NX_SUBTYPE_EJECT_KEY) {
+        eventSubtypeString = @"NX_SUBTYPE_EJECT_KEY";
+    } else if (self.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
+        eventSubtypeString = @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
+    } else if ((short)self.subtype == NX_SUBTYPE_MENU) {
+        eventSubtypeString = @"NX_SUBTYPE_MENU";
+    } else if ((short)self.subtype == NX_SUBTYPE_ACCESSIBILITY) {
+        eventSubtypeString = @"NX_SUBTYPE_ACCESSIBILITY";
+    } else {
+        eventSubtypeString = [NSString stringWithFormat:@"%@", @(self.subtype)];
+    }
+    
+    NSString *keyCodeString = nil;
+    if (keyCode == NX_POWER_KEY) {
+        keyCodeString = @"NX_POWER_KEY";
+    } else if (keyCode == NX_KEYTYPE_EJECT) {
+        keyCodeString = @"NX_KEYTYPE_EJECT";
+    } else {
+        keyCodeString = [NSString stringWithFormat:@"%@", @(keyCode)];
+    }
+    
+    NSString *keyStateString = (keyState == 0) ? @"KeyUp" : @"KeyDown";
+    
+    NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
+    
     return nil;
 }
 
@@ -111,44 +156,8 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     
     BOOL printEventInfo = NO;
     if (printEventInfo) {
-        
-        NSString *eventTypeString = nil;
-        if (event.type == NSEventTypeSystemDefined) {
-            eventTypeString = @"NSEventTypeSystemDefined";
-        } else {
-            eventTypeString = [NSString stringWithFormat:@"%@", @(event.type)];
-        }
-        
-        NSString *eventSubtypeString = nil;
-        if (event.subtype == NX_SUBTYPE_POWER_KEY) {
-            eventSubtypeString = @"NX_SUBTYPE_POWER_KEY";
-            
-            // Should this actually be `NSPowerOffEventType` from `NSEventSubtype`?
-            
-        } else if (event.subtype == NX_SUBTYPE_EJECT_KEY) {
-            eventSubtypeString = @"NX_SUBTYPE_EJECT_KEY";
-        } else if (event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS) {
-            eventSubtypeString = @"NX_SUBTYPE_AUX_CONTROL_BUTTONS";
-        } else if ((short)event.subtype == NX_SUBTYPE_MENU) {
-            eventSubtypeString = @"NX_SUBTYPE_MENU";
-        } else if ((short)event.subtype == NX_SUBTYPE_ACCESSIBILITY) {
-            eventSubtypeString = @"NX_SUBTYPE_ACCESSIBILITY";
-        } else {
-            eventSubtypeString = [NSString stringWithFormat:@"%@", @(event.subtype)];
-        }
-        
-        NSString *keyCodeString = nil;
-        if (keyCode == NX_POWER_KEY) {
-            keyCodeString = @"NX_POWER_KEY";
-        } else if (keyCode == NX_KEYTYPE_EJECT) {
-            keyCodeString = @"NX_KEYTYPE_EJECT";
-        } else {
-            keyCodeString = [NSString stringWithFormat:@"%@", @(keyCode)];
-        }
-        
-        NSString *keyStateString = (keyState == 0) ? @"KeyUp" : @"KeyDown";
-        
-        NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
+        NSDictionary *eventDebug = [event debugInformation];
+        NSLog(@"%@", eventDebug);
     }
     
     

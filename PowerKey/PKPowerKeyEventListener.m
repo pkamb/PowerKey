@@ -23,7 +23,7 @@ CFMachPortRef eventTap;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedEventListener = [[PKPowerKeyEventListener alloc] init];
-	});
+    });
     
 	return sharedEventListener;
 }

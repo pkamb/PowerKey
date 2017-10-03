@@ -19,7 +19,7 @@ CFMachPortRef eventTap;
 
 - (NSDictionary *)debugInformation {
     // http://weblog.rogueamoeba.com/2007/09/29/
-    int keyCode = ((self.data1 & 0xFFFF0000) >> 16);
+    int specialKeyCode = ((self.data1 & 0xFFFF0000) >> 16);
     int keyFlags = (self.data1 & 0x0000FFFF);
     int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
     int keyRepeat = (keyFlags & 0x1);
@@ -51,12 +51,12 @@ CFMachPortRef eventTap;
     }
     
     NSString *keyCodeString = nil;
-    if (keyCode == NX_POWER_KEY) {
+    if (specialKeyCode == NX_POWER_KEY) {
         keyCodeString = @"NX_POWER_KEY";
-    } else if (keyCode == NX_KEYTYPE_EJECT) {
+    } else if (specialKeyCode == NX_KEYTYPE_EJECT) {
         keyCodeString = @"NX_KEYTYPE_EJECT";
     } else {
-        keyCodeString = [NSString stringWithFormat:@"%@", @(keyCode)];
+        keyCodeString = [NSString stringWithFormat:@"%@", @(specialKeyCode)];
     }
     
     NSString *keyStateString = (keyState == 0) ? @"KeyUp" : @"KeyDown";

@@ -15,6 +15,18 @@
 const NSInteger kPowerKeyDeadKeyTag = 0xDEAD;
 const NSInteger kPowerKeyScriptTag = 0xC0DE;
 
+@interface PKPreferencesWindowController ()
+
+@property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
+@property (nonatomic, retain) IBOutlet NSTextField *versionNumberLabel;
+
+- (IBAction)runInBackground:(id)sender;
+- (IBAction)openSupportLink:(id)sender;
+
+- (IBAction)didSelectPowerKeyReplacement:(id)sender;
+
+@end
+
 @implementation PKPreferencesWindowController
 
 - (void)windowDidLoad {

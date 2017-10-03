@@ -13,12 +13,4 @@ const NSInteger kPowerKeyScriptTag;
 
 @interface PKPreferencesWindowController : NSWindowController<NSOpenSavePanelDelegate>
 
-@property (nonatomic, retain) IBOutlet NSPopUpButton *powerKeySelector;
-@property (nonatomic, retain) IBOutlet NSTextField *versionNumberLabel;
-
-- (IBAction)runInBackground:(id)sender;
-- (IBAction)openSupportLink:(id)sender;
-
-- (IBAction)didSelectPowerKeyReplacement:(id)sender;
-
 @end

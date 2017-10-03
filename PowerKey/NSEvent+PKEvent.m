@@ -44,15 +44,13 @@
 }
 
 - (NSDictionary *)debugInformation {
-    NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-    
     NSDictionary *debugInformation = @{
                                        @"type": self.eventTypeString,
                                        @"subtype": self.eventSubtypeString,
                                        @"specialKeyCode": self.specialKeyCodeString,
                                        @"keyState": (self.keyState == 0) ? @"KeyUp" : @"KeyDown",
                                        @"keyRepeat": @(self.keyRepeat),
-                                       @"modifierKeys": @(modifierKeys),
+                                       @"modifierKeys": @(self.modifierFlags & NSDeviceIndependentModifierFlagsMask),
                                        };
     
     return debugInformation;

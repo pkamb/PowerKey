@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5810470F17BD8BF600E438FB /* PKPowerKeyEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */; };
 		58133AB01BFFEDC200A6FD4F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58133AAF1BFFEDC200A6FD4F /* Images.xcassets */; };
+		585ACDDE1F834C530099125C /* NSEvent+PKEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 585ACDDD1F834C530099125C /* NSEvent+PKEvent.m */; };
 		585BC3DC1BFC00F4007B4D89 /* PKScriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = 585BC3DB1BFC00F4007B4D89 /* PKScriptController.m */; };
 		5898DF7917BEC4550048F11F /* PKPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5898DF7717BEC4550048F11F /* PKPreferencesWindowController.m */; };
 		5898DF7A17BEC4550048F11F /* PKPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5898DF7817BEC4550048F11F /* PKPreferencesWindowController.xib */; };
@@ -26,6 +27,8 @@
 		5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPowerKeyEventListener.h; sourceTree = "<group>"; };
 		5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPowerKeyEventListener.m; sourceTree = "<group>"; };
 		58133AAF1BFFEDC200A6FD4F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		585ACDDC1F834C530099125C /* NSEvent+PKEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEvent+PKEvent.h"; sourceTree = "<group>"; };
+		585ACDDD1F834C530099125C /* NSEvent+PKEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+PKEvent.m"; sourceTree = "<group>"; };
 		585BC3DA1BFC00F4007B4D89 /* PKScriptController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKScriptController.h; sourceTree = "<group>"; };
 		585BC3DB1BFC00F4007B4D89 /* PKScriptController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKScriptController.m; sourceTree = "<group>"; };
 		5898DF7617BEC4550048F11F /* PKPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPreferencesWindowController.h; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				589C50E01727873C00E94E93 /* PKAppDelegate.m */,
 				5810470D17BD8BF600E438FB /* PKPowerKeyEventListener.h */,
 				5810470E17BD8BF600E438FB /* PKPowerKeyEventListener.m */,
+				585ACDDC1F834C530099125C /* NSEvent+PKEvent.h */,
+				585ACDDD1F834C530099125C /* NSEvent+PKEvent.m */,
 				585BC3DA1BFC00F4007B4D89 /* PKScriptController.h */,
 				585BC3DB1BFC00F4007B4D89 /* PKScriptController.m */,
 				5898DF7617BEC4550048F11F /* PKPreferencesWindowController.h */,
@@ -213,6 +218,7 @@
 				589C50EC172787C900E94E93 /* OpenAtLogin.m in Sources */,
 				5898DF7917BEC4550048F11F /* PKPreferencesWindowController.m in Sources */,
 				585BC3DC1BFC00F4007B4D89 /* PKScriptController.m in Sources */,
+				585ACDDE1F834C530099125C /* NSEvent+PKEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

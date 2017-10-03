@@ -62,9 +62,16 @@ CFMachPortRef eventTap;
     
     NSString *keyStateString = (self.keyState == 0) ? @"KeyUp" : @"KeyDown";
     
-    NSLog(@"Event: type:%@, subtype:%@, specialKeyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", , eventSubtypeString, specialKeyCodeCodeString, keyStateString, @(self.keyRepeat), @(modifierKeys));
+    NSDictionary *debugInformation = @{
+                                       @"type": eventTypeString,
+                                       @"subtype": eventSubtypeString,
+                                       @"specialKeyCode": specialKeyCodeCodeString,
+                                       @"keyState": keyStateString,
+                                       @"keyRepeat": @(self.keyRepeat),
+                                       @"modifierKeys": @(modifierKeys),
+                                       };
     
-    return nil;
+    return debugInformation;
 }
 
 @end

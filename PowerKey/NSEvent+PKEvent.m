@@ -17,15 +17,15 @@
 - (int)keyState {       return (((self.keyFlags & 0xFF00) >> 8)) == 0xA; }
 - (int)keyRepeat {      return (self.keyFlags & 0x1); }
 
+- (NSString *)eventTypeString {
+    switch (self.type) {
+        case NSEventTypeSystemDefined: return @"NSEventTypeSystemDefined";
+        default: return [NSString stringWithFormat:@"%@", @(self.type)];
+    }
+}
+
 - (NSDictionary *)debugInformation {
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
-    
-    NSString *eventTypeString = nil;
-    if (self.type == NSEventTypeSystemDefined) {
-        eventTypeString = @"NSEventTypeSystemDefined";
-    } else {
-        eventTypeString = [NSString stringWithFormat:@"%@", @(self.type)];
-    }
     
     NSString *eventSubtypeString = nil;
     if (self.subtype == NX_SUBTYPE_POWER_KEY) {
@@ -55,7 +55,7 @@
     }
     
     NSDictionary *debugInformation = @{
-                                       @"type": eventTypeString,
+                                       @"type": self.eventTypeString,
                                        @"subtype": eventSubtypeString,
                                        @"specialKeyCode": specialKeyCodeCodeString,
                                        @"keyState": (self.keyState == 0) ? @"KeyUp" : @"KeyDown",

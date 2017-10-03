@@ -25,9 +25,12 @@ CFMachPortRef eventTap;
     return (self.data1 & 0x0000FFFF);
 }
 
+- (int)keyState {
+    return (((self.keyFlags & 0xFF00) >> 8)) == 0xA;
+}
+
 - (NSDictionary *)debugInformation {
     // http://weblog.rogueamoeba.com/2007/09/29/
-    int keyState = (((self.keyFlags & 0xFF00) >> 8)) == 0xA;
     int keyRepeat = (self.keyFlags & 0x1);
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
 
@@ -65,7 +68,7 @@ CFMachPortRef eventTap;
         keyCodeString = [NSString stringWithFormat:@"%@", @(self.specialKeyCode)];
     }
     
-    NSString *keyStateString = (keyState == 0) ? @"KeyUp" : @"KeyDown";
+    NSString *keyStateString = (self.keyState == 0) ? @"KeyUp" : @"KeyDown";
     
     NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
     
@@ -154,7 +157,6 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     }
     
     int specialKeyCode = event.specialKeyCode;
-    int keyState = (((event.keyFlags & 0xFF00) >> 8)) == 0xA;
     
     BOOL printEventInfo = NO;
     if (printEventInfo) {
@@ -168,12 +170,12 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
      */
     
     BOOL powerKeyEvent1 = (event.subtype == NX_SUBTYPE_POWER_KEY);
-    BOOL powerKeyEvent2 = (specialKeyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
-    BOOL powerKeyEvent3 = (specialKeyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
+    BOOL powerKeyEvent2 = (specialKeyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && event.keyState == 1);
+    BOOL powerKeyEvent3 = (specialKeyCode == NX_POWER_KEY && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && event.keyState == 0);
     
     BOOL ejectKeyEvent1 = (event.subtype == NX_SUBTYPE_EJECT_KEY);
-    BOOL ejectKeyEvent2 = (specialKeyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 1);
-    BOOL ejectKeyEvent3 = (specialKeyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && keyState == 0);
+    BOOL ejectKeyEvent2 = (specialKeyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && event.keyState == 1);
+    BOOL ejectKeyEvent3 = (specialKeyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && event.keyState == 0);
 
     BOOL touchIDKeyEventSingleTap = ((short)event.subtype == NX_SUBTYPE_MENU);
     BOOL touchIDKeyEventTripleTap = ((short)event.subtype == NX_SUBTYPE_ACCESSIBILITY);

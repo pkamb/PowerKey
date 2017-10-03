@@ -17,24 +17,13 @@ CFMachPortRef eventTap;
 
 @implementation NSEvent (PKNSEvent)
 
-- (int)specialKeyCode {
-    return ((self.data1 & 0xFFFF0000) >> 16);
-}
-
-- (int)keyFlags {
-    return (self.data1 & 0x0000FFFF);
-}
-
-- (int)keyState {
-    return (((self.keyFlags & 0xFF00) >> 8)) == 0xA;
-}
-
-- (int)keyRepeat {
-    return (self.keyFlags & 0x1);
-}
+// http://weblog.rogueamoeba.com/2007/09/29/
+- (int)specialKeyCode { return ((self.data1 & 0xFFFF0000) >> 16); }
+- (int)keyFlags {       return (self.data1 & 0x0000FFFF); }
+- (int)keyState {       return (((self.keyFlags & 0xFF00) >> 8)) == 0xA; }
+- (int)keyRepeat {      return (self.keyFlags & 0x1); }
 
 - (NSDictionary *)debugInformation {
-    // http://weblog.rogueamoeba.com/2007/09/29/
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
 
     NSString *eventTypeString = nil;

@@ -57,12 +57,12 @@ CFMachPortRef eventTap;
     }
     
     NSString *keyCodeString = nil;
-    if ([self specialKeyCode] == NX_POWER_KEY) {
+    if (self.specialKeyCode == NX_POWER_KEY) {
         keyCodeString = @"NX_POWER_KEY";
-    } else if ([self specialKeyCode] == NX_KEYTYPE_EJECT) {
+    } else if (self.specialKeyCode == NX_KEYTYPE_EJECT) {
         keyCodeString = @"NX_KEYTYPE_EJECT";
     } else {
-        keyCodeString = [NSString stringWithFormat:@"%@", @([self specialKeyCode])];
+        keyCodeString = [NSString stringWithFormat:@"%@", @(self.specialKeyCode)];
     }
     
     NSString *keyStateString = (keyState == 0) ? @"KeyUp" : @"KeyDown";
@@ -153,7 +153,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         return systemEvent;
     }
     
-    int specialKeyCode = [event specialKeyCode];
+    int specialKeyCode = event.specialKeyCode;
     int keyState = (((event.keyFlags & 0xFF00) >> 8)) == 0xA;
     
     BOOL printEventInfo = NO;

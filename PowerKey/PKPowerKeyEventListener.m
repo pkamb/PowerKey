@@ -29,9 +29,12 @@ CFMachPortRef eventTap;
     return (((self.keyFlags & 0xFF00) >> 8)) == 0xA;
 }
 
+- (int)keyRepeat {
+    return (self.keyFlags & 0x1);
+}
+
 - (NSDictionary *)debugInformation {
     // http://weblog.rogueamoeba.com/2007/09/29/
-    int keyRepeat = (self.keyFlags & 0x1);
     NSUInteger modifierKeys = self.modifierFlags & NSDeviceIndependentModifierFlagsMask;
 
     NSString *eventTypeString = nil;
@@ -70,7 +73,7 @@ CFMachPortRef eventTap;
     
     NSString *keyStateString = (self.keyState == 0) ? @"KeyUp" : @"KeyDown";
     
-    NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(keyRepeat), @(modifierKeys));
+    NSLog(@"Event: type:%@, subtype:%@, keyCode:%@, keyState:%@ keyRepeat:%@ modifierKeys:%@", eventTypeString, eventSubtypeString, keyCodeString, keyStateString, @(self.keyRepeat), @(modifierKeys));
     
     return nil;
 }

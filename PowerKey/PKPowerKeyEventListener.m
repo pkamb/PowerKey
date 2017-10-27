@@ -118,6 +118,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL touchIDKeyEventTripleTap = ((short)event.subtype == NX_SUBTYPE_ACCESSIBILITY);
     
     CGEventRef replacementEvent = systemEvent;
+    uint64_t maskEvent = 0;
     
     if (powerKeyEvent1 || ejectKeyEvent1 || touchIDKeyEventSingleTap || touchIDKeyEventTripleTap) {
         
@@ -135,9 +136,18 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
             [PKScriptController runScript];
             
         } else {
+            
+            // Modify event if entering Target Display Mode
+            if(replacementKeyCode == kPowerKeyTargetDisplayMode) {
+                
+                replacementKeyCode = kVK_F2;
+                maskEvent = kCGEventFlagMaskCommand;
+                
+            }
+                
             CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
             CGEventRef inputEvent = CGEventCreateKeyboardEvent(eventSource, replacementKeyCode, true);
-            CGEventSetFlags(inputEvent, CGEventGetFlags(systemEvent));
+            CGEventSetFlags(inputEvent, CGEventGetFlags(systemEvent) ^ maskEvent);
             CFRelease(eventSource);
             
             // Better performance by posting the newly created event as a new keyboard event,

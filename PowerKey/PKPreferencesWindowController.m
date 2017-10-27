@@ -14,6 +14,8 @@
 
 const NSInteger kPowerKeyDeadKeyTag = 0xDEAD;
 const NSInteger kPowerKeyScriptTag = 0xC0DE;
+const NSInteger kPowerKeyTargetDisplayMode = 0xB000;
+
 
 @interface PKPreferencesWindowController ()
 
@@ -67,6 +69,7 @@ const NSInteger kPowerKeyScriptTag = 0xC0DE;
                                @[@"Enter", @(kVK_ANSI_KeypadEnter)],
                                @[@"F13", @(kVK_F13)],
                                @[@"Script", @(kPowerKeyScriptTag)],
+                               @[@"Target Display Mode", @(kPowerKeyTargetDisplayMode)],
                                ];
     
     return replacements;

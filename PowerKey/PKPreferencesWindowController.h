@@ -10,6 +10,7 @@
 
 const NSInteger kPowerKeyDeadKeyTag;
 const NSInteger kPowerKeyScriptTag;
+const NSInteger kPowerKeyTargetDisplayMode;
 
 @interface PKPreferencesWindowController : NSWindowController<NSOpenSavePanelDelegate>
 

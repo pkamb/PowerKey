@@ -14,6 +14,12 @@
 NSString *const kPowerKeyReplacementKeycodeKey = @"kPowerKeyReplacementKeycodeKey";
 NSString *const kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey = @"kPowerKeyShouldShowPreferencesWindowWhenLaunchedKey";
 
+@interface PKAppDelegate ()
+
+@property (nonatomic, strong) PKPreferencesWindowController *preferencesWindowController;
+
+@end
+
 @implementation PKAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {

@@ -1,4 +1,4 @@
-#PowerKey
+# PowerKey
 
 ![MacBook keyboard with power key](https://raw.github.com/pkamb/PowerKey/master/etc/images/keyboard.png "MacBook keyboard with power key")
 

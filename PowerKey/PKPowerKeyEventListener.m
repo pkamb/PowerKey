@@ -138,8 +138,11 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
         } else if ([@[@NX_KEYTYPE_PLAY, @NX_KEYTYPE_PREVIOUS, @NX_KEYTYPE_NEXT] containsObject:@(replacementKeyCode)]) {
             // Helper method for special keys.
             // Source: http://stackoverflow.com/questions/11045814/emulate-media-key-press-on-mac
-            NSEvent *inputEvent = [NSEvent otherEventWithType: NSSystemDefined
-                                                     location: NSMakePoint(0,0)
+            // Also inspired from https://github.com/jguice/mac-bt-headset-fix/commit/33401146ca0f45fec8d58765bff99398800de97a#diff-6a92cb546e342fc740fb0b588977dc48
+            NSEvent* inputEvent;
+            // create and send down key event
+            inputEvent = [NSEvent otherEventWithType: NSSystemDefined
+                                                     location: CGPointZero
                                                 modifierFlags: 0xa00
                                                     timestamp: 0
                                                  windowNumber: 0
@@ -147,7 +150,17 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
                                                       subtype: 8
                                                         data1: (replacementKeyCode << 16) | ((0xa) << 8)
                                                         data2: -1];
-
+            CGEventPost(0, [inputEvent CGEvent]);
+            // create and send up key event
+            inputEvent = [NSEvent otherEventWithType: NSSystemDefined
+                                                     location: CGPointZero
+                                                modifierFlags: 0xb00
+                                                    timestamp: 0
+                                                 windowNumber: 0
+                                                      context: 0
+                                                      subtype: 8
+                                                        data1: (replacementKeyCode << 16) | ((0xb) << 8)
+                                                        data2: -1];
             CGEventPost(0, [inputEvent CGEvent]);
         } else {
             CGEventSourceRef eventSource = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);

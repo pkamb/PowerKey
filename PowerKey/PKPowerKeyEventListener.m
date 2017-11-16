@@ -19,13 +19,13 @@ CFMachPortRef eventTap;
 @implementation PKPowerKeyEventListener
 
 + (PKPowerKeyEventListener *)sharedEventListener {
-	static PKPowerKeyEventListener *sharedEventListener = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		sharedEventListener = [[PKPowerKeyEventListener alloc] init];
+    static PKPowerKeyEventListener *sharedEventListener = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedEventListener = [[PKPowerKeyEventListener alloc] init];
     });
     
-	return sharedEventListener;
+    return sharedEventListener;
 }
 
 - (id)init {
@@ -113,7 +113,7 @@ CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEvent
     BOOL ejectKeyEvent1 = (event.subtype == NX_SUBTYPE_EJECT_KEY);
     BOOL ejectKeyEvent2 = (event.specialKeyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && event.keyState == 1);
     BOOL ejectKeyEvent3 = (event.specialKeyCode == NX_KEYTYPE_EJECT && event.subtype == NX_SUBTYPE_AUX_CONTROL_BUTTONS && event.keyState == 0);
-
+    
     BOOL touchIDKeyEventSingleTap = ((short)event.subtype == NX_SUBTYPE_MENU);
     BOOL touchIDKeyEventTripleTap = ((short)event.subtype == NX_SUBTYPE_ACCESSIBILITY);
     

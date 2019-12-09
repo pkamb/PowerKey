@@ -38,6 +38,14 @@ Be careful! PowerKey works best if you use a firm, hard tap to press the power k
 
 Don't hold the power key. Tap it!
 
+## Does not remap other keys *to* Power
+
+PowerKey remaps your Power key to output one of the key replacements below.
+
+This app does not remap other keys to function as a Power key.
+
+PowerKey cannot be used to remap any keys other than the Power key.
+
 ## Key Replacements
 
 Choose from one of the following Power key replacements.

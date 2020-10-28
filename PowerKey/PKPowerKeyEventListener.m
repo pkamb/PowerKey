@@ -70,6 +70,12 @@ CFMachPortRef eventTap;
         
         CFRelease(runLoopSource);
     } else {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"Unable to monitor the power key"];
+        [alert setInformativeText:@"This is likely due to a permissions issue. Please grant access for PowerKey:\n\nSystem Preferences > Security & Privacy > Privacy\n\nAdd permission for 'Accessibility' and 'Input Monitoring'."];
+        [alert addButtonWithTitle:@"Quit"];
+        [alert runModal];
+        
         exit(YES);
     }
 }

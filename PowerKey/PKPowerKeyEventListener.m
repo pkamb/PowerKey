@@ -62,16 +62,16 @@ CFMachPortRef eventTap;
     
     eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, eventTypeMask, copyEventTapCallBack, NULL);
     
-    if (!eventTap) {
+    if (eventTap) {
+        CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
+        
+        CGEventTapEnable(eventTap, true);
+        
+        CFRelease(runLoopSource);
+    } else {
         exit(YES);
     }
-    
-    CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
-    
-    CGEventTapEnable(eventTap, true);
-    
-    CFRelease(runLoopSource);
 }
 
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {

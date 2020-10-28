@@ -62,16 +62,22 @@ CFMachPortRef eventTap;
     
     eventTap = CGEventTapCreate(kCGSessionEventTap, kCGHeadInsertEventTap, kCGEventTapOptionDefault, eventTypeMask, copyEventTapCallBack, NULL);
     
-    if (!eventTap) {
+    if (eventTap) {
+        CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
+        
+        CGEventTapEnable(eventTap, true);
+        
+        CFRelease(runLoopSource);
+    } else {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"Unable to monitor the power key"];
+        [alert setInformativeText:@"This is likely due to a permissions issue. Please grant access for PowerKey:\n\nSystem Preferences > Security & Privacy > Privacy\n\nAdd permission for 'Accessibility' and 'Input Monitoring'."];
+        [alert addButtonWithTitle:@"Quit"];
+        [alert runModal];
+        
         exit(YES);
     }
-    
-    CFRunLoopSourceRef runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0);
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, kCFRunLoopCommonModes);
-    
-    CGEventTapEnable(eventTap, true);
-    
-    CFRelease(runLoopSource);
 }
 
 CGEventRef copyEventTapCallBack(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *refcon) {
